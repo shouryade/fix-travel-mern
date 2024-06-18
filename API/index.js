@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const userRouter = require('./routes/user_routes');
 const app = express()
 const port = 3000
 
@@ -18,9 +19,7 @@ mongoose.connect(
     console.log(e);
 })
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/api/user', userRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!!`)
