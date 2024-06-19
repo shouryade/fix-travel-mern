@@ -6,12 +6,15 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import { signInStart,signInFailure,signInSuccess } from '../redux/userSlice'
 
+import OAuth from '../components/OAuth'
+
 function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {loading , error:errorMessage} = useSelector((state)=>state.user);
+  console.log(loading);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,7 +97,7 @@ function SignIn() {
                           <span className="visually-hidden">Loading...</span>
                         </Spinner>) : 'Sign In'}
             </button>
-            <button className='border border-solid py-3 w-full rounded-lg bg-gradient-to-r from-indigo-400 via-purple to-pink-400 mb-5'>Continue with Google</button>
+            <OAuth/>
 
             <p className='flex text-base'>Don't have an account? <a href="/signup" className='ml-3 text-blue-500'>Sign Up</a></p>
             

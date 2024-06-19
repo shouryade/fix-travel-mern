@@ -3,6 +3,7 @@ import { useState} from 'react'
 import axios from 'axios'
 import Spinner from 'react-bootstrap/Spinner'
 import { useNavigate } from 'react-router-dom'
+import OAuth from '../components/OAuth'
 
 function SignUp() {
   const [name, setName] = useState('')
@@ -112,7 +113,7 @@ function SignUp() {
                           <span className="visually-hidden">Loading...</span>
                         </Spinner>) : 'Sign Up'}
             </button>
-            <button className='border border-solid py-3 w-full rounded-lg bg-gradient-to-r from-indigo-400 via-purple to-pink-400 mb-5'>Continue with Google</button>
+            <OAuth />
 
             <p className='flex text-base'>Have an account? <a href="/signin" className='ml-3 text-blue-500'>Sign in</a></p>
             

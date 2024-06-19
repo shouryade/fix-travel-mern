@@ -82,3 +82,64 @@ module.exports.signin = async (req, res) => {
         res.status(400).json({message: error.message});
     }
 }
+
+module.exports.googleSignIn = async (req,res) => {
+    const {email,name,googlePhotoURL} = req.body;
+    console.log(req.body)
+    console.log('we are here')
+
+    try{
+        console.log('try')
+        const user = await User.findOne({email: email});
+        if(user){
+            console.log('user exists')
+            const token = jwt.sign({id: user._id},process.env.JWT_SECRET,{expiresIn: '1d'});
+            const {password:pass, ...others} = user._doc;
+            console.log('token')
+            res.status(200).cookie('access_token', token,{
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+            }).json({message: others})
+            console.log('token sent')
+        }
+
+        else{
+            console.log('user does not exist')
+            const generatedPassword = Math.random().toString(36).slice(-8);
+            var salt = bcrypt.genSaltSync(10);
+            var hashedPassword = bcrypt.hashSync(generatedPassword, salt);
+
+            console.log('before save')
+
+            const newUser = new User({
+                userName: name.toLowerCase().split(' ').join('') + Math.floor(Math.random() * 1000),
+                email: email,
+                password: hashedPassword,
+                profilePicture: googlePhotoURL
+
+            })
+            console.log('newUser')
+            
+            const savedUser = await newUser.save();
+            console.log('after save')
+            const token = jwt.sign({id: savedUser._id},process.env.JWT_SECRET,{expiresIn: '1d'});
+            const {password:pass, ...others} = savedUser._doc;
+            console.log('token')
+            res.status(200).cookie('access_token', token,{
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+            }).json({message: others})
+            console.log('token sent')
+
+        }
+
+    }catch(error){
+        console.log(error);
+        res.status(400).json({message: error.message});
+
+    }
+
+}
+
