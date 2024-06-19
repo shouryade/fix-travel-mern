@@ -38,7 +38,7 @@ function SignUp() {
         console.log(res);
         setLoading(false);
 
-          navigate('/signin');
+          navigate('/home');
   
 
     }catch(e){
