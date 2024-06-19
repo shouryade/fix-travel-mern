@@ -3,25 +3,24 @@ import { useState} from 'react'
 import axios from 'axios'
 import Spinner from 'react-bootstrap/Spinner'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux'
+import { signInStart,signInFailure,signInSuccess } from '../redux/userSlice'
 
 function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading , setLoading] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {loading , error:errorMessage} = useSelector((state)=>state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+   
     if(email === '' || password === ''){
-      setErrorMessage('Please fill all fields');
-      console.log(errorMessage)
-      return errorMessage;
+      return dispatch(signInFailure('Please fill all fields')) ;
     }
     try{
-
-      setErrorMessage(null)
+      dispatch(signInStart());
       const res = await axios.post('http://localhost:3000/api/auth/signin', {
         email: email.trim(),
         password: password.trim()
@@ -34,18 +33,13 @@ function SignIn() {
         
         console.log('data sent successfully')
         console.log(res);
-        setLoading(false);
-
+        dispatch(signInSuccess(res.data)); 
           navigate('/home');
   
 
     }catch(e){
-      setLoading(false);
-      console.log('data not sent')
-      console.log(e)
-      setErrorMessage(e.response.data.message)
-      
-      
+      dispatch(signInFailure(e.response.data.message));
+
     }
 
   }
