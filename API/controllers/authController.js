@@ -27,7 +27,7 @@ module.exports.signup = async (req , res) => {
     try{
         const savedUser = await newUser.save();
         res.status(201).json('User saved');
-    }catch{
-        res.status(400).json({message: 'User not saved'});
+    }catch(e){
+        res.status(400).json({message: e.message});
     }
 }

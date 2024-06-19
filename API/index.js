@@ -3,12 +3,20 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRouter = require('./routes/user_routes');
 const authRouter = require('./routes/authRoutes');
+const cors = require('cors');
 const app = express()
 const port = 3000
 
 dotenv.config();
 
 app.use(express.json());
+
+
+//cors middleware
+app.use(cors({
+    origin: 'http://localhost:5173' // Replace with your front-end URL
+  }));
+
 
 mongoose.connect(
     process.env.MONGODB
