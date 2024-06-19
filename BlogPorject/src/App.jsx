@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Routing from './routing/Routing'
 import Header from './components/Header'
+import Footerr from './components/Footerr'
+
 
 
 function App() {
@@ -14,6 +16,9 @@ function App() {
       <div >
         <Header></Header>
         <Routing></Routing>
+        <Footerr></Footerr>
+    
+      
 
       </div>
       
