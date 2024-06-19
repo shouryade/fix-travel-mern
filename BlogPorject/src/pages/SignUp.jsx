@@ -14,13 +14,14 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if(name === '' || email === '' || password === ''){
       setErrorMessage('Please fill all fields');
       console.log(errorMessage)
       return errorMessage;
     }
     try{
-      setLoading(null);
+
       setErrorMessage(null)
       const res = await axios.post('http://localhost:3000/api/auth/signup', {
         userName: name.trim(),
