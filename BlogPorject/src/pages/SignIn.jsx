@@ -8,6 +8,7 @@ import { signInStart,signInFailure,signInSuccess } from '../redux/userSlice'
 
 import OAuth from '../components/OAuth'
 
+
 function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -37,6 +38,8 @@ function SignIn() {
         console.log('data sent successfully')
         console.log(res);
         dispatch(signInSuccess(res.data)); 
+        console.log('following is the response from the server')
+        console.log(signInSuccess(res.data));
           navigate('/home');
   
 

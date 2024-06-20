@@ -12,11 +12,11 @@ function Routing() {
   return (
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/about" element={<AboutUs />} />        
+      <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/signin" element={<SignIn />} /> 
+        <Route path="/signup" element={<SignUp />} />  
+      <Route path="/projects" element={<Projects />} /> 
+      <Route path="/about" element={<AboutUs />} />        
     </Routes>
   )
 }
