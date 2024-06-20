@@ -15,7 +15,6 @@ function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {loading , error:errorMessage} = useSelector((state)=>state.user);
-  console.log(loading);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
