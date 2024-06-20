@@ -66,9 +66,14 @@ import { Navbar, FloatingLabel } from "flowbite-react";
 import { useSelector} from 'react-redux';
 import { Button } from "flowbite-react";
 import { Dropdown,Avatar } from "flowbite-react";
-
+import { useDispatch } from 'react-redux';
+import { toggleTheme } from '../redux/theme/themeSlice';
+import { CiSun } from "react-icons/ci";
+import { FaRegMoon } from "react-icons/fa";
 function Header() {
     const {currentUser} = useSelector((state)=>state.user);
+    const {theme} = useSelector((state)=>state.theme);
+    const dispatch = useDispatch();
 
   return (
     <div>
@@ -134,11 +139,18 @@ function Header() {
                     </div>
                     
                 ) : (
-                    <div className='inline-block'>
-                        <h1 className='inline-block border border-solid rounded-full px-4 py-2 text-gray-700 hover:bg-indigo-500 hover:text-white transition duration-200'>Login</h1>
-                        <h1 className='inline-block border border-solid rounded-full px-4 py-2 text-gray-700 hover:bg-indigo-500 hover:text-white transition duration-200'>Signup</h1>
-
+                    <div className='flex items-center space-x-4'>
+                        <h1
+                            className='inline-block border border-solid rounded-full px-4 py-2 text-gray-700 hover:bg-indigo-500 hover:text-white transition duration-200 cursor-pointer'
+                            onClick={() => dispatch(toggleTheme())}>
+                                {theme === 'light' ? (<CiSun />) : (<FaRegMoon />)}
+                            
+                        </h1>
+                        <h1 className='inline-block border border-solid rounded-full px-4 py-2 text-gray-700 hover:bg-indigo-500 hover:text-white transition duration-200 cursor-pointer'>
+                            Signup
+                        </h1>
                     </div>
+
                     
                 )}
   
