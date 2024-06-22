@@ -100,7 +100,7 @@ function SignIn() {
             </button>
             <OAuth/>
 
-            <p className='flex text-base'>Don't have an account? <a href="/signup" className='ml-3 text-blue-500'>Sign Up</a></p>
+            <p className='flex text-base'>Don't have an account? <a href="/signup" className='ml-3 text-blue-500'>lala</a></p>
             
           </form>
 
