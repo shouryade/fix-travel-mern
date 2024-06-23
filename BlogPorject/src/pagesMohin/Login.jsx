@@ -39,9 +39,9 @@ const MyComponent = () => (
     <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
       <div className="lg:w-1/2 text-center lg:text-left">
         <h1 className="text-4xl lg:text-6xl text-white leading-tight acme-font">
-          You're just one step away from embarking on a remarkable{" "}
-          <span className="text-teal-400">Adventure</span>
-        </h1>
+          You're just one step away from embarking on a remarkable{" "} </h1>
+          <span className="text-teal-400 anton-font text-8xl">Adventure</span>
+        
       </div>
       <div className="lg:w-1/2 w-full max-w-md">
         <form className="bg-black bg-opacity-60 rounded-xl border border-white border-opacity-20 p-6 text-lg">
