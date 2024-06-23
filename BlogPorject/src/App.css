@@ -1,9 +1,9 @@
-#root {
-  max-width: 1280px;
+/* #root {
+  max-width: 10000px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+} */
 
 .logo {
   height: 6em;
@@ -47,6 +47,10 @@
 
 .anton-font {
   font-family: 'Anton', sans-serif;
+}
+
+.aladin-font {
+  font-family: 'Aladin', sans-serif;
 }
 
 html, body, #root {

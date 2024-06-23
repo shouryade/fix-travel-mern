@@ -8,6 +8,8 @@ import SignUp from '../pages/SignUp'
 import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
 import Login from '../pagesMohin/Login'
+import Signupp from '../pagesMohin/signup'
+import Footer from '../pagesMohin/footer'
 
 
 function Routing() {
@@ -23,7 +25,9 @@ function Routing() {
       <Route path="/signup" element={<SignUp />} />  
       <Route path="/projects" element={<Projects />} /> 
       <Route path="/about" element={<AboutUs />} />
-      <Route path="/test" element={<Login />} />        
+      <Route path="/test/login" element={<Login />} />     
+      <Route path="/test/signup" element={<Signupp />} />  
+      <Route path="/test/footer" element={<Footer />} />        
     </Routes>
   )
 }

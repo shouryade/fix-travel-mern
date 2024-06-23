@@ -29,7 +29,7 @@ const InputField = ({ label, ...props }) => (
   </div>
 );
 
-const MyComponent = () => (
+const SignupPage = () => (
   <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">
     <img
       src="https://cdn.builder.io/api/v1/image/assets/TEMP/075d06b05282010f0366dfa3354a8faa40c5ecab72838d66cb0698dc1250d724?apiKey=378b307ec7f2406f9bd824321d02b92d&"
@@ -39,33 +39,34 @@ const MyComponent = () => (
     <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
       <div className="lg:w-1/2 text-center lg:text-left">
         <h1 className="text-4xl lg:text-6xl text-white leading-tight acme-font">
-          You're just one step away from embarking on a remarkable{" "} </h1>
-          <span className="text-teal-400 anton-font text-8xl" style={{ fontFamily: "'Aladdin', cursive" }}>Adventure</span>
-        
+          You're just one step away from embarking on a remarkable{" "}
+        </h1>
+        <span className="text-teal-400  text-8xl" style={{ fontFamily: "'Aladdin', cursive" }}>Adventure</span>
       </div>
       <div className="lg:w-1/2 w-full max-w-md">
         <form className="bg-black bg-opacity-60 rounded-xl border border-white border-opacity-20 p-6 text-lg">
-          <h2 className="font-bold text-white text-2xl mb-6 text-left">Log in</h2>
+          <h2 className="font-bold text-white text-2xl mb-6 text-left">Sign up</h2>
           <Button 
             className="mb-4 border-2 border-white border-opacity-50 text-white"
             icon={<GoogleIcon />}
           >
-            <span className="font-medium">Log in with Google</span>
+            <span className="font-medium">Sign up with Google</span>
           </Button>
           <div className="my-4 flex items-center">
             <hr className="flex-grow border-white border-opacity-80" />
             <span className="px-3 text-white text-opacity-80">or</span>
             <hr className="flex-grow border-white border-opacity-80" />
           </div>
+          <InputField label="Name" type="text" placeholder="Enter Your Full Name" />
           <InputField label="Email" type="email" placeholder="Enter Your Email Address" />
-          <InputField label="Password" type="password" placeholder="Enter Your Password" />
+          <InputField label="Password" type="password" placeholder="At least 8 characters" />
           <Button className="mt-6 font-bold text-white bg-teal-400 bg-opacity-60 hover:bg-opacity-80">
-            Log in
+            Sign up
           </Button>
           <div className="text-center text-white mt-6">
-            <p>Don't have an account?</p>
+            <p>Already have an account?</p>
             <a href="#" className="font-bold text-teal-400 hover:underline mt-2 inline-block transition-transform duration-300 hover:scale-105">
-              Sign up
+              Log in
             </a>
           </div>
         </form>
@@ -74,4 +75,4 @@ const MyComponent = () => (
   </main>
 );
 
-export default MyComponent;
+export default SignupPage;
