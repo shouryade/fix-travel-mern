@@ -54,11 +54,14 @@ function SignIn() {
 
   return (
     <div>
-       <div className='flex'>
+       <div className='flex bg-[#162237]'>
         <div className='h-screen w-1/2 relative'>
           <div className='w-96 absolute right-0 top-64 mr-4' >
-            <h1 className='px-2 bg-gradient-to-r from-indigo-400 via-purple to-pink-400 rounded-lg text-white w-fit p-3 font-bold text-3xl'>TravelCamp</h1>
-            <p className='mt-3 flex text-left'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, impedit?</p>
+            {/* <h1 className='px-2 bg-gradient-to-r from-indigo-400 via-purple to-pink-400 rounded-lg text-white w-fit p-3 font-bold text-3xl'>TravelCamp</h1> */}
+            <p className='mt-3 flex text-left text-3xl text-white'>You are just one step</p>
+            <p className='mt-3 flex text-left text-3xl text-white'>away from embarking</p>
+            <p className='mt-3 flex text-left text-3xl text-white'>on a remarkable</p>
+            <p className='mt-3 flex text-left text-[#3DBBCD] text-6xl'>Adventure</p>
           </div>
           
 
@@ -68,11 +71,11 @@ function SignIn() {
               
               
             <div className='mb-4'>
-              <label className='flex w-80 font-medium' for='email'>Your Email</label>
+              <label className='flex w-80 font-medium text-white' for='email'>Email</label>
               <input className='border border-solid rounded-lg bg-slate-100 w-80'
                 value={email}
                 onChange={(e)=>{setEmail(e.target.value)}}
-                placeholder='name@company.com' 
+                placeholder='Enter Your Email Address' 
                 type="email" 
                 name='email'
                 required 
@@ -82,10 +85,11 @@ function SignIn() {
               
 
             <div className='mb-4'>
-              <label className='flex w-80 font-medium' for='password'>Your Password</label>
+              <label className='flex w-80 font-medium text-[#ffffff]' for='password'>Password</label>
               <input className='border border-solid rounded-lg bg-slate-100 w-80'
                 value={password}
                 onChange={(e)=>{setPassword(e.target.value)}}
+                placeholder='Enter Your Password'
                 type="password" 
                 name='password'
                 required/>
@@ -93,14 +97,15 @@ function SignIn() {
             </div>
 
 
-            <button disabled={loading} className='mb-4 border border-solid py-3 w-full rounded-lg bg-gradient-to-r from-indigo-400 via-purple to-pink-400'>
+            <button disabled={loading} className='mb-4 border border-solid py-3 w-full rounded-lg bg-[#3DBBCD]'>
               {loading ? (<Spinner animation="border" role="status">
                           <span className="visually-hidden">Loading...</span>
                         </Spinner>) : 'Sign In'}
             </button>
             <OAuth/>
 
-            <p className='flex text-base'>Don't have an account? <a href="/signup" className='ml-3 text-blue-500'>lala</a></p>
+            <p className='flex text-base'>Don't have an account?</p>
+            <a href="/signup" className='ml-3 text-[#3DBBCD]'>Sign Up</a>
             
           </form>
 
@@ -118,4 +123,5 @@ function SignIn() {
 }
 
 export default SignIn
+
 
