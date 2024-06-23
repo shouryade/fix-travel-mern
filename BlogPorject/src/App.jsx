@@ -14,9 +14,9 @@ function App() {
   return (
     <>
       <div >
-        <Header></Header>
+        
         <Routing></Routing>
-        <Footerr></Footerr>
+        
         
       
 
