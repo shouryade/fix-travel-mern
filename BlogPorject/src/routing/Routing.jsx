@@ -7,6 +7,7 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
+import SignInDemo from '../pages/SignInDemo'
 
 
 function Routing() {
@@ -21,7 +22,7 @@ function Routing() {
       <Route path="/signin" element={<SignIn />} /> 
       <Route path="/signup" element={<SignUp />} />  
       <Route path="/projects" element={<Projects />} /> 
-      <Route path="/about" element={<AboutUs />} />        
+      <Route path="/about" element={<AboutUs />} />       
     </Routes>
   )
 }
