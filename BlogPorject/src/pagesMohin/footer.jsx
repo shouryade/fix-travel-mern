@@ -52,7 +52,7 @@ const MyComponent = () => {
             {/* Added `transform` and `transition` classes for zoom effect */}
             <h2 className="text-lg font-semibold mb-4">Send A Query</h2>
             <textarea
-              className="w-full p-3 bg-stone-900 text-zinc-600 rounded mb-4"
+              className="w-full p-3 bg-stone-900 text-white rounded mb-4"
               placeholder="Write your message..."
               rows="6" // Increased rows for larger box
             ></textarea>
