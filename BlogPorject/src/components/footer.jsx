@@ -16,7 +16,7 @@ const LegalLink = ({ text }) => (
   </div>
 );
 
-const MyComponent = () => {
+const Footer = () => {
   const contactInfo = [
     { icon: FaPhone, text: "+1012 3456 789" },
     { icon: FaEnvelope, text: "demo@gmail.com" },
@@ -75,4 +75,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default Footer;

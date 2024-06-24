@@ -136,7 +136,9 @@ module.exports.googleSignIn = async (req,res) => {
         }
 
     }catch(error){
+        console.log('error')
         console.log(error);
+        console.log('tata')
         res.status(400).json({message: error.message});
 
     }
