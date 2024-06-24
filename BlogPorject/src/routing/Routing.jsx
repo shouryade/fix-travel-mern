@@ -11,6 +11,11 @@ import Test from '../components/test'
 
 
 
+import Login from '../pagesMohin/Login'
+import Signupp from '../pagesMohin/signup'
+import Footer from '../pagesMohin/footer'
+import Landing from '../pagesMohin/landing'
+import Host from '../pagesMohin/host'
 
 
 function Routing() {
@@ -31,6 +36,12 @@ function Routing() {
  
              
 
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/test/login" element={<Login />} />     
+      <Route path="/test/signup" element={<Signupp />} />  
+      <Route path="/test/footer" element={<Footer />} />   
+      <Route path="/test/landing" element={<Landing />} /> 
+      <Route path="/test/host" element={<Host />} />        
     </Routes>
   )
 }
