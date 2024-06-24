@@ -14,9 +14,9 @@ function App() {
   return (
     <>
       <div >
-        <Header></Header>
+        
         <Routing></Routing>
-        <Footerr></Footerr>
+        
         
       
 
@@ -27,3 +27,20 @@ function App() {
 }
 
 export default App
+
+// import React from 'react';
+// import Header from './pagesMohin/firstPage/MHeader';
+// import Hero from './pagesMohin/firstPage/MHero';
+// import BookingForm from './pagesMohin/firstPage/MBookingForm';
+
+// function App() {
+//   return (
+//     <div className="bg-navy-900 min-h-screen text-white">
+//       <Header />
+//       <Hero />
+//       <BookingForm />
+//     </div>
+//   );
+// }
+
+// export default App;

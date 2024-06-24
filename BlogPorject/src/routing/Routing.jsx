@@ -7,7 +7,11 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
-import SignInDemo from '../pages/SignInDemo'
+import Login from '../pagesMohin/Login'
+import Signupp from '../pagesMohin/signup'
+import Footer from '../pagesMohin/footer'
+import Landing from '../pagesMohin/landing'
+
 
 
 function Routing() {
@@ -22,7 +26,13 @@ function Routing() {
       <Route path="/signin" element={<SignIn />} /> 
       <Route path="/signup" element={<SignUp />} />  
       <Route path="/projects" element={<Projects />} /> 
-      <Route path="/about" element={<AboutUs />} />       
+
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/test/login" element={<Login />} />     
+      <Route path="/test/signup" element={<Signupp />} />  
+      <Route path="/test/footer" element={<Footer />} />   
+      <Route path="/test/landing" element={<Landing />} />        
+
     </Routes>
   )
 }
