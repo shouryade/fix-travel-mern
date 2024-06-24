@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import SideBar from '../components/SideBar'
+import Profile from '../components/Profile'
 
 function Dashboard() {
   const location = useLocation();
@@ -23,7 +24,7 @@ function Dashboard() {
           <SideBar></SideBar>
         </div>
         <div>
-          {/* Profile */}
+          <Profile></Profile>
         </div>
       
     </div>

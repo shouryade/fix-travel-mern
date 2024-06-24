@@ -10,6 +10,7 @@ import PrivateRouting from '../components/PrivateRouting'
 import Login from '../pagesMohin/Login'
 
 
+
 function Routing() {
   return (
     <Routes>
@@ -22,8 +23,9 @@ function Routing() {
       <Route path="/signin" element={<SignIn />} /> 
       <Route path="/signup" element={<SignUp />} />  
       <Route path="/projects" element={<Projects />} /> 
-      <Route path="/about" element={<AboutUs />} />
-      <Route path="/test" element={<Login />} />        
+
+      <Route path="/about" element={<AboutUs />} />       
+
     </Routes>
   )
 }
