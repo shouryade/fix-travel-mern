@@ -17,9 +17,8 @@ function App() {
         <Header></Header>
         <Routing></Routing>
         <Footerr></Footerr>
+       
         
-      
-
       </div>
       
     </>

@@ -7,7 +7,7 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
-import SignInDemo from '../pages/SignInDemo'
+
 
 
 function Routing() {
