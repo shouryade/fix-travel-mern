@@ -8,6 +8,8 @@ import SignUp from '../pages/SignUp'
 import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
 import Properties from '../pagesMohin/properties'
+import Kasol from '../pagesMohin/landing-kasol'
+import Manali from '../pagesMohin/landing-manali'
 
 
 
@@ -37,7 +39,9 @@ function Routing() {
       <Route path="/about" element={<AboutUs />} /> 
       <Route path="/test/landing" element={<Landing />} /> 
       <Route path="/host" element={<Host />} /> 
-      <Route path="/properties" element={<Properties />} />        
+      <Route path="/properties" element={<Properties />} />  
+      <Route path="/kasol" element={<Kasol />} />    
+      <Route path="/manali" element={<Manali />} />        
     </Routes>
   )
 }
