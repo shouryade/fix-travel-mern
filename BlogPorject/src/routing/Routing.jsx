@@ -10,6 +10,11 @@ import PrivateRouting from '../components/PrivateRouting'
 import Properties from '../pagesMohin/properties'
 import Kasol from '../pagesMohin/landing-kasol'
 import Manali from '../pagesMohin/landing-manali'
+import SD from '../pagesMohin/info-sd'
+import Lux from '../pagesMohin/info-lux'
+import Fam from '../pagesMohin/info-fam'
+import Villa from '../pagesMohin/info-villa.jsx'
+import Homes from '../pagesMohin/info-homes.jsx'
 
 
 
@@ -41,7 +46,12 @@ function Routing() {
       <Route path="/host" element={<Host />} /> 
       <Route path="/properties" element={<Properties />} />  
       <Route path="/kasol" element={<Kasol />} />    
-      <Route path="/manali" element={<Manali />} />        
+      <Route path="/manali" element={<Manali />} />   
+      <Route path="/infosd" element={<SD />} />  
+      <Route path="/infolux" element={<Lux />} /> 
+      <Route path="/infofam" element={<Fam />} />     
+      <Route path="/infovilla" element={<Villa />} />  
+      <Route path="/infohomes" element={<Homes />} />        
     </Routes>
   )
 }

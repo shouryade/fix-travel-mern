@@ -96,7 +96,7 @@ const PeopleSection = ({ icon, title, people, subtitle  }) => (
     <div className="min-h-screen bg-[#0F1A29] text-white relative overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/df1b3240265d862d6600bf742c24a5a7a24db2810a0de931fb5d94627a4385df?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+          src="/src/assets/bg_main.png"
           alt="Background"
           className="w-full h-full object-cover opacity-70"
         />
@@ -146,14 +146,14 @@ const PeopleSection = ({ icon, title, people, subtitle  }) => (
         <section className="bg-white text-black rounded-t-[36px] sm:rounded-tl-[72px] md:rounded-tl-[108px] p-4 sm:p-8 md:p-12 w-full sm:w-[85%] md:w-[75%] max-w-[1200px] self-end">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end space-y-4 sm:space-y-0 sm:space-x-4">
             <PeopleSection
-              icon="https://cdn.builder.io/api/v1/image/assets/TEMP/fcee80c442d495f3e2984855209d21795cde60e17afd82b976ac54989542dbaf?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+              icon="/src/assets/profile_icon.svg"
               title="Guests"
               people={`${numberOfPeople} person`}
-              subtitle="2 Adult, 1 Child"
+              subtitle="Add Guests"
             />
             <div className="hidden sm:block w-px h-16 bg-gray-200"></div>
             <DateSection
-                icon="https://cdn.builder.io/api/v1/image/assets/TEMP/a38a8b5316a9a147f026c723fccf8bb345bc9592880dae89f6edb2e51fb24369?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+                icon="/src/assets/date_icon.svg"
                 title="Check-in"
                 date={checkInDate}
                 subtitle="Select date"
@@ -161,16 +161,16 @@ const PeopleSection = ({ icon, title, people, subtitle  }) => (
             />
             <div className="hidden sm:block w-px h-16 bg-gray-200"></div>
             <DateSection
-                icon="https://cdn.builder.io/api/v1/image/assets/TEMP/118191653d9cff03e04460748ad63718de44c11712cc5c183609d7f1408c5245?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+                icon="/src/assets/checkout.svg"
                 title="Check-out"
                 date={checkOutDate}
                 subtitle="Select date"
                 onDateChange={(date) => setCheckOutDate(date)}
             />
 
-            <button className="bg-[#3DBBCD] p-3 sm:p-4 rounded-xl w-full sm:w-[90px] sm:h-[90px] md:w-[113px] md:h-[113px] flex items-center justify-center hover:bg-teal-500 mt-4 sm:mt-0">
+            <button className="bg-[#3DBBCD] p-3 sm:p-4 rounded-xl w-full sm:w-[70px] sm:h-[70px] md:w-[113px] md:h-[113px] flex items-center justify-center hover:bg-teal-500 mt-4 sm:mt-0">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9783835b7c4b9ae2e1617f267a2c350a0e7664f128e29331fd58f392f791d52e?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+                src="/src/assets/search.png"
                 alt="Search"
                 className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8"
               />

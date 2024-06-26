@@ -44,13 +44,12 @@ function MyComponent() {
   ];
 
   return (
-    <main className="flex flex-col justify-center bg-slate-800">
+    <main className="flex flex-col justify-center bg-slate-800 bg-cover bg-center" style={{ backgroundImage: `url(/src/assets/bg_host.png)` }}>
       <div className="flex overflow-hidden relative flex-col px-5 pt-7 pb-16 w-full min-h-[947px] max-md:max-w-full">
-        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/26e19c3b94af312b46cfa3a7aa908c73488492d76893f7413f6c34d17f250882?apiKey=378b307ec7f2406f9bd824321d02b92d&" alt="" className="object-cover absolute inset-0 size-full opacity-30" />
         <h1 className="relative self-center text-5xl font-semibold text-white max-md:max-w-full max-md:text-6xl">
           Know more about your Hosts
         </h1>
-        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bee14f8bfcb5d2a7d407b3959972f49e9e65e3b65ef9d5692ef01a5eb30fc532?apiKey=378b307ec7f2406f9bd824321d02b92d&" alt="" className="self-center max-w-full aspect-[8.33] fill-teal-400 w-[284px] transition-all duration-300 hover:scale-110" />
+        <img loading="lazy" src="/src/assets/underline.png" alt="" className="self-center max-w-full aspect-[8.33] fill-teal-400 w-[284px] transition-all duration-300 hover:scale-110" />
         
         <HostProfile {...hosts[0]} isReversed={false} />
         <HostProfile {...hosts[1]} isReversed={true} />

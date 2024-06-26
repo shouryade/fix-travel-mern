@@ -67,7 +67,7 @@ const Footer = () => {
 
       <img
         loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f4e9cd39b297608fb932a4217c1220c72e62dc2e57fe392522686bc6366b9093?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+        src="/src/assets/footer.png"
         alt="Person sitting"
         className="absolute bottom-0 right-0 w-1/4 max-w-xs"
       />

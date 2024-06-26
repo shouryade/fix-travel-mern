@@ -100,8 +100,7 @@ function Signup(){
   return(
     <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">
     <img
-      src="https://cdn.builder.io/api/v1/image/assets/TEMP/075d06b05282010f0366dfa3354a8faa40c5ecab72838d66cb0698dc1250d724?apiKey=378b307ec7f2406f9bd824321d02b92d&"
-      alt="Background"
+      src="/src/assets/signin_bg.png"
       className="absolute inset-0 w-full h-full object-cover"
     />
     <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
