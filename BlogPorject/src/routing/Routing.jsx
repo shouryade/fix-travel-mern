@@ -7,7 +7,7 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
-
+import Properties from '../pagesMohin/properties'
 
 
 
@@ -36,7 +36,8 @@ function Routing() {
 
       <Route path="/about" element={<AboutUs />} /> 
       <Route path="/test/landing" element={<Landing />} /> 
-      <Route path="/host" element={<Host />} />        
+      <Route path="/host" element={<Host />} /> 
+      <Route path="/properties" element={<Properties />} />        
     </Routes>
   )
 }
