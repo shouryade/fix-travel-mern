@@ -20,6 +20,7 @@ import Luxenq from '../pagesMohin/lux-enq.jsx'
 import Famenq from '../pagesMohin/fam-enq.jsx'
 import Villaenq from '../pagesMohin/villa-enq.jsx'
 import Homesenq from '../pagesMohin/homes-enq.jsx'
+import Testimonials from '../pagesMohin/testimonials.jsx'
 
 
 
@@ -61,7 +62,8 @@ function Routing() {
       <Route path="/luxenq" element={<Luxenq />} />
       <Route path="/famenq" element={<Famenq />} /> 
       <Route path="/villaenq" element={<Villaenq />} /> 
-      <Route path="/homesenq" element={<Homesenq />} />        
+      <Route path="/homesenq" element={<Homesenq />} />  
+      <Route path="/testimonials" element={<Testimonials />} />        
     </Routes>
   )
 }
