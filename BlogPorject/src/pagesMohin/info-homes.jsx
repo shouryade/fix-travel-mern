@@ -94,7 +94,7 @@ function MyComponent() {
       
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
-                style={{backgroundImage: "url('/src/assets/images_villa/title_bg.png')"}}>
+                style={{backgroundImage: "url('/src/assets/images_homes/title_bg.png')"}}>
           <img 
             src={logo} 
             alt="Logo" 

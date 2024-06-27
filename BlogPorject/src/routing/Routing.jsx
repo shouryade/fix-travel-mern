@@ -15,6 +15,11 @@ import Lux from '../pagesMohin/info-lux'
 import Fam from '../pagesMohin/info-fam'
 import Villa from '../pagesMohin/info-villa.jsx'
 import Homes from '../pagesMohin/info-homes.jsx'
+import Sdenq from '../pagesMohin/sd-enq.jsx'
+import Luxenq from '../pagesMohin/lux-enq.jsx'
+import Famenq from '../pagesMohin/fam-enq.jsx'
+import Villaenq from '../pagesMohin/villa-enq.jsx'
+import Homesenq from '../pagesMohin/homes-enq.jsx'
 
 
 
@@ -51,7 +56,12 @@ function Routing() {
       <Route path="/infolux" element={<Lux />} /> 
       <Route path="/infofam" element={<Fam />} />     
       <Route path="/infovilla" element={<Villa />} />  
-      <Route path="/infohomes" element={<Homes />} />        
+      <Route path="/infohomes" element={<Homes />} /> 
+      <Route path="/sdenq" element={<Sdenq />} /> 
+      <Route path="/luxenq" element={<Luxenq />} />
+      <Route path="/famenq" element={<Famenq />} /> 
+      <Route path="/villaenq" element={<Villaenq />} /> 
+      <Route path="/homesenq" element={<Homesenq />} />        
     </Routes>
   )
 }
