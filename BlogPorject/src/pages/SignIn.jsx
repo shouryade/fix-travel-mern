@@ -1,12 +1,13 @@
 
 import React from 'react'
-import { useState} from 'react'
+import { useState,useEffect} from 'react'
 import axios from 'axios'
 import Spinner from 'react-bootstrap/Spinner'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import { signInStart,signInFailure,signInSuccess } from '../redux/userSlice'
 import OAuth from '../components/OAuth'
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -53,6 +54,23 @@ function Login(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {loading , error:errorMessage} = useSelector((state)=>state.user);
+  const location = useLocation();
+  const [verifiedMessage, setVerifiedMessage] = useState('');
+
+
+   // Extract 'verified' query parameter from URL on component mount
+   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('verified') === 'true') {
+      setVerifiedMessage('Your email has been verified. Please enter your details to login.');
+    }
+  }, [location.search]);
+
+
+
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,6 +121,11 @@ function Login(){
         
       </div>
       <div className="lg:w-1/2 w-full max-w-md">
+        {verifiedMessage && (
+              <div className='mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-400'>
+                Your email has been verified. Please enter your details to login.
+              </div>
+            )}
         <form className="bg-black bg-opacity-60 rounded-xl border border-white border-opacity-20 p-6 text-lg" onSubmit={handleSubmit}>
           <h2 className="font-bold text-white text-2xl mb-6 text-left">Log in</h2>
           <OAuth/>

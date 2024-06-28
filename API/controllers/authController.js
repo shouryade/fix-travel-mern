@@ -3,8 +3,16 @@ const User = require('../models/user_model');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); 
+const sendEmail = require('../Utils/sendEmail');
+const Token = require("../models/token");
+const crypto = require("crypto");
+const Joi = require("joi");
+
+
+
 
 module.exports.signup = async (req , res) => {
+    console.log('we are in the signup function in backend')
     const { userName, email, password } = req.body;
 
     
@@ -21,19 +29,48 @@ module.exports.signup = async (req , res) => {
     const newUser = new User({
         userName: userName,
         email: email,
-        password: hashedPassword
+        password: hashedPassword,
+        createdAt: Date.now()
     })
     console.log(newUser)
 
     try{
-        console.log('before save')
+        console.log('before save in signup function')
         const savedUser = await newUser.save();
+        console.log('Loooo')
+ 
+
+        const newToken =  new Token({
+            userId: savedUser._id,
+            token: crypto.randomBytes(32).toString("hex"),
+        });
+        const savedToken = await newToken.save();
+        console.log('Leeee')
+
+        const URL = `${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}`;
+        console.log('AAAA')
+
+        await sendEmail(savedUser.email,"Verify Email",URL);
+
+        console.log('EEEE')
+
+
+
         console.log('after save')
-        res.status(201).json('User saved');
+        res.status(201).json('An Email sent to your account for verification');
     }catch(e){
+        console.log('wtf');
         res.status(400).json({message: e.message});
     }
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -56,8 +93,12 @@ module.exports.signin = async (req, res) => {
         const validPassword = bcrypt.compareSync(password ,user.password);
 
         if(!validPassword){
-            return res.status(400).json({message: 'Invalid password'});
+            return res.status(400).json({message: 'Invalid credentials'});
         }
+
+        if (!user.verified) {
+            return res.status(400).send('Email not verified');
+          }
 
 
         const token = jwt.sign({
@@ -142,6 +183,11 @@ module.exports.googleSignIn = async (req,res) => {
         res.status(400).json({message: error.message});
 
     }
+
+}
+
+module.exports.EmailPasswordAuthSignUp = async (req,res) => {
+
 
 }
 

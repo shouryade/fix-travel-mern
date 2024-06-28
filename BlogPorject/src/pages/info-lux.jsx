@@ -11,6 +11,8 @@ import image7 from '/src/assets/images_lux/img7.jpg';
 import image8 from '/src/assets/images_lux/img8.jpg';
 import checkmarkIcon from '/src/assets/check.png';
 import logo from '/src/assets/logo.png';
+import Footer from "../components/footer";
+import { useNavigate } from "react-router-dom";
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center gap-2 p-2 rounded transition-all duration-300 transform hover:scale-105">
@@ -82,6 +84,10 @@ const ImageCarousel = ({ images }) => {
 
 function MyComponent() {
   const images = [image1, image2, image3, image4, image5, image6, image7, image8];
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/luxenq');
+  }
 
   return (
     <div className="min-h-screen bg-slate-800 text-white relative">
@@ -93,11 +99,14 @@ function MyComponent() {
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
                 style={{backgroundImage: "url('/src/assets/images_lux/title_bg.png')"}}>
+          <a href="/">
           <img 
             src={logo} 
             alt="Logo" 
             className="w-32 mb-4 transition-transform duration-300 transform hover:scale-110" 
           />
+          </a>
+          
           <h1 className="text-4xl text-center">Luxury Room With <br /> Balcony & River View</h1>
         </header>
         
@@ -131,7 +140,7 @@ function MyComponent() {
                   FARE DETAILS
                   <span className="text-2xl text-[#D9D9D9] block">XXXXXX</span>
                 </div>
-                <button className="bg-cyan-500 text-white py-3 px-40 rounded-lg text-xl transition-all duration-300 transform hover:scale-105 mt-4">
+                <button onClick={handleClick} className="bg-cyan-500 text-white py-3 px-40 rounded-lg text-xl transition-all duration-300 transform hover:scale-105 mt-4">
                   CHECK AVAILABILITY
                 </button>
               </div>
@@ -139,6 +148,7 @@ function MyComponent() {
           </div>
         </main>
       </div>
+      <Footer/>
     </div>
   );
 }

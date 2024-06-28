@@ -1,8 +1,9 @@
 import * as React from "react";
+import { Link } from "react-router-dom"; // Make sure you have react-router-dom installed
 
-function ImageWithOverlay({ src, alt, children }) {
+function ImageWithOverlay({ src, alt, children, linkTo }) {
   return (
-    <div className="relative w-full h-[50vh] overflow-hidden group">
+    <Link to={linkTo} className="block relative w-full h-[50vh] overflow-hidden group">
       <img 
         src={src} 
         alt={alt} 
@@ -11,7 +12,7 @@ function ImageWithOverlay({ src, alt, children }) {
       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-opacity duration-300 flex items-center justify-center">
         {children}
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -27,12 +28,15 @@ function LocationCard({ iconSrc, title, subtitle }) {
   );
 }
 
-function MyComponent() {
+function Properties() {
+  
   return (
     <main className="flex flex-col">
       <ImageWithOverlay 
+       
         src={"/src/assets/kasol.png"}
         alt="Mountain landscape with lake"
+        linkTo="/kasol"
       >
         <LocationCard
           iconSrc={"/src/assets/logo.png"}
@@ -43,6 +47,7 @@ function MyComponent() {
       <ImageWithOverlay 
         src={"/src/assets/manali.png"}
         alt="Mountain landscape at sunset"
+        linkTo="/manali"
       >
         <LocationCard
           iconSrc={"/src/assets/aangan_logo.png"}
@@ -54,4 +59,4 @@ function MyComponent() {
   );
 }
 
-export default MyComponent;
+export default Properties;

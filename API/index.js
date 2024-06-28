@@ -6,7 +6,7 @@ const authRouter = require('./routes/authRoutes');
 const cors = require('cors');
 const app = express()
 const port = 3000
-
+const cleanupUnverifiedUsers = require('./Utils/cleanupUnverifiedUsers'); 
 dotenv.config();
 
 app.use(express.json());
@@ -18,10 +18,12 @@ app.use(cors({
   }));
 
 
+
 mongoose.connect(
     process.env.MONGODB
 ).then(()=>{
     console.log('Connected to the database');
+    cleanupUnverifiedUsers();
 }
     
 ).catch((e)=>{
@@ -29,8 +31,11 @@ mongoose.connect(
     console.log(e);
 })
 
-app.use('/api/user', userRouter);
+
+app.use('/', userRouter);
 app.use('/api/auth', authRouter);
+
+
 
 
 

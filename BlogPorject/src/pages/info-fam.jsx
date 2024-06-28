@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 // Import your local images here
-import image1 from '/src/assets/images_villa/img1.jpg';
-import image2 from '/src/assets/images_villa/img2.jpg';
-import image3 from '/src/assets/images_villa/img3.jpg';
-import image4 from '/src/assets/images_villa/img4.jpg';
-import image5 from '/src/assets/images_villa/img5.jpg';
-import image6 from '/src/assets/images_villa/img6.jpg';
-import image7 from '/src/assets/images_villa/img7.jpg';
-import image8 from '/src/assets/images_villa/img8.jpg';
-import image9 from '/src/assets/images_villa/img9.jpg';
-import image10 from '/src/assets/images_villa/img10.jpg';
-import image11 from '/src/assets/images_villa/img11.jpg';
-import image12 from '/src/assets/images_villa/img12.jpg';
-import image13 from '/src/assets/images_villa/img13.jpg';
-import image14 from '/src/assets/images_villa/img14.jpg';
-import image15 from '/src/assets/images_villa/img15.jpg';
-import image16 from '/src/assets/images_villa/img16.jpg';
+import image1 from '/src/assets/images_fam/img1.jpg';
+import image2 from '/src/assets/images_fam/img2.jpg';
+import image3 from '/src/assets/images_fam/img3.jpg';
+import image4 from '/src/assets/images_fam/img4.jpg';
+import image5 from '/src/assets/images_fam/img5.jpg';
+import image6 from '/src/assets/images_fam/img6.jpg';
 import checkmarkIcon from '/src/assets/check.png';
-import logo from '/src/assets/aangan_logo.png';
+import logo from '/src/assets/logo.png';
+import Footer from "../components/footer";
+import { useNavigate } from "react-router-dom";
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center gap-2 p-2 rounded transition-all duration-300 transform hover:scale-105">
@@ -89,7 +81,11 @@ const ImageCarousel = ({ images }) => {
 };
 
 function MyComponent() {
-  const images = [image8, image2, image3, image4, image5, image6, image7, image1, image9, image10, image11, image12, image13, image14, image15, image16];
+  const images = [image1, image2, image3, image4, image5, image6];
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/famenq');
+  }
 
   return (
     <div className="min-h-screen bg-slate-800 text-white relative">
@@ -100,13 +96,18 @@ function MyComponent() {
       
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
-                style={{backgroundImage: "url('/src/assets/images_villa/title_bg.png')"}}>
+                style={{backgroundImage: "url('/src/assets/images_fam/title_bg.png')"}}>
+
+          <a href="/">
           <img 
             src={logo} 
             alt="Logo" 
             className="w-32 mb-4 transition-transform duration-300 transform hover:scale-110" 
           />
-          <h1 className="text-4xl text-center">Aangan Villa</h1>
+
+          </a>
+          
+          <h1 className="text-4xl text-center">Family Suite</h1>
         </header>
         
         <main className="max-w-7xl mx-auto p-8">
@@ -122,26 +123,24 @@ function MyComponent() {
             <div className="md:w-1/2">
               <h2 className="text-6xl mb-6 mt-16">Amenities</h2>
               <div className="grid grid-cols-2 gap-4 text-3xl text-[#D9D9D9]">
-                <AmenityItem text="3 Bedrooms" />
-                <AmenityItem text="3 Bathrooms" />
-                <AmenityItem text="Library Attic Room" />
-                <AmenityItem text="Kitchen with Supplies" />
-                <AmenityItem text="Glassroom" />
-                <AmenityItem text="Fireplace" />
-                <AmenityItem text="Large Living Space" />
-                <AmenityItem text="Personal Assistant" />
+                <AmenityItem text="Common Pool" />
+                <AmenityItem text="On Site Parking" />
+                <AmenityItem text="Spa & Salon" />
+                <AmenityItem text="Private Balcony" />
+                <AmenityItem text="Wifi" />
+                <AmenityItem text="Restaurant" />
               </div>
             </div>
             <div className="md:w-1/2">
               <p className="p-4 rounded transition-all duration-300 transform hover:scale-105 text-2xl">
-              Modern Villa constructed primarily out of premium wood and stone. Located amidst Apple and Plum Orchards, offering stunning views of valley, mountains and paragliders. Villa also features warm and cozy interiors with wooden flooring, ceiling and furniture along with huge balconies, large living space and fireplace.
+              Discover our Family Suite, where luxury meets panoramic views from your private balcony. Perfectly designed for comfort and relaxation, this spacious retreat offers modern amenities and plush furnishings for an unforgettable stay. Whether you're admiring sunrise vistas or unwinding together, our suite promises a luxurious experience for the whole family.
               </p>
               <div className="mt-6">
                 <div className="text-4xl p-4 rounded transition-all duration-300 transform hover:scale-105">
                   FARE DETAILS
                   <span className="text-2xl text-[#D9D9D9] block">XXXXXX</span>
                 </div>
-                <button className="bg-cyan-500 text-white py-3 px-40 rounded-lg text-xl transition-all duration-300 transform hover:scale-105 mt-4">
+                <button onClick={handleClick} className="bg-cyan-500 text-white py-3 px-40 rounded-lg text-xl transition-all duration-300 transform hover:scale-105 mt-4">
                   CHECK AVAILABILITY
                 </button>
               </div>
@@ -149,6 +148,7 @@ function MyComponent() {
           </div>
         </main>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

@@ -27,7 +27,7 @@ const HostProfile = ({ name, location, description, imageSrc, isReversed }) => (
   </section>
 );
 
-function MyComponent() {
+function Host() {
   const hosts = [
     {
       name: "Abhishek Taneja",
@@ -58,4 +58,4 @@ function MyComponent() {
   );
 }
 
-export default MyComponent;
+export default Host;

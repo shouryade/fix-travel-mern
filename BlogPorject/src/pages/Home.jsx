@@ -189,15 +189,31 @@ import React, { useState } from "react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Footer from "../components/footer";
+import Properties from "../components/firstPage/properties";
+import Testimonial from "../components/firstPage/testimonials";
+import Host from "../components/host";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Home() {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const [numberOfPeople, setNumberOfPeople] = useState(1);
   const [checkInDate, setCheckInDate] = useState(new Date());
   const [checkOutDate, setCheckOutDate] = useState(tomorrow);
+
+  const handleClick = () => {
+    navigate("/signin")
+  }
+
+  const handleClickLogOut = () => {
+    alert("This button functionality is in progress");
+  }
 
   const incrementCount = () => {
     setNumberOfPeople(numberOfPeople + 1);
@@ -280,9 +296,16 @@ function Home() {
               {navItems.map((item, index) => (
                 <NavItem key={index} text={item.text} />
               ))}
-              <button className="bg-[#3DBBCD] text-white px-3 sm:px-5 py-1.5 sm:py-2 md:px-6 md:py-2 rounded-xl hover:bg-teal-500 mt-2 sm:mt-0 text-sm sm:text-base w-full sm:w-auto transition-colors duration-300">
-                LOGIN
-              </button>
+              {
+                user.currentUser == null ? (<button onClick={handleClick}className="bg-[#3DBBCD] text-white px-3 sm:px-5 py-1.5 sm:py-2 md:px-6 md:py-2 rounded-xl hover:bg-teal-500 mt-2 sm:mt-0 text-sm sm:text-base w-full sm:w-auto transition-colors duration-300">
+                  LOGIN
+                </button>) : (<button onClick={handleClickLogOut}className="bg-[#3DBBCD] text-white px-3 sm:px-5 py-1.5 sm:py-2 md:px-6 md:py-2 rounded-xl hover:bg-teal-500 mt-2 sm:mt-0 text-sm sm:text-base w-full sm:w-auto transition-colors duration-300">
+                  LOGOUT
+                </button>
+
+                )
+              }
+              
             </div>
           </nav>
         </header>
@@ -340,6 +363,9 @@ function Home() {
           </div>
         </section>
       </div>
+      <Properties/>
+      <Testimonial/>
+      <Host/>
       <Footer />
     </div>
   );

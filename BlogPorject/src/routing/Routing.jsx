@@ -7,20 +7,21 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
-import Properties from '../pagesMohin/properties'
-import Kasol from '../pagesMohin/landing-kasol'
-import Manali from '../pagesMohin/landing-manali'
-import SD from '../pagesMohin/info-sd'
-import Lux from '../pagesMohin/info-lux'
-import Fam from '../pagesMohin/info-fam'
-import Villa from '../pagesMohin/info-villa.jsx'
-import Homes from '../pagesMohin/info-homes.jsx'
-import Sdenq from '../pagesMohin/sd-enq.jsx'
-import Luxenq from '../pagesMohin/lux-enq.jsx'
-import Famenq from '../pagesMohin/fam-enq.jsx'
-import Villaenq from '../pagesMohin/villa-enq.jsx'
-import Homesenq from '../pagesMohin/homes-enq.jsx'
-import Testimonials from '../pagesMohin/testimonials.jsx'
+
+import Kasol from '../pages/landing-kasol.jsx'
+import Manali from '../pages/landing-manali.jsx'
+import SD from '../pages/info-sd.jsx'
+import Lux from '../pages/info-lux.jsx'
+import Fam from '../pages/info-fam.jsx'
+import Villa from '../pages/info-villa.jsx'
+import Homes from '../pages/info-homes.jsx'
+import Sdenq from '../pages/sd-enq.jsx'
+import Luxenq from '../pages/lux-enq.jsx'
+import Famenq from '../pages/fam-enq.jsx'
+import Villaenq from '../pages/villa-enq.jsx'
+import Homesenq from '../pages/homes-enq.jsx'
+
+import EmailVerify from '../components/EmailVerify/index'
 
 
 
@@ -35,22 +36,38 @@ function Routing() {
     <Routes>
       
 
-      <Route element={<PrivateRouting/>}>
+      {/* <Route element={<PrivateRouting/>}>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
-      </Route>
+      </Route> */}
+
+      <Route path="/" element={<Home />} />
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <Route path="/signin" element={<SignIn />} /> 
       <Route path="/signup" element={<SignUp />} />  
       <Route path="/projects" element={<Projects />} /> 
       <Route path="/about" element={<AboutUs />} />    
+      <Route path="/user/:id/verify/:token" element={<EmailVerify/>}></Route>
  
              
 
       <Route path="/about" element={<AboutUs />} /> 
       <Route path="/test/landing" element={<Landing />} /> 
       <Route path="/host" element={<Host />} /> 
-      <Route path="/properties" element={<Properties />} />  
+  
       <Route path="/kasol" element={<Kasol />} />    
       <Route path="/manali" element={<Manali />} />   
       <Route path="/infosd" element={<SD />} />  
@@ -63,7 +80,7 @@ function Routing() {
       <Route path="/famenq" element={<Famenq />} /> 
       <Route path="/villaenq" element={<Villaenq />} /> 
       <Route path="/homesenq" element={<Homesenq />} />  
-      <Route path="/testimonials" element={<Testimonials />} />        
+     
     </Routes>
   )
 }

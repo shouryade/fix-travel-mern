@@ -1,5 +1,5 @@
 import React from "react";
-import logo from '/src/assets/aangan_logo.png';
+import logo from '/src/assets/logo.png';
 
 const DateInput = ({ label }) => (
   <div className="flex flex-col group">
@@ -22,17 +22,20 @@ const GuestInput = ({ label }) => (
 
 function MyComponent() {
   return (
-    <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_villa/img8.jpg')"}}>
+    <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_lux/img4.jpg')"}}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
         <header className="flex flex-col items-center p-8 text-white">
+          <a href="/">
           <img 
             src={logo} 
             alt="Logo" 
             className="w-32 mb-4 transition-transform duration-300 hover:scale-110" 
           />
+          </a>
+          
           <h1 className="text-4xl text-center font-light tracking-wide hover:scale-105 ">
-            <span className="inline-block transition-transform duration-300 ">Aangan</span> <br /> 
-            <span className="inline-block transition-transform duration-300 ">Villa</span>
+            <span className="inline-block transition-transform duration-300 ">Luxury Rooom With</span> <br /> 
+            <span className="inline-block transition-transform duration-300 ">Balcony & River View</span>
           </h1>
         </header>
         

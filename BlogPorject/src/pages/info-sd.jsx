@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 // Import your local images here
-import image1 from '/src/assets/images_homes/img1.jpg';
-import image2 from '/src/assets/images_homes/img2.jpg';
-import image3 from '/src/assets/images_homes/img3.jpg';
-import image4 from '/src/assets/images_homes/img4.jpg';
-import image5 from '/src/assets/images_homes/img5.jpg';
-import image6 from '/src/assets/images_homes/img6.jpg';
-import image7 from '/src/assets/images_homes/img7.jpg';
-import image8 from '/src/assets/images_homes/img8.jpg';
-import image9 from '/src/assets/images_homes/img9.jpg';
-import image10 from '/src/assets/images_homes/img10.jpg';
+import image1 from '/src/assets/images_sd/img1.jpg';
+import image2 from '/src/assets/images_sd/img2.jpg';
+import image3 from '/src/assets/images_sd/img3.jpg';
+import image4 from '/src/assets/images_sd/img4.jpg';
+import image5 from '/src/assets/images_sd/img5.jpg';
+import image6 from '/src/assets/images_sd/img6.jpg';
 import checkmarkIcon from '/src/assets/check.png';
-import logo from '/src/assets/aangan_logo.png';
+import logo from '/src/assets/logo.png';
+import Footer from "../components/footer";
+import { useNavigate } from "react-router-dom";
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center gap-2 p-2 rounded transition-all duration-300 transform hover:scale-105">
@@ -83,7 +81,11 @@ const ImageCarousel = ({ images }) => {
 };
 
 function MyComponent() {
-  const images = [image9, image2, image3, image4, image5, image6, image7, image8, image1, image10];
+  const images = [image1, image2, image3, image4, image5, image6];
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/sdenq');
+  }
 
   return (
     <div className="min-h-screen bg-slate-800 text-white relative">
@@ -94,13 +96,16 @@ function MyComponent() {
       
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
-                style={{backgroundImage: "url('/src/assets/images_homes/title_bg.png')"}}>
+                style={{backgroundImage: "url('/src/assets/images_sd/title_bg.png')"}}>
+          <a href="/">
           <img 
             src={logo} 
             alt="Logo" 
             className="w-32 mb-4 transition-transform duration-300 transform hover:scale-110" 
           />
-          <h1 className="text-4xl text-center">Aangan Homes</h1>
+          </a>
+          
+          <h1 className="text-4xl text-center">Super Deluxe Room <br /> Balcony & Mountain View</h1>
         </header>
         
         <main className="max-w-7xl mx-auto p-8">
@@ -116,24 +121,24 @@ function MyComponent() {
             <div className="md:w-1/2">
               <h2 className="text-6xl mb-6 mt-16">Amenities</h2>
               <div className="grid grid-cols-2 gap-4 text-3xl text-[#D9D9D9]">
-                <AmenityItem text="Attached Bathrooms" />
-                <AmenityItem text="On-site Parking" />
-                <AmenityItem text="Table & Chairs" />
+                <AmenityItem text="Common Pool" />
+                <AmenityItem text="On Site Parking" />
+                <AmenityItem text="Spa & Salon" />
                 <AmenityItem text="Private Balcony" />
                 <AmenityItem text="Wifi" />
-                <AmenityItem text="Common Kitchen" />
+                <AmenityItem text="Restaurant" />
               </div>
             </div>
             <div className="md:w-1/2">
               <p className="p-4 rounded transition-all duration-300 transform hover:scale-105 text-2xl">
-              Indulge in opulence with our Luxury Room featuring a private balcony and mesmerizing river views. Immerse yourself in unparalleled comfort, surrounded by lavish furnishings and modern amenities. Bask in the serenity of nature while relishing the exquisite experience of our premium accommodations, where luxury meets the tranquility of a scenic riverside retreat.
+              Indulge in luxury with our Super Deluxe Room, featuring a private balcony that opens up to breathtaking mountain vistas. Immerse yourself in comfort with spacious accommodations, contemporary design, and top-notch amenities. Elevate your stay with panoramic views, ensuring a memorable escape in the heart of nature's beauty.
               </p>
               <div className="mt-6">
                 <div className="text-4xl p-4 rounded transition-all duration-300 transform hover:scale-105">
                   FARE DETAILS
                   <span className="text-2xl text-[#D9D9D9] block">XXXXXX</span>
                 </div>
-                <button className="bg-cyan-500 text-white py-3 px-40 rounded-lg text-xl transition-all duration-300 transform hover:scale-105 mt-4">
+                <button onClick={handleClick} className="bg-cyan-500 text-white py-3 px-40 rounded-lg text-xl transition-all duration-300 transform hover:scale-105 mt-4">
                   CHECK AVAILABILITY
                 </button>
               </div>
@@ -141,6 +146,7 @@ function MyComponent() {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

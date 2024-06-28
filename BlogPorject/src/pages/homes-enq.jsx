@@ -25,11 +25,14 @@ function MyComponent() {
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_homes/img4.jpg')"}}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
         <header className="flex flex-col items-center p-8 text-white">
+          <a href="/">
           <img 
             src={logo} 
             alt="Logo" 
             className="w-32 mb-4 transition-transform duration-300 hover:scale-110" 
           />
+          </a>
+          
           <h1 className="text-4xl text-center font-light tracking-wide hover:scale-105 ">
             <span className="inline-block transition-transform duration-300 ">Aangan</span> <br /> 
             <span className="inline-block transition-transform duration-300 ">Homestay</span>
