@@ -7,6 +7,7 @@ const cors = require('cors');
 const app = express()
 const port = 3000
 const cleanupUnverifiedUsers = require('./Utils/cleanupUnverifiedUsers'); 
+const formRoutes = require('./routes/formSubmit');
 dotenv.config();
 
 app.use(express.json());
@@ -34,6 +35,7 @@ mongoose.connect(
 
 app.use('/', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/forms', formRoutes);
 
 
 

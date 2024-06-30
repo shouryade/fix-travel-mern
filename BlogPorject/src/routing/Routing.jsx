@@ -20,6 +20,7 @@ import Luxenq from '../pages/lux-enq.jsx'
 import Famenq from '../pages/fam-enq.jsx'
 import Villaenq from '../pages/villa-enq.jsx'
 import Homesenq from '../pages/homes-enq.jsx'
+import ThankYou from '../pages/ThankYou.jsx'
 
 import EmailVerify from '../components/EmailVerify/index'
 
@@ -29,6 +30,7 @@ import EmailVerify from '../components/EmailVerify/index'
 
 import Landing from '../pagesMohin/landing'
 import Host from '../components/host'
+import Testing from '../components/Testing.jsx'
 
 
 function Routing() {
@@ -42,6 +44,7 @@ function Routing() {
       </Route> */}
 
       <Route path="/" element={<Home />} />
+      <Route path="/thankyou" element={<ThankYou />} />
 
 
 
@@ -80,6 +83,8 @@ function Routing() {
       <Route path="/famenq" element={<Famenq />} /> 
       <Route path="/villaenq" element={<Villaenq />} /> 
       <Route path="/homesenq" element={<Homesenq />} />  
+      <Route path="/test" element={<Testing />} /> 
+
      
     </Routes>
   )

@@ -1,9 +1,19 @@
 import * as React from "react";
 import Footer from "../components/footer";
 import {Link } from 'react-router-dom';
+import { setFormData } from "../redux/formSlice";
+import { useDispatch } from "react-redux";
 
-const RoomCard = ({ imageSrc, title, buttonText,linkTo }) => (
-  <div className="relative overflow-hidden aspect-square group">
+
+function RoomCard({ imageSrc, title, buttonText,linkTo }){
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(setFormData({ roomName: title }));
+  };
+
+
+  return (
+    <div className="relative overflow-hidden aspect-square group">
     <a href={linkTo}>
     <img loading="lazy" src={imageSrc} alt="" className="object-cover absolute inset-0 w-full h-full transition-transform duration-300 group-hover:scale-110" />
     <div className="absolute inset-0 bg-black bg-opacity-0 flex flex-col justify-end p-4 sm:p-6 transition-all duration-300 group-hover:bg-opacity-60">
@@ -18,9 +28,16 @@ const RoomCard = ({ imageSrc, title, buttonText,linkTo }) => (
     </a>
     
   </div>
-);
+  )
+}
+
+  
+  
+  
+
 
 function LandingKasol() {
+  const dispatch = useDispatch();
   const rooms = [
     {
       imageSrc: "/src/assets/super-deluxe.png",

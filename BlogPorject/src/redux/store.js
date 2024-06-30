@@ -3,9 +3,11 @@ import userReducer from './userSlice'
 import themeReducer from './theme/themeSlice'
 import storage from 'redux-persist/lib/storage'
 import { persistStore, persistReducer } from 'redux-persist'
+import formReducer from './formSlice';
 const rootReducer = combineReducers({
   user: userReducer,
-  theme: themeReducer
+  theme: themeReducer,
+  form: formReducer
 
 })
 

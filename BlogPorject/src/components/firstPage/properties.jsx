@@ -1,7 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom"; // Make sure you have react-router-dom installed
+import { useDispatch } from "react-redux";
+import { setFormData } from "../../redux/formSlice";
 
 function ImageWithOverlay({ src, alt, children, linkTo }) {
+
+
   return (
     <Link to={linkTo} className="block relative w-full h-[50vh] overflow-hidden group">
       <img 
@@ -17,6 +21,12 @@ function ImageWithOverlay({ src, alt, children, linkTo }) {
 }
 
 function LocationCard({ iconSrc, title, subtitle }) {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(setFormData({ branchName: title }));
+  }
+
+
   return (
     <div className="flex flex-col items-start text-white transition-transform duration-300 group-hover:scale-105">
       <div className="flex items-center">
