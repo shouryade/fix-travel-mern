@@ -2,11 +2,11 @@ import * as React from "react";
 import { useLocation } from 'react-router-dom';
 
 const PolicySection = ({ title, content, id }) => (
-  <section id={id} className="mt-36 max-md:mt-10 max-md:max-w-full scroll-mt-32">
-    <h2 className="text-6xl font-semibold text-white max-md:text-4xl hover:text-teal-300 transition-colors duration-300">
+  <section id={id} className="mt-16 md:mt-24 scroll-mt-20">
+    <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white hover:text-teal-300 transition-colors duration-300">
       {title}
     </h2>
-    <p className="mt-6 text-3xl text-white max-md:max-w-full leading-relaxed hover:text-gray-300 transition-colors duration-300">
+    <p className="mt-4 text-lg md:text-xl lg:text-2xl text-white leading-relaxed hover:text-gray-300 transition-colors duration-300">
       {content}
     </p>
   </section>
@@ -15,9 +15,9 @@ const PolicySection = ({ title, content, id }) => (
 const NavItem = ({ text, targetId, isActive, onClick }) => (
   <button
     onClick={() => onClick(targetId)}
-    className={`text-2xl ${isActive ? 'text-teal-400' : 'text-white'} 
+    className={`text-lg md:text-xl ${isActive ? 'text-teal-400' : 'text-white'} 
                 hover:text-teal-300 transition-all duration-300 ease-in-out
-                transform hover:scale-105`}
+                transform hover:scale-105 w-full md:w-auto text-left md:text-center py-2 md:py-0`}
   >
     {text}
   </button>
@@ -25,6 +25,7 @@ const NavItem = ({ text, targetId, isActive, onClick }) => (
 
 function MidOrchardTerms() {
   const [activeSection, setActiveSection] = React.useState("");
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
   const location = useLocation();
 
   React.useEffect(() => {
@@ -70,6 +71,7 @@ function MidOrchardTerms() {
         behavior: "smooth"
       });
     }
+    setIsNavOpen(false);
   };
 
   return (
@@ -79,24 +81,30 @@ function MidOrchardTerms() {
         style={{ backgroundImage: "url('/src/assets/bg_legal.png')" }}
       ></div>
       <div className="relative z-10">
-        <header className="w-full max-w-7xl mx-auto px-6 py-10">
+        <header className="w-full max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col items-center justify-center">
-            <div className="overflow-visible h-32 flex items-center mb-12">
+            <div className="overflow-visible h-24 md:h-32 flex items-center mb-6 md:mb-12">
               <img 
                 loading="lazy" 
                 src="/src/assets/logo.png" 
                 alt="Mid Orchard logo" 
-                className="w-48 h-auto object-contain transition-all duration-300 transform hover:scale-110"
+                className="w-32 md:w-48 h-auto object-contain transition-all duration-300 transform hover:scale-110"
               />
             </div>
-            <h1 className="text-7xl font-semibold text-white max-md:text-4xl hover:text-teal-300 transition-colors duration-300 mb-16">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-white hover:text-teal-300 transition-colors duration-300 mb-8 md:mb-16 text-center">
               MID ORCHARD
             </h1>
           </div>
         </header>
         <nav className="sticky top-0 z-20 bg-slate-800 bg-opacity-95 shadow-md">
-          <div className="max-w-7xl mx-auto px-6 py-4">
-            <div className="flex justify-between items-center space-x-8 max-md:flex-wrap max-md:space-x-4 max-md:space-y-2">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
+            <button 
+              className="md:hidden w-full text-white text-xl mb-4"
+              onClick={() => setIsNavOpen(!isNavOpen)}
+            >
+              Policies {isNavOpen ? '▲' : '▼'}
+            </button>
+            <div className={`flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0 md:space-x-4 ${isNavOpen ? 'block' : 'hidden md:flex'}`}>
               <NavItem text="Terms & Conditions" targetId="terms" isActive={activeSection === "terms"} onClick={scrollToSection} />
               <NavItem text="Payment Policy" targetId="payment" isActive={activeSection === "payment"} onClick={scrollToSection} />
               <NavItem text="Cancellation Policy" targetId="cancellation" isActive={activeSection === "cancellation"} onClick={scrollToSection} />
@@ -104,7 +112,7 @@ function MidOrchardTerms() {
             </div>
           </div>
         </nav>
-        <article className="max-w-7xl mx-auto px-6 py-16">
+        <article className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-16">
           <PolicySection
             id="terms"
             title="Terms & Conditions"
