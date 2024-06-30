@@ -57,9 +57,10 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-[#162237]" 
+    <div className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-[#162237] relative bg-opacity-100" 
          style={{backgroundImage: "url('/src/assets/bg_testimonial.png')"}}>
-      <div className="max-w-4xl w-full">
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="max-w-4xl w-full relative z-10">
         <h1 className="text-white text-3xl sm:text-5xl lg:text-6xl font-bold mb-6 sm:mb-10 relative inline-block
                        hover:text-teal-400 transition-colors duration-300">
           Testimonials
@@ -68,17 +69,16 @@ const Testimonial = () => {
         </h1>
         
         <div className="relative pb-20">
-          <div className="bg-white bg-opacity-90 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg 
+          <div className="bg-white bg-opacity-95 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg 
                           transition-all duration-300 hover:shadow-2xl hover:bg-opacity-100
                           transform hover:scale-105"
-               style={{backgroundImage: "url('/src/assets/testimonial_bg.jpg')"}}
                onMouseEnter={() => setIsHovered(true)}
                onMouseLeave={() => setIsHovered(false)}>
             <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
               <img 
                 src={currentTestimonial.avatar}
                 alt={currentTestimonial.name}
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover flex-shrink-0 border-2 sm:border-4 border-white shadow-md
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover flex-shrink-0 border-2 sm:border-4 border-teal-400 shadow-md
                            transition-transform duration-300 hover:scale-110"
                 onError={handleImageError}
               />
