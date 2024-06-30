@@ -1,13 +1,29 @@
 import * as React from "react";
+
 import { Link } from "react-router-dom"; // Make sure you have react-router-dom installed
 import { useDispatch } from "react-redux";
 import { setFormData } from "../../redux/formSlice";
 
+
+
+
+import { Link, useNavigate } from "react-router-dom";
+
 function ImageWithOverlay({ src, alt, children, linkTo }) {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate(linkTo);
+    window.scrollTo(0, 0);
+  };
 
 
   return (
-    <Link to={linkTo} className="block relative w-full h-[50vh] overflow-hidden group">
+    <div 
+      onClick={handleClick} 
+      className="block relative w-full h-[50vh] overflow-hidden group cursor-pointer"
+    >
       <img 
         src={src} 
         alt={alt} 
@@ -16,7 +32,7 @@ function ImageWithOverlay({ src, alt, children, linkTo }) {
       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-opacity duration-300 flex items-center justify-center">
         {children}
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -39,11 +55,9 @@ function LocationCard({ iconSrc, title, subtitle }) {
 }
 
 function Properties() {
-  
   return (
     <main className="flex flex-col">
       <ImageWithOverlay 
-       
         src={"/src/assets/kasol.png"}
         alt="Mountain landscape with lake"
         linkTo="/kasol"

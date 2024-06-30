@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const flowbite = require("flowbite-react/tailwind");
+
 export default {
   content: [
     "./index.html",
@@ -7,10 +8,13 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        aguafina: ['Aguafina Script', 'cursive'],
+      },
+    },
   },
   plugins: [
     flowbite.plugin(),
   ],
 }
-

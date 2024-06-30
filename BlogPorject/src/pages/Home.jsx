@@ -5,7 +5,6 @@ import Footer from "../components/footer";
 import Properties from "../components/firstPage/properties";
 import Testimonial from "../components/firstPage/testimonials";
 import Host from "../components/host";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -21,7 +20,7 @@ function Home() {
   const dispatch = useDispatch();
 
   const [numberOfPeople, setNumberOfPeople] = useState(1);
-  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkInDate, setCheckInDate] = useState(today);
   const [checkOutDate, setCheckOutDate] = useState(tomorrow);
   
   const propertiesRef = useRef(null);
@@ -44,11 +43,25 @@ function Home() {
     }
   };
 
-  const NavItem = ({ text }) => (
-    <div className="text-white hover:text-teal-300 cursor-pointer transition-colors duration-300">{text}</div>
-  );
+
+
+  const NavItem = ({ text, targetId }) => {
+    const handleClick = (e) => {
+      e.preventDefault();
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    return (
+      <div onClick={handleClick} className="text-white hover:text-teal-300 cursor-pointer transition-colors duration-300">
+        {text}
+      </div>
+    );
+  };
   
-  const DateSection = ({ icon, title, date, subtitle, onDateChange }) => (
+  const DateSection = ({ icon, title, date, subtitle, onDateChange, minDate }) => (
     <div className="flex flex-col w-full sm:w-auto group">
       <div className="flex items-center gap-2 text-gray-600">
         <img src={icon} alt={`${title} icon`} className="w-[24px] sm:w-[28px] md:w-[30px] aspect-[1.25]" />
@@ -58,6 +71,7 @@ function Home() {
         <DatePicker
           selected={date}
           onChange={onDateChange}
+          minDate={minDate}
           dateFormat="dd/MM/yyyy"
           className="bg-transparent border border-gray-300 p-2 text-gray-700 w-full appearance-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300 rounded-lg"
         />
@@ -87,10 +101,12 @@ function Home() {
   );
 
   const navItems = [
-    { text: "Testimonials" },
-    { text: "About us" },
-    { text: "Contact" },
+    { text: "Destinations", targetId: "properties-section" },
+    { text: "Testimonials", targetId: "testimonials-section" },
+    { text: "About us", targetId: "about-section" },
+    { text: "Contact", targetId: "contact-section" },
   ];
+
 
   const scrollToProperties = () => {
     const a = dispatch(setFormData({
@@ -102,32 +118,49 @@ function Home() {
     console.log("test");
     console.log(numberOfPeople.toString());
     propertiesRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
+
+  const handleCheckInChange = (date) => {
+    setCheckInDate(date);
+    if (date >= checkOutDate) {
+      const newCheckOutDate = new Date(date);
+      newCheckOutDate.setDate(newCheckOutDate.getDate() + 1);
+      setCheckOutDate(newCheckOutDate);
+    }
+  };
+
+  const handleCheckOutChange = (date) => {
+    if (date > checkInDate) {
+      setCheckOutDate(date);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#0F1A29] text-white relative overflow-hidden">
+    <div className="min-h-screen bg-[#0F1A29] text-white relative">
       <div className="absolute inset-0 z-0">
-        <img
-          src="/src/assets/bg_main.png"
-          alt="Background"
-          className="w-full h-full object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-[#0F1A29] opacity-50"></div>
+        <div className="w-full h-full bg-center bg-cover bg-no-repeat" style={{
+          backgroundImage: "url('/src/assets/bg_main.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}>
+          <div className="absolute inset-0 bg-[#0F1A29] opacity-50"></div>
+        </div>
       </div>
       
       <div className="relative z-10 min-h-screen flex flex-col">
         <header className="p-3 sm:p-5 md:p-6">
           <nav className="flex flex-col sm:flex-row justify-between items-center">
             <img
-              src={'/src/assets/logo.png'}
+              src='/src/assets/logo.png'
               alt="Mid Orchard Logo"
               className="w-[50px] sm:w-[70px] md:w-[90px] h-auto mb-3 sm:mb-0"
             />
             
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 md:gap-8 lg:gap-32">
               {navItems.map((item, index) => (
-                <NavItem key={index} text={item.text} />
+                <NavItem key={index} text={item.text} targetId={item.targetId} />
               ))}
               {
                 user.currentUser == null ? (<button onClick={handleClick} className="bg-[#3DBBCD] text-white px-3 sm:px-5 py-1.5 sm:py-2 md:px-6 md:py-2 rounded-xl hover:bg-teal-500 mt-2 sm:mt-0 text-sm sm:text-base w-full sm:w-auto transition-colors duration-300">
@@ -137,7 +170,6 @@ function Home() {
                 </button>)
 
               }
-              
             </div>
           </nav>
         </header>
@@ -175,7 +207,8 @@ function Home() {
               title="Check-in"
               date={checkInDate}
               subtitle="Select date"
-              onDateChange={(date) => setCheckInDate(date)}
+              onDateChange={handleCheckInChange}
+              minDate={today}
             />
             <div className="hidden sm:block w-px h-16 bg-gray-200"></div>
             <DateSection
@@ -183,7 +216,8 @@ function Home() {
               title="Check-out"
               date={checkOutDate}
               subtitle="Select date"
-              onDateChange={(date) => setCheckOutDate(date)}
+              onDateChange={handleCheckOutChange}
+              minDate={new Date(checkInDate.getTime() + 86400000)} // One day after check-in
             />
             <button className="bg-[#3DBBCD] p-3 sm:p-4 rounded-xl w-full sm:w-[70px] sm:h-[70px] md:w-[113px] md:h-[113px] flex items-center justify-center hover:bg-teal-500 mt-4 sm:mt-0 transition-colors duration-300" onClick={scrollToProperties}>
               <img
@@ -195,12 +229,20 @@ function Home() {
           </div>
         </section>
       </div>
-      <div ref={propertiesRef}>
-        <Properties />
+      <div 
+      ref = {propertiesRef}
+      id="properties-section">
+        <Properties/>
       </div>
-      <Testimonial />
-      <Host />
-      <Footer />
+      <div id="testimonials-section">
+        <Testimonial/>
+      </div>
+      <div id="about-section">
+        <Host/>
+      </div>
+      <div id="contact-section">
+        <Footer />
+      </div>
     </div>
   );
 }

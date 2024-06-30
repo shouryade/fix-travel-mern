@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from "react";
 import logo from '/src/assets/logo.png';
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData } from "../redux/formSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 
 function DateInput ({ label, onChange, defaultVal }){
 
@@ -21,6 +23,10 @@ function DateInput ({ label, onChange, defaultVal }){
     return formattedDate;
   }
 
+  const formatDate = (date) => {
+    return date.toISOString().split('T')[0];
+  };
+
 
 
   return(
@@ -31,6 +37,7 @@ function DateInput ({ label, onChange, defaultVal }){
         value={changeFormat(defaultVal)}
         required
         type="date"
+        min={formatDate(new Date())}
         className="bg-transparent border border-white p-2 text-white w-full appearance-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
         onChange={onChange}
       />
@@ -49,6 +56,7 @@ function DateInput ({ label, onChange, defaultVal }){
 }
 
 
+
 const GuestInput = ({ label, onChange, defaultVal }) => (
   <div className="flex flex-col group">
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
@@ -57,6 +65,7 @@ const GuestInput = ({ label, onChange, defaultVal }) => (
       className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
       value={defaultVal}
       onChange={onChange}
+      min="1"
     />
 
   </div>
@@ -65,6 +74,7 @@ const GuestInput = ({ label, onChange, defaultVal }) => (
 
 
 function MyComponent() {
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [noOfGuests, setNumberOfGuests] = useState('');
   const [checkIn, setCheckInDate] = useState('');
@@ -120,6 +130,24 @@ function MyComponent() {
     }
   };
 
+
+
+  const handleCheckInChange = (date) => {
+    setCheckInDate(date);
+    if (checkOutDate && date >= checkOutDate) {
+      const newCheckOutDate = new Date(date);
+      newCheckOutDate.setDate(newCheckOutDate.getDate() + 1);
+      setCheckOutDate(newCheckOutDate);
+    }
+  };
+
+  const handleCheckOutChange = (date) => {
+    if (date > checkInDate) {
+      setCheckOutDate(date);
+
+    }
+  };
+
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/src/assets/images_sd/img4.jpg')" }}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
@@ -144,12 +172,12 @@ function MyComponent() {
             <div className="grid grid-cols-2 gap-6 mb-6">
               <DateInput
                 label="Select Check-in date"
-                onChange={(e) => setCheckInDate(e.target.value)}
+                onChange={(e) => handleCheckInChange(e.target.value)}
                 defaultVal={checkInDate || ''}
               />
               <DateInput
                 label="Select Check-out date"
-                onChange={(e) => setCheckOutDate(e.target.value)}
+                onChange={(e) => handleCheckOutChange(e.target.value)}
                 defaultVal={checkOutDate || ''}
               />
             </div>
