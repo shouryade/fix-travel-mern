@@ -20,6 +20,7 @@ import Luxenq from '../pages/lux-enq.jsx'
 import Famenq from '../pages/fam-enq.jsx'
 import Villaenq from '../pages/villa-enq.jsx'
 import Homesenq from '../pages/homes-enq.jsx'
+import Legal from '../pagesMohin/legal.jsx'
 
 import EmailVerify from '../components/EmailVerify/index'
 
@@ -80,6 +81,7 @@ function Routing() {
       <Route path="/famenq" element={<Famenq />} /> 
       <Route path="/villaenq" element={<Villaenq />} /> 
       <Route path="/homesenq" element={<Homesenq />} />  
+      <Route path="/legal" element={<Legal />} />  
      
     </Routes>
   )

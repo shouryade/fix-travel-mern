@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import { GoogleMap, useLoadScript, MarkerF, OverlayView } from '@react-google-maps/api';
+import { Link } from 'react-router-dom';
 
 const ContactInfo = ({ icon: Icon, text }) => (
   <div className="flex gap-3 md:gap-5 mt-3 md:mt-5 text-lg md:text-xl items-center transition-transform transform hover:scale-105">
@@ -9,10 +10,13 @@ const ContactInfo = ({ icon: Icon, text }) => (
   </div>
 );
 
-const LegalLink = ({ text }) => (
-  <div className="mt-3 md:mt-4 transition-transform transform hover:scale-105 hover:text-teal-400 text-sm md:text-base">
+const LegalLink = ({ text, targetId }) => (
+  <Link 
+    to={`/legal?section=${targetId}`}
+    className="block mt-3 md:mt-4 transition-transform transform hover:scale-105 hover:text-teal-400 text-sm md:text-base"
+  >
     {text}
-  </div>
+  </Link>
 );
 
 const mapContainerStyle = {
@@ -68,7 +72,12 @@ const Footer = () => {
     { icon: FaEnvelope, text: "midorchardcottage@gmail.com" },
   ];
 
-  const legalLinks = ["Legal", "Privacy Policy", "Terms & Services", "Terms of Use", "Refund Policy"];
+  const legalLinks = [
+    { text: "Terms & Conditions", targetId: "terms" },
+    { text: "Payment Policy", targetId: "payment" },
+    { text: "Cancellation Policy", targetId: "cancellation" },
+    { text: "Provisional Bookings", targetId: "provisional" },
+  ];
 
   const locations = [
     { name: "Aangan By Mid Orchard, Manali", position: { lat: 32.086581343440756, lng: 77.12471822486917 } },
@@ -119,8 +128,8 @@ const Footer = () => {
   if (!isLoaded) return <div>Loading maps</div>;
 
   return (
-    <div className="relative flex flex-col min-h-screen text-white bg-black p-4 md:p-8 lg:p-12">
-      <h1 className="text-3xl md:text-4xl lg:text-5xl mb-4 md:mb-6 lg:mb-8">Contact Us</h1>
+    <footer className="relative flex flex-col min-h-screen text-white bg-black p-4 md:p-8 lg:p-12">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 md:mb-6 lg:mb-8">Contact Us</h2>
 
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col w-full lg:w-3/4 mb-8 lg:mb-0">
@@ -168,7 +177,7 @@ const Footer = () => {
         <div className="w-full lg:w-1/5">
           <nav className="lg:ml-8">
             {legalLinks.map((link, index) => (
-              <LegalLink key={index} text={link} />
+              <LegalLink key={index} text={link.text} targetId={link.targetId} />
             ))}
           </nav>
         </div>
@@ -180,7 +189,7 @@ const Footer = () => {
         alt="Person sitting"
         className="absolute bottom-0 right-0 w-1/3 md:w-1/4 max-w-xs"
       />
-    </div>
+    </footer>
   );
 };
 
