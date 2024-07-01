@@ -8,6 +8,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { signInStart,signInFailure,signInSuccess } from '../redux/userSlice'
 import OAuth from '../components/OAuth'
 import { useLocation } from 'react-router-dom';
+import { resetForm } from '../redux/formSlice'
 
 
 
@@ -93,6 +94,8 @@ function Login(){
         console.log('data sent successfully')
         console.log(res);
         dispatch(signInSuccess(res.data)); 
+        dispatch(resetForm());
+        
         console.log('following is the response from the server')
         console.log(signInSuccess(res.data));
           navigate('/');

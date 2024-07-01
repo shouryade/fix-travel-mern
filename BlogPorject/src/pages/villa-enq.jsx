@@ -10,10 +10,13 @@ import { useEffect } from "react";
 
 
 
-function DateInput ({ label, onChange, defaultVal }){ 
+function DateInput ({ label, onChange, defaultVal }){
+
+
 
 
   const changeFormat = (defaultVal) => {
+
     const originalDate = defaultVal;
     const dateObject = new Date(originalDate);
 
@@ -22,7 +25,7 @@ function DateInput ({ label, onChange, defaultVal }){
     const day = String(dateObject.getDate()).padStart(2, '0');
 
     const formattedDate = `${year}-${month}-${day}`;
-    console.log(formattedDate); 
+
     return formattedDate;
   }
 
@@ -32,34 +35,31 @@ function DateInput ({ label, onChange, defaultVal }){
 
 
 
-
-
   return(
-    <div className="flex flex-col group">
-      <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
-      <div className="relative">
-        <input
-          value={changeFormat(defaultVal)}
-          required
-          type="date"
-          min={formatDate(new Date())}
-          className="bg-transparent border border-white p-2 text-white w-full appearance-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
-          onChange={onChange}
-        />
-        <svg
-          className="w-6 h-6 text-white absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none transition-colors duration-300 group-hover:text-cyan-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-        </svg>
-      </div>
+  <div className="flex flex-col group">
+    <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
+    <div className="relative">
+      <input
+        value={ changeFormat(defaultVal) || " "}
+        required
+        type="date"
+        min={formatDate(new Date())}
+        className="bg-transparent border border-white p-2 text-white w-full appearance-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
+        onChange={onChange}
+      />
+      <svg
+        className="w-6 h-6 text-white absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none transition-colors duration-300 group-hover:text-cyan-300"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+      </svg>
     </div>
-  );
-
-};
+  </div>
+);
+}
 
 
 
@@ -81,56 +81,72 @@ const GuestInput = ({ label, onChange, defaultVal }) => (
 function MyComponent() {
 
 
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [noOfGuests, setNumberOfGuests] = useState('');
-  const [checkIn, setCheckInDate] = useState('');
-  const [checkOut, setCheckOutDate] = useState('');
+  const [checkIn, setCheckInDate] = useState(today);
+  const [checkOut, setCheckOutDate] = useState(tomorrow);
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.form);
-  const {currentUser} = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
+  const form = useSelector((state) => state.form);
   const navigate = useNavigate();
+
   const { checkInDate, checkOutDate, numberOfPeople } = form;
 
+  // Effect to log form data changes
   useEffect(() => {
-    console.log(formData);
-  },[formData])
- 
+    setCheckInDate(checkInDate !== '' ? checkInDate : checkIn)
+    setCheckOutDate(checkOutDate !== '' ? checkOutDate : checkOut)
+    setNumberOfGuests(numberOfPeople)
+    console.log("We are in the useEffect")
+    console.log(checkInDate);
+    console.log(checkOutDate);
+    console.log(numberOfPeople);
+  }, [form]);
+
   const handleClick = async (event) => {
     event.preventDefault();
-    const b = dispatch(setFormData({
-      userName: currentUser.message.userName,
+
+    // Dispatch action to set form data in Redux state
+    dispatch(
+      setFormData({
+        userName: currentUser.message.userName,
         email: currentUser.message.email,
         phoneNumber: phoneNumber,
         numberOfGuests: numberOfPeople,
         checkInDate: checkIn,
         checkOutDate: checkOut,
-      branchName: "Aangan, Manali ",
-      roomName: "Aangan Villa",
-    }));
+        branchName: "Kasol",
+        roomName: "Super Deluxe Room",
+      })
+    );
 
-    const a ={
+    // Data to send in the POST request
+    const formData = {
       userName: currentUser.message.userName,
       email: currentUser.message.email,
       phoneNumber: phoneNumber,
       numberOfGuests: numberOfPeople,
       checkInDate: checkIn,
       checkOutDate: checkOut,
-      branchName: "Aangan, Manali ",
-      roomName: "Aangan Villa",
-    }
-
-    console.log("After set form data")
-    console.log(formData)
+      branchName: "Kasol",
+      roomName: "Super Deluxe Room",
+    };
 
     try {
-      const res = await axios.post('http://localhost:3000/api/forms/submit-form', a);
-      navigate('/ThankYou')
-
+      // Example: Sending form data to backend
+      const res = await axios.post('http://localhost:3000/api/forms/submit-form', formData);
+      navigate('/ThankYou');
     } catch (error) {
       console.error(error);
       alert('Error submitting form');
     }
   };
+
+
 
   const handleCheckInChange = (date) => {
     setCheckInDate(date);
@@ -144,9 +160,9 @@ function MyComponent() {
   const handleCheckOutChange = (date) => {
     if (date > checkInDate) {
       setCheckOutDate(date);
+
     }
   };
-
 
 
   return (
@@ -176,13 +192,13 @@ function MyComponent() {
 
               label="Select Check-in date" 
               onChange={(e) => handleCheckInChange(e.target.value)}
-              defaultVal={checkInDate || ''}
+              defaultVal={checkIn }
               />
 
               <DateInput
                label="Select Check-out date"
                onChange={(e) => handleCheckOutChange(e.target.value)}
-               defaultVal={checkOutDate || ''}
+               defaultVal={checkOut}
                
                />
 

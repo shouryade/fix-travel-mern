@@ -4,7 +4,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
+import { resetForm } from '../redux/formSlice';
 const Button = ({ children, className, icon, ...props }) => (
   <button
     className={`flex justify-center items-center px-4 py-3 rounded-md w-full transition-all duration-300 hover:scale-105 ${className}`}
@@ -35,6 +36,7 @@ function Signup() {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [msg, setMsg] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,6 +60,8 @@ function Signup() {
       setMsg(res.data);
       setVariable(true);
       setLoading(false);
+      dispatch(resetForm());
+      
       setTimeout(() => {
         
         navigate('/signin');

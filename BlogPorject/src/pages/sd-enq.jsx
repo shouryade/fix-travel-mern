@@ -10,7 +10,10 @@ import { useNavigate } from "react-router-dom";
 function DateInput ({ label, onChange, defaultVal }){
 
 
+
+
   const changeFormat = (defaultVal) => {
+
     const originalDate = defaultVal;
     const dateObject = new Date(originalDate);
 
@@ -19,7 +22,7 @@ function DateInput ({ label, onChange, defaultVal }){
     const day = String(dateObject.getDate()).padStart(2, '0');
 
     const formattedDate = `${year}-${month}-${day}`;
-    console.log(formattedDate); 
+
     return formattedDate;
   }
 
@@ -34,7 +37,7 @@ function DateInput ({ label, onChange, defaultVal }){
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
     <div className="relative">
       <input
-        value={changeFormat(defaultVal)}
+        value={ changeFormat(defaultVal) || " "}
         required
         type="date"
         min={formatDate(new Date())}
@@ -69,16 +72,18 @@ const GuestInput = ({ label, onChange, defaultVal }) => (
     />
 
   </div>
-  
 );
 
 
 function MyComponent() {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [noOfGuests, setNumberOfGuests] = useState('');
-  const [checkIn, setCheckInDate] = useState('');
-  const [checkOut, setCheckOutDate] = useState('');
+  const [checkIn, setCheckInDate] = useState(today);
+  const [checkOut, setCheckOutDate] = useState(tomorrow);
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const form = useSelector((state) => state.form);
@@ -88,7 +93,13 @@ function MyComponent() {
 
   // Effect to log form data changes
   useEffect(() => {
-    console.log(checkInDate, checkOutDate, numberOfPeople);
+    setCheckInDate(checkInDate !== '' ? checkInDate : checkIn)
+    setCheckOutDate(checkOutDate !== '' ? checkOutDate : checkOut)
+    setNumberOfGuests(numberOfPeople)
+    console.log("We are in the useEffect")
+    console.log(checkInDate);
+    console.log(checkOutDate);
+    console.log(numberOfPeople);
   }, [form]);
 
   const handleClick = async (event) => {
@@ -148,6 +159,19 @@ function MyComponent() {
     }
   };
 
+
+  const handleClickButton = () => {
+    if(!currentUser){
+      navigate('/signin')
+    }
+    else{
+      handleClick()
+    }
+  }
+
+
+
+
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/src/assets/images_sd/img4.jpg')" }}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
@@ -173,12 +197,12 @@ function MyComponent() {
               <DateInput
                 label="Select Check-in date"
                 onChange={(e) => handleCheckInChange(e.target.value)}
-                defaultVal={checkInDate || ''}
+                defaultVal={checkIn}
               />
               <DateInput
                 label="Select Check-out date"
                 onChange={(e) => handleCheckOutChange(e.target.value)}
-                defaultVal={checkOutDate || ''}
+                defaultVal={checkOut}
               />
             </div>
             <div className="grid grid-cols-2 gap-6 mb-6">
@@ -199,7 +223,9 @@ function MyComponent() {
                 />
               </div>
             </div>
-            <button className="w-full bg-cyan-500 text-white py-3 rounded-lg text-xl transition-all duration-300 hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-300">
+            <button 
+            onClick={handleClickButton}
+            className="w-full bg-cyan-500 text-white py-3 rounded-lg text-xl transition-all duration-300 hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-300">
               Send Enquiry
             </button>
           </form>

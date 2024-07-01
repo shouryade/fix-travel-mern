@@ -10,7 +10,10 @@ import { useState } from "react";
 function DateInput ({ label, onChange, defaultVal }){
 
 
+
+
   const changeFormat = (defaultVal) => {
+
     const originalDate = defaultVal;
     const dateObject = new Date(originalDate);
 
@@ -19,7 +22,7 @@ function DateInput ({ label, onChange, defaultVal }){
     const day = String(dateObject.getDate()).padStart(2, '0');
 
     const formattedDate = `${year}-${month}-${day}`;
-    console.log(formattedDate); 
+
     return formattedDate;
   }
 
@@ -34,7 +37,7 @@ function DateInput ({ label, onChange, defaultVal }){
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
     <div className="relative">
       <input
-        value={changeFormat(defaultVal)}
+        value={ changeFormat(defaultVal) || " "}
         required
         type="date"
         min={formatDate(new Date())}
@@ -56,7 +59,6 @@ function DateInput ({ label, onChange, defaultVal }){
 }
 
 
-
 const GuestInput = ({ label, onChange, defaultVal }) => (
   <div className="flex flex-col group">
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
@@ -72,10 +74,15 @@ const GuestInput = ({ label, onChange, defaultVal }) => (
 );
 
 function MyComponent() {
+
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [noOfGuests, setNumberOfGuests] = useState('');
-  const [checkIn, setCheckInDate] = useState('');
-  const [checkOut, setCheckOutDate] = useState('');
+  const [checkIn, setCheckInDate] = useState(today);
+  const [checkOut, setCheckOutDate] = useState(tomorrow);
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const form = useSelector((state) => state.form);
@@ -85,7 +92,13 @@ function MyComponent() {
 
   // Effect to log form data changes
   useEffect(() => {
-    console.log(checkInDate, checkOutDate, numberOfPeople);
+    setCheckInDate(checkInDate !== '' ? checkInDate : checkIn)
+    setCheckOutDate(checkOutDate !== '' ? checkOutDate : checkOut)
+    setNumberOfGuests(numberOfPeople)
+    console.log("We are in the useEffect")
+    console.log(checkInDate);
+    console.log(checkOutDate);
+    console.log(numberOfPeople);
   }, [form]);
 
   const handleClick = async (event) => {
@@ -101,7 +114,7 @@ function MyComponent() {
         checkInDate: checkIn,
         checkOutDate: checkOut,
         branchName: "Kasol",
-        roomName: "Luxury room with balcony and river view",
+        roomName: "Super Deluxe Room",
       })
     );
 
@@ -114,7 +127,7 @@ function MyComponent() {
       checkInDate: checkIn,
       checkOutDate: checkOut,
       branchName: "Kasol",
-      roomName: "Luxury room with balcony and river view",
+      roomName: "Super Deluxe Room",
     };
 
     try {
@@ -172,13 +185,13 @@ function MyComponent() {
 
               label="Select Check-in date" 
               onChange={(e) => handleCheckInChange(e.target.value)}
-              defaultVal={checkInDate || ''}
+              defaultVal={checkIn}
               />
 
               <DateInput
                label="Select Check-out date"
                onChange={(e) => handleCheckOutChange(e.target.value)}
-               defaultVal={checkOutDate || ''}
+               defaultVal={checkOut}
                
                />
 

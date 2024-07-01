@@ -21,7 +21,9 @@ const formSlice = createSlice({
         state = action.payload;
         return state;
     },
-    resetForm: () => initialState,
+    resetForm: (state) => {
+      return initialState
+    }
   },
 });
 

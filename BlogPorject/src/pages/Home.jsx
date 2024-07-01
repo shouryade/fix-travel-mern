@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setFormData } from "../redux/formSlice";
-
+import axios from "axios";
+import { signoutSuccess } from "../redux/userSlice";
+import { resetForm } from "../redux/formSlice";
 
 function Home() {
   const today = new Date();
@@ -29,8 +31,16 @@ function Home() {
     navigate("/signin");
   };
 
-  const handleClickLogOut = () => {
-    alert("This button functionality is in progress");
+  const handleClickLogOut = async () => {
+    try{
+      const res = await axios.post('http://localhost:3000/api/auth/signout');
+        dispatch(signoutSuccess());
+        dispatch(resetForm());
+    }
+    catch(error){
+      console.log("There is an error signing out");
+      console.log(error);
+    }
   };
 
   const incrementCount = () => {

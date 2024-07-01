@@ -186,8 +186,14 @@ module.exports.googleSignIn = async (req,res) => {
 
 }
 
-module.exports.EmailPasswordAuthSignUp = async (req,res) => {
-
-
+module.exports.signout = async (req,res) => {
+    try{
+        res.clearCookie('access_token').json({message: 'Signout success'});
+        console.log('cookie cleared')
+    }
+    catch(error){
+        console.log('error clearing cookie')
+    }
+    
 }
 
