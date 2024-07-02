@@ -7,8 +7,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import { loadForm, loadFormSuccess } from "../redux/formSlice";
 import { resetForm } from "../redux/formSlice";
+import DatePicker from "react-datepicker";
 
-function DateInput({ label, onChange, defaultVal }) {
+function DateInput({ label, onChange, defaultVal ,minDate}) {
   const changeFormat = (defaultVal) => {
     const originalDate = defaultVal;
     const dateObject = new Date(originalDate);
@@ -27,12 +28,14 @@ function DateInput({ label, onChange, defaultVal }) {
     <div className="flex flex-col group">
       <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
       <div className="relative">
-        <input
-          value={changeFormat(defaultVal) || " "}
+        <DatePicker
+          placeholder="max 8 guests"
+          selected={changeFormat(defaultVal) || " "}
           required
           type="date"
-          min={formatDate(new Date())}
-          className="bg-transparent border border-white p-2 text-white w-full appearance-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
+          dateFormat="dd/MM/yyyy"
+          minDate={minDate}
+         className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
           onChange={onChange}
         />
         <svg
@@ -49,10 +52,20 @@ function DateInput({ label, onChange, defaultVal }) {
   );
 }
 
-const GuestInput = ({ label, onChange, defaultVal }) => (
+
+
+
+
+
+
+
+const GuestInput = ({ label, onChange, defaultVal }) => {
+  console.log("guests",defaultVal)
+  return(
   <div className="flex flex-col group">
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
     <input
+    placeholder="max 8 members"
       required
       type="number"
       className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
@@ -63,6 +76,7 @@ const GuestInput = ({ label, onChange, defaultVal }) => (
     />
   </div>
 );
+}
 
 function MyComponent() {
   const today = new Date();
@@ -208,15 +222,22 @@ function MyComponent() {
             className="bg-black bg-opacity-50 p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50"
           >
             <div className="grid grid-cols-2 gap-6 mb-6">
+              
               <DateInput
                 label="Select Check-in date"
-                onChange={(e) => handleCheckInChange(new Date(e.target.value))}
+                onChange={handleCheckInChange}
                 defaultVal={checkIn}
+                minDate={today}
+                
               />
+
+       
+              
               <DateInput
                 label="Select Check-out date"
-                onChange={(e) => handleCheckOutChange(new Date(e.target.value))}
+                onChange={handleCheckOutChange}
                 defaultVal={checkOut}
+                minDate={new Date(checkIn.getTime() + 86400000)} // One day after check-in
               />
             </div>
             <div className="grid grid-cols-2 gap-6 mb-6">

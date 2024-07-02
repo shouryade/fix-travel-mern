@@ -5,14 +5,17 @@ import { setFormData, loadForm, loadFormSuccess, resetForm } from "../redux/form
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
+import DatePicker from "react-datepicker";
 
-function DateInput({ label, onChange, defaultVal }) {
+function DateInput({ label, onChange, defaultVal ,minDate}) {
   const changeFormat = (defaultVal) => {
-    const dateObject = new Date(defaultVal);
+    const originalDate = defaultVal;
+    const dateObject = new Date(originalDate);
     const year = dateObject.getFullYear();
     const month = String(dateObject.getMonth() + 1).padStart(2, '0');
     const day = String(dateObject.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
   };
 
   const formatDate = (date) => {
@@ -23,12 +26,14 @@ function DateInput({ label, onChange, defaultVal }) {
     <div className="flex flex-col group">
       <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
       <div className="relative">
-        <input
-          value={changeFormat(defaultVal) || " "}
+        <DatePicker
+        placeholder="max 8 guests"
+          selected={changeFormat(defaultVal) || " "}
           required
           type="date"
-          min={formatDate(new Date())}
-          className="bg-transparent border border-white p-2 text-white w-full appearance-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
+          dateFormat="dd/MM/yyyy"
+          minDate={minDate}
+         className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
           onChange={onChange}
         />
         <svg
@@ -45,6 +50,7 @@ function DateInput({ label, onChange, defaultVal }) {
   );
 }
 
+
 const GuestInput = ({ label, onChange, value }) => (
   <div className="flex flex-col group">
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
@@ -60,6 +66,7 @@ const GuestInput = ({ label, onChange, value }) => (
 );
 
 function MyComponent() {
+
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -84,7 +91,7 @@ function MyComponent() {
 
   useEffect(() => {
     dispatch(loadFormSuccess());
-  }, [dispatch]);
+  }, []);
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -96,9 +103,9 @@ function MyComponent() {
           setFormData({
             phoneNumber: phoneNo,
             numberOfGuests: noOfGuests,
-            checkInDate: checkIn,
-            checkOutDate: checkOut,
-            branchName: "Aangan, Manali",
+            checkInDate: checkIn.toISOString().split('T')[0],
+            checkOutDate: checkOut.toISOString().split('T')[0],
+            branchName: "Manali",
             roomName: "Aangan HomeStays",
           })
         );
@@ -107,9 +114,9 @@ function MyComponent() {
           from: location.pathname,
           phoneNumber: phoneNo,
           numberOfGuests: noOfGuests,
-          checkInDate: checkIn,
-          checkOutDate: checkOut,
-          branchName: "Aangan, Manali",
+          checkInDate: checkIn.toISOString().split('T')[0],
+          checkOutDate: checkOut.toISOString().split('T')[0],
+          branchName: "Manali",
           roomName: "Aangan HomeStays"
         };
 
@@ -127,7 +134,7 @@ function MyComponent() {
         numberOfGuests: noOfGuests,
         checkInDate: checkIn.toISOString().split('T')[0],
         checkOutDate: checkOut.toISOString().split('T')[0],
-        branchName: "Aangan, Manali",
+        branchName: "Manali",
         roomName: "Aangan HomeStays",
       };
 
@@ -136,7 +143,7 @@ function MyComponent() {
         const propToSend = {
           roomName: "Aangan HomeStays",
           logo: "/src/assets/aangan_logo.png",
-          background: "/src/assets/images_homes/img6.jpg"
+          background: "/src/assets/images_villa/img10.jpg"
         };
 
         navigate('/ThankYou', { state: propToSend });
@@ -150,34 +157,38 @@ function MyComponent() {
     }
   };
 
-  const handleCheckInChange = (e) => {
-    const date = new Date(e.target.value);
+  const handleCheckInChange = (date) => {
     setCheckInDate(date);
     if (checkOut && date >= checkOut) {
       setCheckOutDate(new Date(date.getTime() + 24 * 60 * 60 * 1000));
     }
   };
 
-  const handleCheckOutChange = (e) => {
-    const date = new Date(e.target.value);
+  const handleCheckOutChange = (date) => {
     if (date > checkIn) {
       setCheckOutDate(date);
     }
   };
 
-  const handlePhoneNumberChange = (e) => {
-    const input = e.target.value.replace(/\D/g, '').slice(0, 10);
-    setPhoneNumber(input);
-  };
-
-  const handleNumberOfGuestsChange = (e) => {
-    const input = Math.min(Math.max(parseInt(e.target.value) || 1, 1), 8);
-    setNumberOfGuests(input.toString());
-  };
-
   const handleLogo = () => {
     navigate('/');
+  }
+
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '');
+    if (value.length <= 10) {
+      setPhoneNumber(value);
+    }
   };
+
+  const handleGuestNumberChange = (e) => {
+    const value = parseInt(e.target.value);
+    if (value >= 1 && value <= 8) {
+      setNumberOfGuests(value);
+    }
+  };
+
+
 
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_homes/img4.jpg')"}}>
@@ -202,23 +213,30 @@ function MyComponent() {
           onSubmit={handleClick}
           className="bg-black bg-opacity-50 p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50">
             <div className="grid grid-cols-2 gap-6 mb-6">
-              <DateInput 
-              label="Select Check-in date" 
-              onChange={handleCheckInChange}
-              defaultVal={checkIn}
+              
+              <DateInput
+                label="Select Check-in date"
+                onChange={handleCheckInChange}
+                defaultVal={checkIn}
+                minDate={today}
+                
               />
 
+       
+              
               <DateInput
-               label="Select Check-out date"
-               onChange={handleCheckOutChange}
-               defaultVal={checkOut}
-               />
+                label="Select Check-out date"
+                onChange={handleCheckOutChange}
+                defaultVal={checkOut}
+                minDate={new Date(checkIn.getTime() + 86400000)} // One day after check-in
+              />
             </div>
             <div className="grid grid-cols-2 gap-6 mb-6">
               <GuestInput
                 label="Number of Guests"
                 value={noOfGuests}
-                onChange={handleNumberOfGuestsChange}
+                onChange={handleGuestNumberChange}
+                defaultVal={noOfGuests}
               />
               <div className="flex flex-col group">
                 <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">Mobile Number</label>
