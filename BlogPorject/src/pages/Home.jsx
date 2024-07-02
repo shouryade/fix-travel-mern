@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Footer from "../components/footer";
@@ -13,6 +13,7 @@ import axios from "axios";
 import { signoutSuccess } from "../redux/userSlice";
 import { resetForm } from "../redux/formSlice";
 
+
 function Home() {
   const today = new Date();
   const tomorrow = new Date(today);
@@ -26,6 +27,16 @@ function Home() {
   const [checkOutDate, setCheckOutDate] = useState(tomorrow);
   
   const propertiesRef = useRef(null);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-based month, so we add 1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  
+
+ 
 
   const handleClick = () => {
     navigate("/signin");
@@ -119,11 +130,14 @@ function Home() {
 
 
   const scrollToProperties = () => {
-    const a = dispatch(setFormData({
-      checkInDate: checkInDate,
-      checkOutDate: checkOutDate,
-      numberOfPeople: numberOfPeople.toString()
-    }))
+    console.log("test1");
+    console.log(checkInDate, checkOutDate, numberOfPeople);
+    dispatch(setFormData({
+      checkInDate: formatDate(checkInDate),
+      checkOutDate: formatDate(checkOutDate),
+      numberOfGuests: numberOfPeople.toString(),
+      loading : false
+    }));
     console.log(checkInDate, checkOutDate, numberOfPeople);
     console.log("test");
     console.log(numberOfPeople.toString());
@@ -132,16 +146,20 @@ function Home() {
 
 
   const handleCheckInChange = (date) => {
+    date.setHours(0, 0, 0, 0);
+    
     setCheckInDate(date);
     if (date >= checkOutDate) {
       const newCheckOutDate = new Date(date);
       newCheckOutDate.setDate(newCheckOutDate.getDate() + 1);
+      newCheckOutDate.setHours(0, 0, 0, 0); 
       setCheckOutDate(newCheckOutDate);
     }
   };
 
   const handleCheckOutChange = (date) => {
     if (date > checkInDate) {
+      date.setHours(0, 0, 0, 0);
       setCheckOutDate(date);
     }
   };

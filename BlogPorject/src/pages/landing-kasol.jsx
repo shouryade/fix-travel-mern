@@ -1,20 +1,20 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/footer";
-import {Link } from 'react-router-dom';
-import { setFormData } from "../redux/formSlice";
-import { useDispatch } from "react-redux";
+
 
 
 function RoomCard({ imageSrc, title, buttonText,linkTo }){
-  const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(setFormData({ roomName: title }));
-  };
+  const navigate = useNavigate();
+
+  const handleChange = () => {
+    navigate(linkTo)
+  }
 
 
   return (
     <div className="relative overflow-hidden aspect-square group">
-    <a href={linkTo}>
+    <div onClick={handleChange}>
     <img loading="lazy" src={imageSrc} alt="" className="object-cover absolute inset-0 w-full h-full transition-transform duration-300 group-hover:scale-110" />
     <div className="absolute inset-0 bg-black bg-opacity-0 flex flex-col justify-end p-4 sm:p-6 transition-all duration-300 group-hover:bg-opacity-60">
       <h3 className="text-white text-lg sm:text-2xl font-semibold mb-2 sm:mb-4 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">{title}</h3>
@@ -25,7 +25,7 @@ function RoomCard({ imageSrc, title, buttonText,linkTo }){
         </svg>
       </button>
     </div>
-    </a>
+    </div>
     
   </div>
   )
@@ -37,7 +37,7 @@ function RoomCard({ imageSrc, title, buttonText,linkTo }){
 
 
 function LandingKasol() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const rooms = [
     {
       imageSrc: "/src/assets/super-deluxe.png",
@@ -59,19 +59,24 @@ function LandingKasol() {
     }
   ];
 
+  const handleLogo = () => {
+    navigate('/');
+  }
+
+
   return (
     <div className="bg-slate-800 bg-opacity-100 min-h-screen min-w-full">
       <main className="container mx-auto px-4 sm:px-7 py-3.5 relative min-h-screen min-w-full">
         <img loading="lazy" src="/src/assets/bg-kasol.png" alt="" className="object-cover absolute inset-0 w-full h-full" />
         <div className="relative z-10">
-          <a href="/" className="block w-16 sm:w-24 aspect-square mb-4 sm:mb-8 hover:scale-110 transition-transform duration-300">
+          <div onClick={handleLogo} className="block w-16 sm:w-24 aspect-square mb-4 sm:mb-8 hover:scale-110 transition-transform duration-300">
             <img
               loading="lazy"
               src="/src/assets/logo.png"
               alt="Logo"
               className="w-full h-full object-contain"
             />
-          </a>
+          </div>
           <div className="flex flex-col sm:flex-row mb-8 sm:mb-12">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0">
               <h1 className="text-yellow-300 text-4xl sm:text-6xl font-bold">

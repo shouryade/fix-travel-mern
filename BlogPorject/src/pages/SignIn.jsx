@@ -9,6 +9,7 @@ import { signInStart,signInFailure,signInSuccess } from '../redux/userSlice'
 import OAuth from '../components/OAuth'
 import { useLocation } from 'react-router-dom';
 import { resetForm } from '../redux/formSlice'
+import { setFormData } from '../redux/formSlice'
 
 
 
@@ -57,15 +58,39 @@ function Login(){
   const {loading , error:errorMessage} = useSelector((state)=>state.user);
   const location = useLocation();
   const [verifiedMessage, setVerifiedMessage] = useState('');
+  const params = new URLSearchParams(location.search);
+  const a = location.state?.from?.a?.payload;
+  const queryString =  new URLSearchParams(a).toString();
+  const address = params.get('originalUrl');
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
+
 
 
    // Extract 'verified' query parameter from URL on component mount
    useEffect(() => {
-    const params = new URLSearchParams(location.search);
+    // console.log("We are checking the params")
+    // console.log(params.get('dataToBeSent'))
+    // console.log(params.get('originalUrl'))
+    // console.log(address)
+    
     if (params.get('verified') === 'true') {
       setVerifiedMessage('Your email has been verified. Please enter your details to login.');
     }
   }, [location.search]);
+
+
+  const handleThis = () => {
+  
+    const data = {
+      from : location.state?.from,
+      queryString: queryString
+    }
+    navigate('/signup', { state: { from: data} });
+  }
 
 
 
@@ -90,19 +115,36 @@ function Login(){
           'Content-Type': 'application/json'
         }
       })
-        
-        console.log('data sent successfully')
-        console.log(res);
+ 
         dispatch(signInSuccess(res.data)); 
         dispatch(resetForm());
+      
+
+        const from = location.state?.from || '/';
+
+        if(address){
+
+           dispatch(
+            setFormData({
+              phoneNo: params.get('phoneNumber'),
+              numberOfGuests: params.get('numberOfGuests'),
+              checkInDate: formatDate(params.get('checkInDate')),
+              checkOutDate: formatDate(params.get('checkOutDate'))
+           }))
+
+          navigate(address);
+        }
+        else{
+
+          navigate(from, { replace: true });
+        }
         
-        console.log('following is the response from the server')
-        console.log(signInSuccess(res.data));
-          navigate('/');
   
 
     }catch(e){
       dispatch(signInFailure(e.response.data.message));
+      console.log("Its aeee")
+      console.log(e);
 
     }
 
@@ -167,7 +209,7 @@ function Login(){
 
           <div className="text-center text-white mt-6">
             <p>Don't have an account?</p>
-            <a href="/signup" className="font-bold text-teal-400 hover:underline mt-2 inline-block transition-transform duration-300 hover:scale-105">
+            <a onClick={handleThis} className="font-bold text-teal-400 hover:underline mt-2 inline-block transition-transform duration-300 hover:scale-105">
               Sign up
             </a>
           </div>

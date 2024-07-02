@@ -87,6 +87,11 @@ function MyComponent() {
     navigate('/famenq');
   }
 
+  const handleLogo = () => {
+    navigate('/');
+  }
+  
+
   return (
     <div className="min-h-screen bg-slate-800 text-white relative">
       <div 
@@ -98,14 +103,17 @@ function MyComponent() {
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
                 style={{backgroundImage: "url('/src/assets/images_fam/title_bg.png')"}}>
 
-          <a href="/">
+          <div onClick={handleLogo}>
           <img 
             src={logo} 
             alt="Logo" 
             className="w-32 mb-4 transition-transform duration-300 transform hover:scale-110" 
           />
 
-          </a>
+          </div>
+          
+
+          
           
           <h1 className="text-4xl text-center">Family Suite</h1>
         </header>

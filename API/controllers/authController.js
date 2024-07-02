@@ -13,14 +13,16 @@ const Joi = require("joi");
 
 module.exports.signup = async (req , res) => {
     console.log('we are in the signup function in backend')
-    const { userName, email, password } = req.body;
+    const { userName, email, password,urlAddress, dataToBeSent} = req.body;
+
+    console.log("lets check the object")
+    console.log(dataToBeSent)
 
     
     
 
     if (!userName || !email || !password || userName === '' || email === '' || password === '') {
         return res.status(400).json({ message: 'Please fill all fields' });
-
     }
 
     var salt = bcrypt.genSaltSync(10);
@@ -47,7 +49,7 @@ module.exports.signup = async (req , res) => {
         const savedToken = await newToken.save();
         console.log('Leeee')
 
-        const URL = `${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}`;
+        const URL = `${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}?originalUrl=${urlAddress.from?.from}&${dataToBeSent}`;
         console.log('AAAA')
 
         await sendEmail(savedUser.email,"Verify Email",URL);
@@ -126,8 +128,7 @@ module.exports.signin = async (req, res) => {
 
 module.exports.googleSignIn = async (req,res) => {
     const {email,name,googlePhotoURL} = req.body;
-    console.log(req.body)
-    console.log('we are here')
+
 
     try{
         console.log('try')
@@ -157,7 +158,8 @@ module.exports.googleSignIn = async (req,res) => {
                 userName: name.toLowerCase().split(' ').join('') + Math.floor(Math.random() * 1000),
                 email: email,
                 password: hashedPassword,
-                profilePicture: googlePhotoURL
+                profilePicture: googlePhotoURL,
+                verified: true
 
             })
             console.log('newUser')

@@ -1,9 +1,21 @@
 import * as React from "react";
 import Footer from "../components/footer";
+import { useNavigate } from "react-router-dom";
 
-const RoomCard = ({ imageSrc, title, buttonText,linkTo }) => (
+const RoomCard = ({ imageSrc, title, buttonText,linkTo }) =>
+   {
+
+    const navigate = useNavigate();
+
+    const handleChange = () => {
+      navigate(linkTo)
+    }
+
+
+
+    return(
   <div className="relative overflow-hidden aspect-[16/10] md:aspect-[3/2] group">
-    <a href={linkTo}>
+    <div onClick={handleChange}>
     <img
       loading="lazy"
       src={imageSrc}
@@ -28,12 +40,16 @@ const RoomCard = ({ imageSrc, title, buttonText,linkTo }) => (
       </button>
     </div>
 
-    </a>
+    </div>
     
   </div>
-);
+)};
 
 function Manali() {
+  const navigate = useNavigate();
+  const handleLogo = () => {
+    navigate("/");
+  };
   const rooms = [
     {
       imageSrc: "/src/assets/aangan-villa.png",
@@ -60,14 +76,14 @@ function Manali() {
         />
         <div className="relative ">
         <div className="relative z-10">
-          <a href="/" className="block w-16 sm:w-20 md:w-24 aspect-square mb-4 sm:mb-6 md:mb-8 hover:scale-110 transition-transform duration-300">
+          <div onClick={handleLogo} className="block w-16 sm:w-20 md:w-24 aspect-square mb-4 sm:mb-6 md:mb-8 hover:scale-110 transition-transform duration-300">
             <img
               loading="lazy"
               src="/src/assets/aangan_logo.png"
               alt="Logo"
               className="w-full h-full object-contain"
             />
-          </a>
+          </div>
           <div className="flex flex-col md:flex-row mb-6 sm:mb-8 md:mb-10">
             <div className="w-full md:w-1/2 mb-4 md:mb-0">
               <h1 className="text-yellow-300 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">

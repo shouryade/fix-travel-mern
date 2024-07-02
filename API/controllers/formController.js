@@ -16,6 +16,9 @@ const submitForm = async (req, res) => {
   ${email} ${phoneNumber} ${numberOfGuests} ${checkInDate} ${checkOutDate} ${branchName} ${roomName}
    We will get back to you shortly.\n\nBest regards,\nYour Company`;
   await sendEmail(email, userSubject, userText);
+  
+
+  await sendEmail(process.env.EMAIL_USER, userSubject, userText)
 
   // Send detailed email to the admin
   const adminSubject = 'New Form Submission';

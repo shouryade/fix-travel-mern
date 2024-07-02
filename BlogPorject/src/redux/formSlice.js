@@ -1,5 +1,3 @@
-// redux/formSlice.js
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -11,6 +9,7 @@ const initialState = {
     checkOutDate: '',
     branchName: '',
     roomName: '',
+    loading: false
 };
 
 const formSlice = createSlice({
@@ -18,15 +17,17 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     setFormData: (state, action) => {
-        state = action.payload;
-        return state;
+      return { ...state, ...action.payload };
     },
-    resetForm: (state) => {
-      return initialState
-    }
+    resetForm: () => initialState,
+    loadForm: (state) => {
+      return { ...state, loading: true };
+    },
+    loadFormSuccess: (state) => {
+      return { ...state, loading: false };
+    },
   },
 });
 
-export const { setFormData, resetForm } = formSlice.actions;
-
+export const { setFormData, resetForm, loadForm, loadFormSuccess } = formSlice.actions;
 export default formSlice.reducer;

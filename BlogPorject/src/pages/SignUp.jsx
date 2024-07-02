@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import OAuth from '../components/OAuth';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { resetForm } from '../redux/formSlice';
+import { useLocation } from 'react-router-dom';
 const Button = ({ children, className, icon, ...props }) => (
   <button
     className={`flex justify-center items-center px-4 py-3 rounded-md w-full transition-all duration-300 hover:scale-105 ${className}`}
@@ -37,6 +38,13 @@ function Signup() {
   const { currentUser } = useSelector((state) => state.user);
   const [msg, setMsg] = useState("");
   const dispatch = useDispatch();
+  const location = useLocation();
+  const dataToBeSent = location.state?.from?.from?.a ? location.state?.from?.from?.a : null;
+  const queryString = new URLSearchParams(dataToBeSent).toString();
+  useEffect(() => {
+    console.log("UseEffect")
+    console.log(location.state?.from?.from?.a)
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +60,8 @@ function Signup() {
         userName: name.trim(),
         email: email.trim(),
         password: password.trim(),
+        urlAddress: location.state?.from ? location.state?.from : "/",
+        dataToBeSent: queryString
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -60,11 +70,10 @@ function Signup() {
       setMsg(res.data);
       setVariable(true);
       setLoading(false);
-      dispatch(resetForm());
       
       setTimeout(() => {
-        
-        navigate('/signin');
+
+        navigate('/signin', { state: { from: location.state?.from } });
       }, 10000);
     } catch (e) {
       setLoading(false);

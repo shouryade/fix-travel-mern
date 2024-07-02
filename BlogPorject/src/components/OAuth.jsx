@@ -6,10 +6,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function OAuth() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     
@@ -53,6 +55,7 @@ function OAuth() {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({prompt: 'select_account'})
         const auth = getAuth(app);
+        
     
         try{
     
@@ -71,7 +74,9 @@ function OAuth() {
             if(res.status === 200){
                 console.log('res.ok');
                 dispatch(signInSuccess(res.data));
-                navigate('/');
+                const from = location?.state?.from?.from || '/';
+                console.log(from)
+                navigate(from, { replace: true });
                 
             }
         }

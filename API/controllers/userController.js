@@ -45,6 +45,8 @@ module.exports.firstFunction = async (req,res) => {
 
 module.exports.verifyEmail = async (req, res) => {
     try {
+      console.log("The req is as follows")
+      console.log(req);
       const user = await User.findOne({ _id: req.params.id });
       if (!user) return res.status(400).send('Invalid link');
   
@@ -57,8 +59,10 @@ module.exports.verifyEmail = async (req, res) => {
       user.verified = true;
       await user.save();
       await Token.findByIdAndDelete(token._id); 
+      console.log("Checking the link")
+      console.log(req.query)
       
-      res.redirect('http://localhost:5173/signin/?verified=true');
+      res.redirect(`http://localhost:5173/signin/?verified=true&originalUrl=${req.query.originalUrl}&dataToBeSent=${req.query.dataToBeSent}&numberOfGuests=${req.query.numberOfGuests}&checkInDate=${req.query.checkInDate}&checkOutDate=${req.query.checkOutDate}&branchName=${req.query.branchName}&roomName=${req.query.roomName}`);
     } catch (error) {
       res.status(400).send(error.message);
       console.log(error);

@@ -5,7 +5,6 @@ import AboutUs from '../pages/AboutUs'
 import Dashboard from '../pages/Dashboard'
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
-import Projects from '../pages/Projects'
 import PrivateRouting from '../components/PrivateRouting'
 
 import Kasol from '../pages/landing-kasol.jsx'
@@ -65,7 +64,6 @@ function Routing() {
 
       <Route path="/signin" element={<SignIn />} /> 
       <Route path="/signup" element={<SignUp />} />  
-      <Route path="/projects" element={<Projects />} /> 
       <Route path="/about" element={<AboutUs />} />    
       <Route path="/user/:id/verify/:token" element={<EmailVerify/>}></Route>
  
@@ -78,7 +76,7 @@ function Routing() {
       <Route path="/kasol" element={<Kasol />} />    
       <Route path="/manali" element={<Manali />} />   
       <Route path="/infosd" element={<SD />} />  
-      <Route path="/infolux" element={<Lux />} /> 
+      <Route path="/kasol/infolux" element={<Lux />} /> 
       <Route path="/infofam" element={<Fam />} />     
       <Route path="/infovilla" element={<Villa />} />  
       <Route path="/infohomes" element={<Homes />} /> 
