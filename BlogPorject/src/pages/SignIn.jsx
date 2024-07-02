@@ -12,9 +12,6 @@ import { resetForm } from '../redux/formSlice'
 import { setFormData } from '../redux/formSlice'
 
 
-
-
-
 const Button = ({ children, className, icon, ...props }) => (
   <button
     className={`flex justify-center items-center px-4 py-3 rounded-md w-full transition-all duration-300 hover:scale-105 ${className}`}
@@ -158,6 +155,11 @@ function Login(){
     }
 
   }
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      handleSubmit(e);
+    }
+    }
 
 
   return(
@@ -180,7 +182,7 @@ function Login(){
                 Your email has been verified. Please enter your details to login.
               </div>
             )}
-        <form className="bg-black bg-opacity-60 rounded-xl border border-white border-opacity-20 p-6 text-lg" onSubmit={handleSubmit}>
+        <form className="bg-black bg-opacity-60 rounded-xl border border-white border-opacity-20 p-6 text-lg" onSubmit={handleSubmit} >
           <h2 className="font-bold text-white text-2xl mb-6 text-left">Log in</h2>
           <OAuth/>
           <div className="my-4 flex items-center">
@@ -191,6 +193,7 @@ function Login(){
           <InputField 
           value={email}
           onChange={(e)=>{setEmail(e.target.value)}}
+          onKeyPress={handleKeyPress}
           label="Email" 
           type="email" 
           required
@@ -201,6 +204,7 @@ function Login(){
           <InputField 
           value={password}
           onChange={(e)=>{setPassword(e.target.value)}}
+          onKeyPress={handleKeyPress}
           label="Password" 
           type="password" 
           required
@@ -209,6 +213,7 @@ function Login(){
 
           <Button 
           disabled={loading}
+          onKeyPress={handleKeyPress}
           className="mt-6 font-bold text-white bg-teal-400 bg-opacity-60 hover:bg-opacity-80">
             {loading ? (<Spinner animation="border" role="status">
                           <span className="visually-hidden">Loading...</span>

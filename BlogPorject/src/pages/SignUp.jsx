@@ -105,6 +105,12 @@ function Signup() {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      handleSubmit(e);
+    }
+    }
+
   return (
     <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">
       <img src="/src/assets/signin_bg.png" className="absolute inset-0 w-full h-full object-cover" alt="Background" />
@@ -132,6 +138,7 @@ function Signup() {
             <InputField
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onKeyPress={handleKeyPress}
               required
               label="Name"
               type="text"
@@ -140,6 +147,7 @@ function Signup() {
             <InputField
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyPress={handleKeyPress}
               required
               label="Email"
               type="email"
@@ -148,6 +156,7 @@ function Signup() {
             <InputField
               value={password}
               onChange={handlePasswordChange}
+              onKeyPress={handleKeyPress}
               required
               label="Password"
               type="password"
@@ -156,6 +165,7 @@ function Signup() {
             />
             <Button
               disabled={loading || !!passwordError}
+              onKeyPress={handleKeyPress}
               className="mt-6 font-bold text-white bg-teal-400 bg-opacity-60 hover:bg-opacity-80"
             >
               {loading ? (<Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>) : 'Sign Up'}
