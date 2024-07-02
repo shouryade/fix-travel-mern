@@ -36,11 +36,8 @@ function ThankYouPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const propsToSend = location.state || {};
-  useEffect(()=>{
-    console.log("Lets test location")
-    console.log(location);
-  })
-
+  
+  
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: `url(${propsToSend.background})`}}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm flex flex-col items-center justify-center px-4">

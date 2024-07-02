@@ -118,7 +118,7 @@ function MyComponent() {
           roomName: "Super Deluxe Room"
         };
 
-        console.log("data is", data);
+
 
         navigate('/signin', { state: { from: data } });
       } catch (e) {

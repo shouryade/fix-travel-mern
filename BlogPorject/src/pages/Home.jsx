@@ -49,8 +49,7 @@ function Home() {
         dispatch(resetForm());
     }
     catch(error){
-      console.log("There is an error signing out");
-      console.log(error);
+
     }
   };
 
@@ -132,17 +131,14 @@ function Home() {
 
 
   const scrollToProperties = () => {
-    console.log("test1");
-    console.log(checkInDate, checkOutDate, numberOfPeople);
+
     dispatch(setFormData({
       checkInDate: formatDate(checkInDate),
       checkOutDate: formatDate(checkOutDate),
       numberOfGuests: numberOfPeople.toString(),
       loading : false
     }));
-    console.log(checkInDate, checkOutDate, numberOfPeople);
-    console.log("test");
-    console.log(numberOfPeople.toString());
+  
     propertiesRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 

@@ -74,10 +74,7 @@ function Login(){
 
    // Extract 'verified' query parameter from URL on component mount
    useEffect(() => {
-    // console.log("We are checking the params")
-    // console.log(params.get('dataToBeSent'))
-    // console.log(params.get('originalUrl'))
-    // console.log(address)
+
     
     if (params.get('verified') === 'true') {
       setVerifiedMessage('Your email has been verified. Please enter your details to login.');
@@ -92,7 +89,7 @@ function Login(){
       from : location.state?.from,
       queryString: queryString
     }
-    console.log("We are in the SignIn page in the handleThis function,the data here is" ,data )
+  
     navigate('/signup', { state: { from: data} });
   }
 
@@ -104,13 +101,13 @@ function Login(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Lets test this")
+
    
     if(email === '' || password === ''){
       return dispatch(signInFailure('Please fill all fields')) ;
     }
     try{
-      console.log("1")
+    
       dispatch(signInStart());
       const res = await axios.post('http://localhost:3000/api/auth/signin', {
         email: email.trim(),
@@ -123,19 +120,16 @@ function Login(){
       })
 
       
-      console.log("2")
+      
         dispatch(signInSuccess(res.data)); 
         dispatch(resetForm());
       
-        console.log("3")
+   
         const from = location.state?.from || '/';
-        console.log("The add is",address)
-        console.log("Location.search",location.search);
+
 
         if(address !== 'undefined' && address !== null){
       
-          console.log("4")
-        
 
            dispatch(
             setFormData({
@@ -144,8 +138,7 @@ function Login(){
               checkInDate: formatDate(params.get('checkInDate'))|| "",
               checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }))
-           console.log("5")
-           console.log("Thsi is the address",address)
+
            const data = {
             from: address,
             phoneNumber: params.get('phoneNumber')|| "",
@@ -153,12 +146,11 @@ function Login(){
             checkInDate: formatDate(params.get('checkInDate'))|| "",
             checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }
-           console.log("Before navigating",data);
+
           navigate(address , {state : data});
         }
         else{
-          console.log("6");
-          console.log("This is from" , from)
+
           navigate(from, { replace: true });
         }
         
@@ -166,8 +158,7 @@ function Login(){
 
     }catch(e){
       dispatch(signInFailure(e.response.data.message));
-      console.log("Its aeee")
-      console.log(e);
+
 
     }
 

@@ -40,10 +40,7 @@ function Signup() {
   const dataToBeSent = location.state?.from?.from?.a ? location.state?.from?.from?.a : null;
   const queryString = new URLSearchParams(dataToBeSent).toString();
 
-  useEffect(() => {
-    console.log("UseEffect");
-    console.log(location.state?.from?.from?.a);
-  }, [location.state]);
+
 
   const validatePassword = (password) => {
     const minLength = 8;
@@ -81,7 +78,7 @@ function Signup() {
       return;
     }
     try {
-      console.log("We are in the signup page, the data that is being sent is urlAddress:",location.state?.from," datatToBeSent:",queryString );
+    
       setErrorMessage(null);
       const res = await axios.post('http://localhost:3000/api/auth/signup', {
         userName: name.trim(),
