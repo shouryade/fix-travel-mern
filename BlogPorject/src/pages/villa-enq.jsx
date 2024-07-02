@@ -7,33 +7,22 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import DatePicker from "react-datepicker";
 
-function DateInput({ label, onChange, defaultVal ,minDate}) {
+function DateInput({ label, onChange, defaultVal, minDate }) {
   const changeFormat = (defaultVal) => {
-    const originalDate = defaultVal;
-    const dateObject = new Date(originalDate);
-    const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
-    const day = String(dateObject.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
-  };
-
-  const formatDate = (date) => {
-    return date.toISOString().split('T')[0];
+    const dateObject = new Date(defaultVal);
+    return dateObject;
   };
 
   return (
     <div className="flex flex-col group">
       <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
-      <div className="relative">
+      <div className="relative w-1/2">
         <DatePicker
-        placeholder="max 8 guests"
-          selected={changeFormat(defaultVal) || " "}
+          selected={changeFormat(defaultVal)}
           required
-          type="date"
           dateFormat="dd/MM/yyyy"
           minDate={minDate}
-         className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
+          className="w-full bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
           onChange={onChange}
         />
         <svg
@@ -50,19 +39,23 @@ function DateInput({ label, onChange, defaultVal ,minDate}) {
   );
 }
 
-const GuestInput = ({ label, onChange, value }) => (
-  <div className="flex flex-col group">
-    <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
-    <input
-      className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
-      value={value}
-      onChange={onChange}
-      type="number"
-      min="1"
-      max="8"
-    />
-  </div>
-);
+const GuestInput = ({ label, onChange, value }) => {
+  return (
+    <div className="flex flex-col group">
+      <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
+      <input
+        placeholder="Max 8 Guests"
+        required
+        type="number"
+        className="w-full bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
+        value={value}
+        onChange={onChange}
+        min="1"
+        max="8"
+      />
+    </div>
+  );
+}
 
 function MyComponent() {
   const today = new Date();
@@ -180,8 +173,8 @@ function MyComponent() {
   };
 
   const handleGuestNumberChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (value >= 1 && value <= 8) {
+    const value = e.target.value;
+    if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 8)) {
       setNumberOfGuests(value);
     }
   };
@@ -189,47 +182,45 @@ function MyComponent() {
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_villa/img8.jpg')"}}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
-        <header className="flex flex-col items-center p-8 text-white">
+        <header className="flex flex-col items-center p-4 md:p-8 text-white">
           <div onClick={handleLogo}>
             <img 
               src={logo} 
               alt="Logo" 
-              className="w-32 mb-4 transition-transform duration-300 hover:scale-110" 
+              className="w-24 md:w-32 mb-4 transition-transform duration-300 hover:scale-110" 
             />
           </div>
           
-          <h1 className="text-4xl text-center font-light tracking-wide hover:scale-105 ">
-            <span className="inline-block transition-transform duration-300 ">Aangan</span> <br /> 
-            <span className="inline-block transition-transform duration-300 ">Villa</span>
+          <h1 className="text-3xl md:text-4xl text-center font-light tracking-wide hover:scale-105">
+            <span className="inline-block transition-transform duration-300">Aangan</span> <br /> 
+            <span className="inline-block transition-transform duration-300">Villa</span>
           </h1>
         </header>
         
-        <section className="flex-grow flex items-center justify-center">
+        <section className="flex-grow flex items-center justify-center p-4">
           <form 
           onSubmit={handleClick}
-          className="bg-black bg-opacity-50 p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50">
-            <div className="grid grid-cols-2 gap-6 mb-6">
-            <DateInput
+          className="bg-black bg-opacity-50 p-6 md:p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <DateInput
                 label="Select Check-in date"
                 onChange={handleCheckInChange}
                 defaultVal={checkIn}
                 minDate={today}
-                
               />
 
-            <DateInput
+              <DateInput
                 label="Select Check-out date"
                 onChange={handleCheckOutChange}
                 defaultVal={checkOut}
-                minDate={new Date(checkIn.getTime() + 86400000)} // One day after check-in
+                minDate={new Date(checkIn.getTime() + 86400000)}
               />
             </div>
-            <div className="grid grid-cols-2 gap-6 mb-6">
-            <GuestInput
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <GuestInput
                 label="Number of Guests"
                 value={noOfGuests}
                 onChange={handleGuestNumberChange}
-                defaultVal={noOfGuests}
               />
               <div className="flex flex-col group">
                 <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">Mobile Number</label>
@@ -240,6 +231,7 @@ function MyComponent() {
                   type="tel"
                   pattern="[0-9]{10}"
                   maxLength="10"
+                  placeholder="Enter 10 digit mobile number"
                   className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
                 />
               </div>
