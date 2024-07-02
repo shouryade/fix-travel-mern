@@ -100,11 +100,13 @@ function Login(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Lets test this")
    
     if(email === '' || password === ''){
       return dispatch(signInFailure('Please fill all fields')) ;
     }
     try{
+      console.log("1")
       dispatch(signInStart());
       const res = await axios.post('http://localhost:3000/api/auth/signin', {
         email: email.trim(),
@@ -115,27 +117,34 @@ function Login(){
           'Content-Type': 'application/json'
         }
       })
- 
+
+      
+      console.log("2")
         dispatch(signInSuccess(res.data)); 
         dispatch(resetForm());
       
-
+        console.log("3")
         const from = location.state?.from || '/';
+        console.log("The add is",address)
+        console.log("Location.search",location.search);
 
-        if(address){
+        if(address !== 'undefined' && address !== null){
+      
+          console.log("4")
+        
 
            dispatch(
             setFormData({
-              phoneNo: params.get('phoneNumber'),
-              numberOfGuests: params.get('numberOfGuests'),
-              checkInDate: formatDate(params.get('checkInDate')),
-              checkOutDate: formatDate(params.get('checkOutDate'))
+              phoneNo: params.get('phoneNumber')|| "",
+              numberOfGuests: params.get('numberOfGuests') || "",
+              checkInDate: formatDate(params.get('checkInDate'))|| "",
+              checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }))
-
+           console.log("5")
           navigate(address);
         }
         else{
-
+          console.log("6");
           navigate(from, { replace: true });
         }
         
