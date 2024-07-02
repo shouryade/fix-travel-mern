@@ -31,7 +31,7 @@ module.exports.signup = async (req , res) => {
         password: hashedPassword,
         createdAt: Date.now()
     })
-    console.log(newUser)
+
 
     try{
 
@@ -47,15 +47,17 @@ module.exports.signup = async (req , res) => {
 
 
         await sendEmail(savedUser.email,"Verify Email",URL);
+        console.log("aaa");
 
         res.status(201).json('An Email sent to your account for verification');
     }catch(e){
         if (e.code === 11000) {
+            console.log(e.code);
             // Duplicate key error
-            if (error.keyValue.email) {
+            if (e.keyValue.email) {
                 return res.status(400).send({ message: 'Email is already in use' });
             }
-            if (error.keyValue.userName) {
+            if (e.keyValue.userName) {
                 return res.status(400).send({ message: 'Username is already in use' });
             }
         }

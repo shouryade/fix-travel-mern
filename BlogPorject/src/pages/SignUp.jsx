@@ -93,6 +93,8 @@ function Signup() {
           'Content-Type': 'application/json',
         },
       });
+      
+      
       setVariable(true);
       setLoading(false);
       
@@ -101,10 +103,8 @@ function Signup() {
       }, 10000);
     } catch (e) {
       setLoading(false);
-
       setErrorMessage(e.response?.data?.message || 'An error occurred');
-      console.log("error");
-      console.log(e)
+
     }
   };
 
