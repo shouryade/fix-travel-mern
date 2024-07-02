@@ -1,24 +1,18 @@
-
-
 import logo from '/src/assets/aangan_logo.png';
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData } from "../redux/formSlice";
+import { setFormData, loadForm, loadFormSuccess, resetForm } from "../redux/formSlice";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
-import { loadForm, loadFormSuccess } from "../redux/formSlice";
-import { resetForm } from "../redux/formSlice";
 
 function DateInput({ label, onChange, defaultVal }) {
   const changeFormat = (defaultVal) => {
-    const originalDate = defaultVal;
-    const dateObject = new Date(originalDate);
+    const dateObject = new Date(defaultVal);
     const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
     const day = String(dateObject.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
+    return `${year}-${month}-${day}`;
   };
 
   const formatDate = (date) => {
@@ -51,25 +45,21 @@ function DateInput({ label, onChange, defaultVal }) {
   );
 }
 
-const GuestInput = ({ label, onChange, defaultVal }) => (
+const GuestInput = ({ label, onChange, value }) => (
   <div className="flex flex-col group">
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
     <input
       className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
-      value={defaultVal}
+      value={value}
       onChange={onChange}
+      type="number"
       min="1"
+      max="8"
     />
   </div>
 );
 
-
-
 function MyComponent() {
-
-
-
-
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -92,16 +82,13 @@ function MyComponent() {
     if (form.phoneNumber) setPhoneNumber(form.phoneNumber);
   }, [form]);
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(loadFormSuccess());
-
-  },[])
+  }, [dispatch]);
 
   const handleClick = async (event) => {
     event.preventDefault();
     dispatch(loadForm());
-
-    
 
     if (!currentUser) {
       try {
@@ -163,40 +150,46 @@ function MyComponent() {
     }
   };
 
-  const handleCheckInChange = (date) => {
+  const handleCheckInChange = (e) => {
+    const date = new Date(e.target.value);
     setCheckInDate(date);
     if (checkOut && date >= checkOut) {
-      setCheckOutDate(new Date(date.getTime() + 24 * 60 * 60 * 1000)); // Set check-out date to one day after check-in date
+      setCheckOutDate(new Date(date.getTime() + 24 * 60 * 60 * 1000));
     }
   };
 
-  const handleCheckOutChange = (date) => {
+  const handleCheckOutChange = (e) => {
+    const date = new Date(e.target.value);
     if (date > checkIn) {
       setCheckOutDate(date);
     }
   };
 
+  const handlePhoneNumberChange = (e) => {
+    const input = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setPhoneNumber(input);
+  };
+
+  const handleNumberOfGuestsChange = (e) => {
+    const input = Math.min(Math.max(parseInt(e.target.value) || 1, 1), 8);
+    setNumberOfGuests(input.toString());
+  };
+
   const handleLogo = () => {
     navigate('/');
-  }
-
-
-
+  };
 
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_homes/img4.jpg')"}}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
         <header className="flex flex-col items-center p-8 text-white">
           <div onClick={handleLogo}>
-          <img 
+            <img 
               src={logo} 
               alt="Logo" 
               className="w-32 mb-4 transition-transform duration-300 hover:scale-110" 
             />
-          
-
           </div>
-            
           
           <h1 className="text-4xl text-center font-light tracking-wide hover:scale-105 ">
             <span className="inline-block transition-transform duration-300 ">Aangan</span> <br /> 
@@ -210,35 +203,32 @@ function MyComponent() {
           className="bg-black bg-opacity-50 p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50">
             <div className="grid grid-cols-2 gap-6 mb-6">
               <DateInput 
-
               label="Select Check-in date" 
-              onChange={(e) => handleCheckInChange(e.target.value)}
+              onChange={handleCheckInChange}
               defaultVal={checkIn}
               />
 
               <DateInput
                label="Select Check-out date"
-               onChange={(e) => handleCheckOutChange(e.target.value)}
+               onChange={handleCheckOutChange}
                defaultVal={checkOut}
-               
                />
-
             </div>
-
             <div className="grid grid-cols-2 gap-6 mb-6">
-            <GuestInput
+              <GuestInput
                 label="Number of Guests"
                 value={noOfGuests}
-                onChange={(e) => setNumberOfGuests(e.target.value)}
-                defaultVal={noOfGuests}
+                onChange={handleNumberOfGuestsChange}
               />
               <div className="flex flex-col group">
                 <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">Mobile Number</label>
                 <input
                   required
                   value={phoneNo}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  onChange={handlePhoneNumberChange}
                   type="tel"
+                  pattern="[0-9]{10}"
+                  maxLength="10"
                   className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
                 />
               </div>

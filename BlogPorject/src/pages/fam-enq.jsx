@@ -8,13 +8,12 @@ import Spinner from 'react-bootstrap/Spinner';
 import { loadForm, loadFormSuccess } from "../redux/formSlice";
 import { resetForm } from "../redux/formSlice";
 
-
 function DateInput({ label, onChange, defaultVal }) {
   const changeFormat = (defaultVal) => {
     const originalDate = defaultVal;
     const dateObject = new Date(originalDate);
     const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
     const day = String(dateObject.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
@@ -54,17 +53,18 @@ const GuestInput = ({ label, onChange, defaultVal }) => (
   <div className="flex flex-col group">
     <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
     <input
+      required
+      type="number"
       className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
       value={defaultVal}
       onChange={onChange}
       min="1"
+      max="8"
     />
   </div>
 );
 
-
 function MyComponent() {
-
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -87,10 +87,9 @@ function MyComponent() {
     if (form.phoneNumber) setPhoneNumber(form.phoneNumber);
   }, [form]);
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(loadFormSuccess());
-
-  },[])
+  }, []);
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -157,21 +156,35 @@ function MyComponent() {
   };
 
   const handleCheckInChange = (date) => {
-    setCheckInDate(date);
-    if (checkOut && date >= checkOut) {
-      setCheckOutDate(new Date(date.getTime() + 24 * 60 * 60 * 1000)); // Set check-out date to one day after check-in date
+    setCheckInDate(new Date(date));
+    if (checkOut && new Date(date) >= checkOut) {
+      setCheckOutDate(new Date(new Date(date).getTime() + 24 * 60 * 60 * 1000));
     }
   };
 
   const handleCheckOutChange = (date) => {
-    if (date > checkIn) {
-      setCheckOutDate(date);
+    if (new Date(date) > checkIn) {
+      setCheckOutDate(new Date(date));
     }
   };
 
-  const handleLogo = ( ) => {
+  const handleLogo = () => {
     navigate('/');
   }
+
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '');
+    if (value.length <= 10) {
+      setPhoneNumber(value);
+    }
+  };
+
+  const handleGuestNumberChange = (e) => {
+    const value = parseInt(e.target.value);
+    if (value >= 1 && value <= 8) {
+      setNumberOfGuests(value);
+    }
+  };
 
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_lux/img6.jpg')"}}>
@@ -185,7 +198,6 @@ function MyComponent() {
             />
           </div>
           
-          
           <h1 className="text-4xl text-center font-light tracking-wide hover:scale-105 ">
             <span className="inline-block transition-transform duration-300 ">Family</span> <br /> 
             <span className="inline-block transition-transform duration-300 ">Suite</span>
@@ -194,29 +206,27 @@ function MyComponent() {
         
         <section className="flex-grow flex items-center justify-center">
           <form
-          onSubmit={handleClick}
-           className="bg-black bg-opacity-50 p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50">
+            onSubmit={handleClick}
+            className="bg-black bg-opacity-50 p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50">
             <div className="grid grid-cols-2 gap-6 mb-6">
               <DateInput 
-              label="Select Check-in date"
-              onChange={(e) => handleCheckInChange(e.target.value)}
-              defaultVal={checkIn}
-
+                label="Select Check-in date"
+                onChange={(e) => handleCheckInChange(e.target.value)}
+                defaultVal={checkIn}
               />
 
               <DateInput
                label="Select Check-out date"
                onChange={(e) => handleCheckOutChange(e.target.value)}
                defaultVal={checkOut}
-               />
-
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-6 mb-6">
-            <GuestInput
+              <GuestInput
                 label="Number of Guests"
                 value={noOfGuests}
-                onChange={(e) => setNumberOfGuests(e.target.value)}
+                onChange={handleGuestNumberChange}
                 defaultVal={noOfGuests}
               />
               <div className="flex flex-col group">
@@ -224,8 +234,10 @@ function MyComponent() {
                 <input
                   required
                   value={phoneNo}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  onChange={handlePhoneNumberChange}
                   type="tel"
+                  pattern="[0-9]{10}"
+                  maxLength="10"
                   className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
                 />
               </div>
