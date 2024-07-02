@@ -101,7 +101,10 @@ function Signup() {
       }, 10000);
     } catch (e) {
       setLoading(false);
+
       setErrorMessage(e.response?.data?.message || 'An error occurred');
+      console.log("error");
+      console.log(e)
     }
   };
 
@@ -109,7 +112,7 @@ function Signup() {
     if(e.key === 'Enter'){
       handleSubmit(e);
     }
-    }
+  }
 
   return (
     <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">

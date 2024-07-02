@@ -67,8 +67,8 @@ function OAuth() {
                 name: resultsFromGoogle.user.displayName,
                 email: resultsFromGoogle.user.email,
                 googlePhotoURL: resultsFromGoogle.user.photoURL
-
             })
+            
             console.log('following is the response from the server')
             console.log(res);
             if(res.status === 200){

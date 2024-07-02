@@ -61,7 +61,7 @@ const mapStyles = [
 
 const Footer = () => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDRmumS6C_2FrI3-qfFY5yNmBf2FWAo0M4",
+    googleMapsApiKey: import.meta.env.GOOGLEAPIKEY,
     libraries: ['marker'],
   });
 

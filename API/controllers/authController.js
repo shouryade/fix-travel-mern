@@ -50,7 +50,16 @@ module.exports.signup = async (req , res) => {
 
         res.status(201).json('An Email sent to your account for verification');
     }catch(e){
-        console.log('wtf');
+        if (e.code === 11000) {
+            // Duplicate key error
+            if (error.keyValue.email) {
+                return res.status(400).send({ message: 'Email is already in use' });
+            }
+            if (error.keyValue.userName) {
+                return res.status(400).send({ message: 'Username is already in use' });
+            }
+        }
+    
         res.status(400).json({message: e.message});
     }
 }
