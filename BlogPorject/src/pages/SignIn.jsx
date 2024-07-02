@@ -86,11 +86,13 @@ function Login(){
 
 
   const handleThis = () => {
+    
   
     const data = {
       from : location.state?.from,
       queryString: queryString
     }
+    console.log("We are in the SignIn page in the handleThis function,the data here is" ,data )
     navigate('/signup', { state: { from: data} });
   }
 
@@ -143,10 +145,20 @@ function Login(){
               checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }))
            console.log("5")
-          navigate(address);
+           console.log("Thsi is the address",address)
+           const data = {
+            from: address,
+            phoneNumber: params.get('phoneNumber')|| "",
+            numberOfGuests: params.get('numberOfGuests') || "",
+            checkInDate: formatDate(params.get('checkInDate'))|| "",
+            checkOutDate: formatDate(params.get('checkOutDate')) || ""
+           }
+           console.log("Before navigating",data);
+          navigate(address , {state : data});
         }
         else{
           console.log("6");
+          console.log("This is from" , from)
           navigate(from, { replace: true });
         }
         

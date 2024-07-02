@@ -143,7 +143,7 @@ function MyComponent() {
         const propToSend = {
           roomName: "Aangan HomeStays",
           logo: "/src/assets/aangan_logo.png",
-          background: "/src/assets/images_villa/img10.jpg"
+          background: "/src/assets/images_homes/img10.jpg"
         };
 
         navigate('/ThankYou', { state: propToSend });

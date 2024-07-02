@@ -139,7 +139,7 @@ function MyComponent() {
       try {
         const res = await axios.post('http://localhost:3000/api/forms/submit-form', formData);
         const propToSend = {
-          roomName: "Super Deluxe Room",
+          roomName: "Aangan-Villa",
           logo: "/src/assets/aangan_logo.png",
           background: "/src/assets/images_villa/img5.jpg"
         };

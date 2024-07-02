@@ -17,8 +17,6 @@ module.exports.firstFunction = async (req,res) => {
 
         res.status(200).json({message: 'Email verified successfully'});
 
-
-
     }catch(e){
         console.log("OOps");
         res.status(400).json({message: e.message});
@@ -46,7 +44,7 @@ module.exports.verifyEmail = async (req, res) => {
       console.log("Checking the link")
       console.log(req.query)
       
-      res.redirect(`http://localhost:5173/signin/?verified=true&originalUrl=${req.query.originalUrl}&dataToBeSent=${req.query.dataToBeSent}&numberOfGuests=${req.query.numberOfGuests}&checkInDate=${req.query.checkInDate}&checkOutDate=${req.query.checkOutDate}&branchName=${req.query.branchName}&roomName=${req.query.roomName}`);
+      res.redirect(`http://localhost:5173/signin/?verified=true&originalUrl=${req.query.originalUrl}&dphoneNumber=${req.query.phoneNumber}&numberOfGuests=${req.query.numberOfGuests}&checkInDate=${req.query.checkInDate}&checkOutDate=${req.query.checkOutDate}&branchName=${req.query.branchName}&roomName=${req.query.roomName}`);
     } catch (error) {
       res.status(400).send(error.message);
       console.log(error);

@@ -8,8 +8,8 @@ function cleanupUnverifiedUsers() {
     cron.schedule('0 * * * *', async () => {
         try {
             const oneHourAgo = new Date(Date.now() - 3600 * 1000);
-            await User.deleteMany({ verified: false, createdAt: { $lt: oneHourAgo } });
-            console.log('Deleted unverified users older than 1 hour');
+            const deletedUsers = await User.deleteMany({ verified: false, createdAt: { $lt: oneHourAgo } });
+            console.log('Deleted unverified users older than 1 hour',deletedUsers);
         } catch (error) {
             console.error('Error deleting unverified users:', error);
         }

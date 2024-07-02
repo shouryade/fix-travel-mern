@@ -14,6 +14,8 @@ const Joi = require("joi");
 module.exports.signup = async (req , res) => {
     console.log('we are in the signup function in backend')
     const { userName, email, password,urlAddress, dataToBeSent} = req.body;
+    console.log("The backend says username:",userName,"email:",email,"password:",password,"urlAddress.from.from:",urlAddress.from.from);
+    console.log(urlAddress.from.from , urlAddress.from.phoneNumber , urlAddress.from.numberOfGuests , urlAddress.from.checkInDate , urlAddress.from.checkOutDate , urlAddress.from.branchName , urlAddress.from.roomName);
 
     
     
@@ -43,7 +45,7 @@ module.exports.signup = async (req , res) => {
         });
         const savedToken = await newToken.save();
 
-        const URL = `${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}?originalUrl=${urlAddress.from?.from}&${dataToBeSent}`;
+        const URL = `${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}?originalUrl=${urlAddress.from?.from}&phoneNumber=${urlAddress.from.phoneNUmber}&numberOfGuests=${urlAddress.from.numberOfGuests}&checkInDate=${urlAddress.from.checkInDate}&checkOutDate=${urlAddress.from.checkOutDate}&branchName=${urlAddress.from.branchName}&roomName=${urlAddress.from.roomName}`;
 
 
         await sendEmail(savedUser.email,"Verify Email",URL);

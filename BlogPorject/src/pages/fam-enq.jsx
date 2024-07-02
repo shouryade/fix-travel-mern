@@ -144,7 +144,7 @@ function MyComponent() {
         const propToSend = {
           roomName: "Family Suite",
           logo: "/src/assets/logo.png",
-          background: "/src/assets/images_lux/img6.jpg"
+          background: "/src/assets/images_fam/img4.jpg"
         };
 
         navigate('/ThankYou', { state: propToSend });

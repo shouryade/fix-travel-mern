@@ -81,6 +81,7 @@ function Signup() {
       return;
     }
     try {
+      console.log("We are in the signup page, the data that is being sent is urlAddress:",location.state?.from," datatToBeSent:",queryString );
       setErrorMessage(null);
       const res = await axios.post('http://localhost:3000/api/auth/signup', {
         userName: name.trim(),
@@ -104,7 +105,6 @@ function Signup() {
     } catch (e) {
       setLoading(false);
       setErrorMessage(e.response?.data?.message || 'An error occurred');
-
     }
   };
 
