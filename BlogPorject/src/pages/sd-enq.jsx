@@ -1,42 +1,25 @@
 import React, { useState, useEffect } from "react";
 import logo from '/src/assets/logo.png';
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData } from "../redux/formSlice";
+import { setFormData, loadForm, loadFormSuccess, resetForm } from "../redux/formSlice";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
-import { loadForm, loadFormSuccess } from "../redux/formSlice";
-import { resetForm } from "../redux/formSlice";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-function DateInput({ label, onChange, defaultVal ,minDate}) {
-  const changeFormat = (defaultVal) => {
-    const originalDate = defaultVal;
-    const dateObject = new Date(originalDate);
-    const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
-    const day = String(dateObject.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
-  };
-
-  const formatDate = (date) => {
-    return date.toISOString().split('T')[0];
-  };
-
+function DateInput({ label, onChange, value, minDate }) {
   return (
-    <div className="flex flex-col group">
+    <div className="flex flex-col group w-full">
       <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
-      <div className="relative">
+      <div className="relative w-1/2">
         <DatePicker
-          placeholder="max 8 guests"
-          selected={changeFormat(defaultVal) || " "}
+          selected={value}
+          onChange={onChange}
           required
-          type="date"
           dateFormat="dd/MM/yyyy"
           minDate={minDate}
-         className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
-          onChange={onChange}
+          className="w-full bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
         />
         <svg
           className="w-6 h-6 text-white absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none transition-colors duration-300 group-hover:text-cyan-300"
@@ -52,30 +35,22 @@ function DateInput({ label, onChange, defaultVal ,minDate}) {
   );
 }
 
-
-
-
-
-
-
-
-const GuestInput = ({ label, onChange, defaultVal }) => {
-  console.log("guests",defaultVal)
-  return(
-  <div className="flex flex-col group">
-    <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
-    <input
-    placeholder="max 8 members"
-      required
-      type="number"
-      className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
-      value={defaultVal}
-      onChange={onChange}
-      min="1"
-      max="8"
-    />
-  </div>
-);
+const GuestInput = ({ label, onChange, value }) => {
+  return (
+    <div className="flex flex-col group">
+      <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">{label}</label>
+      <input
+        placeholder="Max 8 Guests"
+        required
+        type="number"
+        className="w-full bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
+        value={value}
+        onChange={onChange}
+        min="1"
+        max="8"
+      />
+    </div>
+  );
 }
 
 function MyComponent() {
@@ -103,11 +78,22 @@ function MyComponent() {
 
   useEffect(() => {
     dispatch(loadFormSuccess());
-  }, []);
+  }, [dispatch]);
 
   const handleClick = async (event) => {
     event.preventDefault();
     dispatch(loadForm());
+
+    const formData = {
+      userName: currentUser?.message?.userName,
+      email: currentUser?.message?.email,
+      phoneNumber: phoneNo,
+      numberOfGuests: noOfGuests,
+      checkInDate: checkIn.toISOString().split('T')[0],
+      checkOutDate: checkOut.toISOString().split('T')[0],
+      branchName: "Kasol",
+      roomName: "Super Deluxe Room",
+    };
 
     if (!currentUser) {
       try {
@@ -164,11 +150,10 @@ function MyComponent() {
       } catch (error) {
         console.error(error);
         alert('Error submitting form');
-      } finally {
-        dispatch(loadFormSuccess());
-        dispatch(resetForm({}));
       }
     }
+    dispatch(loadFormSuccess());
+    dispatch(resetForm({}));
   };
 
   const handleCheckInChange = (date) => {
@@ -196,8 +181,8 @@ function MyComponent() {
   };
 
   const handleGuestNumberChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (value >= 1 && value <= 8) {
+    const value = e.target.value;
+    if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 8)) {
       setNumberOfGuests(value);
     }
   };
@@ -205,49 +190,43 @@ function MyComponent() {
   return (
     <main className="flex flex-col min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/src/assets/images_sd/img4.jpg')" }}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
-        <header className="flex flex-col items-center p-8 text-white">
-          <div onClick={handleLogo}>
+        <header className="flex flex-col items-center p-4 sm:p-8 text-white">
+          <div onClick={handleLogo} className="cursor-pointer">
             <img
               src={logo}
               alt="Logo"
-              className="w-32 mb-4 transition-transform duration-300 hover:scale-110"
+              className="w-24 sm:w-32 mb-4 transition-transform duration-300 hover:scale-110"
             />
           </div>
-          <h1 className="text-4xl text-center font-light tracking-wide hover:scale-105">
+          <h1 className="text-2xl sm:text-4xl text-center font-light tracking-wide hover:scale-105">
             <span className="inline-block transition-transform duration-300">Super Deluxe Room With</span> <br />
             <span className="inline-block transition-transform duration-300">Balcony & Mountain View</span>
           </h1>
         </header>
-        <section className="flex-grow flex items-center justify-center">
+        <section className="flex-grow flex items-center justify-center p-4">
           <form
             onSubmit={handleClick}
-            className="bg-black bg-opacity-50 p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50"
+            className="bg-black bg-opacity-50 p-4 sm:p-8 rounded-lg w-full max-w-3xl shadow-lg transition-all duration-300 hover:shadow-cyan-300/50"
           >
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
               <DateInput
                 label="Select Check-in date"
                 onChange={handleCheckInChange}
-                defaultVal={checkIn}
+                value={checkIn}
                 minDate={today}
-                
               />
-
-       
-              
               <DateInput
                 label="Select Check-out date"
                 onChange={handleCheckOutChange}
-                defaultVal={checkOut}
-                minDate={new Date(checkIn.getTime() + 86400000)} // One day after check-in
+                value={checkOut}
+                minDate={new Date(checkIn.getTime() + 86400000)}
               />
             </div>
-            <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
               <GuestInput
                 label="Number of Guests"
                 value={noOfGuests}
                 onChange={handleGuestNumberChange}
-                defaultVal={noOfGuests}
               />
               <div className="flex flex-col group">
                 <label className="text-white mb-2 transition-colors duration-300 group-hover:text-cyan-300">Mobile Number</label>
@@ -258,7 +237,8 @@ function MyComponent() {
                   type="tel"
                   pattern="[0-9]{10}"
                   maxLength="10"
-                  className="bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
+                  placeholder="Enter 10-digit mobile number"
+                  className="w-full bg-transparent border border-white p-2 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 group-hover:border-cyan-300"
                 />
               </div>
             </div>
