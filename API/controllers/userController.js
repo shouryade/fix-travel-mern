@@ -26,27 +26,11 @@ module.exports.firstFunction = async (req,res) => {
     }
 }
 
-// module.exports.updateUser = (req,res) => {
-//     const {userName, email, password} = req.body;
-
-//     if(!userName || !email || !password || userName === '' || email === '' || password === ''){
-//         return res.status(400).json({message: 'Please fill all fields'});
-//     }
-
-//     var salt = bcrypt.genSaltSync(10);
-//     var hash = bcrypt.hashSync(password, salt);
-
-    
-
-// }
-
 
 
 
 module.exports.verifyEmail = async (req, res) => {
     try {
-      console.log("The req is as follows")
-      console.log(req);
       const user = await User.findOne({ _id: req.params.id });
       if (!user) return res.status(400).send('Invalid link');
   

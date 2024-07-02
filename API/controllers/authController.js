@@ -15,9 +15,6 @@ module.exports.signup = async (req , res) => {
     console.log('we are in the signup function in backend')
     const { userName, email, password,urlAddress, dataToBeSent} = req.body;
 
-    console.log("lets check the object")
-    console.log(dataToBeSent)
-
     
     
 
@@ -37,28 +34,20 @@ module.exports.signup = async (req , res) => {
     console.log(newUser)
 
     try{
-        console.log('before save in signup function')
+
         const savedUser = await newUser.save();
-        console.log('Loooo')
- 
 
         const newToken =  new Token({
             userId: savedUser._id,
             token: crypto.randomBytes(32).toString("hex"),
         });
         const savedToken = await newToken.save();
-        console.log('Leeee')
 
         const URL = `${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}?originalUrl=${urlAddress.from?.from}&${dataToBeSent}`;
-        console.log('AAAA')
+
 
         await sendEmail(savedUser.email,"Verify Email",URL);
 
-        console.log('EEEE')
-
-
-
-        console.log('after save')
         res.status(201).json('An Email sent to your account for verification');
     }catch(e){
         console.log('wtf');
@@ -111,7 +100,7 @@ module.exports.signin = async (req, res) => {
         const {password:pass, ...others} = user._doc;
   
 
-        res.status(200).cookie('access_token', token,{
+        res.status(200).cookie('access_token', token,{ 
             httpOnly: true,
             secure: true,
             sameSite: 'none',
