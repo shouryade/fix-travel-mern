@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import OAuth from '../components/OAuth';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { resetForm } from '../redux/formSlice';
-import { useLocation } from 'react-router-dom';
+
 const Button = ({ children, className, icon, ...props }) => (
   <button
     className={`flex justify-center items-center px-4 py-3 rounded-md w-full transition-all duration-300 hover:scale-105 ${className}`}
@@ -17,13 +15,14 @@ const Button = ({ children, className, icon, ...props }) => (
   </button>
 );
 
-const InputField = ({ label, ...props }) => (
+const InputField = ({ label, error, ...props }) => (
   <div className="mb-4">
     <label className="block font-bold text-white mb-2 text-left">{label}</label>
     <input
-      className="w-full px-3 py-2 rounded-md border-2 border-white border-opacity-50 text-white bg-transparent placeholder-white placeholder-opacity-50 transition-transform duration-300 hover:scale-105"
+      className={`w-full px-3 py-2 rounded-md border-2 ${error ? 'border-red-500' : 'border-white border-opacity-50'} text-white bg-transparent placeholder-white placeholder-opacity-50 transition-transform duration-300 hover:scale-105`}
       {...props}
     />
+    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
   </div>
 );
 
@@ -34,23 +33,50 @@ function Signup() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [variable, setVariable] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
-  const { currentUser } = useSelector((state) => state.user);
-  const [msg, setMsg] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
   const dataToBeSent = location.state?.from?.from?.a ? location.state?.from?.from?.a : null;
   const queryString = new URLSearchParams(dataToBeSent).toString();
+
   useEffect(() => {
-    console.log("UseEffect")
-    console.log(location.state?.from?.from?.a)
-  })
+    console.log("UseEffect");
+    console.log(location.state?.from?.from?.a);
+  }, [location.state]);
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+      return 'Password must be at least 8 characters long';
+    }
+    if (!hasUpperCase || !hasLowerCase || !hasNumbers || !hasSpecialChar) {
+      return 'Password must include uppercase, lowercase, numbers, and special characters';
+    }
+    return '';
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     if (name === '' || email === '' || password === '') {
       setErrorMessage('Please fill all fields');
+      setLoading(false);
+      return;
+    }
+    if (passwordError) {
+      setErrorMessage(passwordError);
       setLoading(false);
       return;
     }
@@ -67,12 +93,10 @@ function Signup() {
           'Content-Type': 'application/json',
         },
       });
-      setMsg(res.data);
       setVariable(true);
       setLoading(false);
       
       setTimeout(() => {
-
         navigate('/signin', { state: { from: location.state?.from } });
       }, 10000);
     } catch (e) {
@@ -83,13 +107,13 @@ function Signup() {
 
   return (
     <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">
-      <img src="/src/assets/signin_bg.png" className="absolute inset-0 w-full h-full object-cover" />
+      <img src="/src/assets/signin_bg.png" className="absolute inset-0 w-full h-full object-cover" alt="Background" />
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
         <div className="lg:w-1/2 text-center lg:text-left">
           <h1 className="text-4xl lg:text-6xl text-white leading-tight acme-font">
             You're just one step away from embarking on a remarkable{" "}
           </h1>
-          <span className="text-teal-400  text-8xl" style={{ fontFamily: "'Aladdin', cursive" }}>Adventure</span>
+          <span className="text-teal-400 text-8xl" style={{ fontFamily: "'Aladdin', cursive" }}>Adventure</span>
         </div>
         <div className="lg:w-1/2 w-full max-w-md">
           {variable && (
@@ -107,7 +131,7 @@ function Signup() {
             </div>
             <InputField
               value={name}
-              onChange={(e) => { setName(e.target.value); }}
+              onChange={(e) => setName(e.target.value)}
               required
               label="Name"
               type="text"
@@ -115,7 +139,7 @@ function Signup() {
             />
             <InputField
               value={email}
-              onChange={(e) => { setEmail(e.target.value); }}
+              onChange={(e) => setEmail(e.target.value)}
               required
               label="Email"
               type="email"
@@ -123,14 +147,15 @@ function Signup() {
             />
             <InputField
               value={password}
-              onChange={(e) => { setPassword(e.target.value); }}
+              onChange={handlePasswordChange}
               required
               label="Password"
               type="password"
               placeholder="At least 8 characters"
+              error={passwordError}
             />
             <Button
-              disabled={loading}
+              disabled={loading || !!passwordError}
               className="mt-6 font-bold text-white bg-teal-400 bg-opacity-60 hover:bg-opacity-80"
             >
               {loading ? (<Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>) : 'Sign Up'}

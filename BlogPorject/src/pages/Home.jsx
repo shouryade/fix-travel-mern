@@ -55,7 +55,9 @@ function Home() {
   };
 
   const incrementCount = () => {
-    setNumberOfPeople(numberOfPeople + 1);
+    if (numberOfPeople < 8) {
+      setNumberOfPeople(numberOfPeople + 1);
+    }
   };
 
   const decrementCount = () => {

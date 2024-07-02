@@ -84,12 +84,16 @@ function MidOrchardTerms() {
         <header className="w-full max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col items-center justify-center">
             <div className="overflow-visible h-24 md:h-32 flex items-center mb-6 md:mb-12">
+              <a href="/">
               <img 
                 loading="lazy" 
                 src="/src/assets/logo.png" 
                 alt="Mid Orchard logo" 
                 className="w-32 md:w-48 h-auto object-contain transition-all duration-300 transform hover:scale-110"
               />
+              
+              </a>
+              
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-white hover:text-teal-300 transition-colors duration-300 mb-8 md:mb-16 text-center">
               MID ORCHARD
