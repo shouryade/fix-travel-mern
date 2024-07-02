@@ -85,6 +85,11 @@ function MyComponent() {
     if (form.phoneNumber) setPhoneNumber(form.phoneNumber);
   }, [form]);
 
+  useEffect(()=> {
+    dispatch(loadFormSuccess());
+
+  },[])
+
   const handleClick = async (event) => {
     event.preventDefault();
     dispatch(loadForm());

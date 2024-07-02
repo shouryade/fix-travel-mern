@@ -91,6 +91,11 @@ function MyComponent() {
     if (form.phoneNumber) setPhoneNumber(form.phoneNumber);
   }, [form]);
 
+  useEffect(()=> {
+    dispatch(loadFormSuccess());
+
+  },[])
+
   const handleClick = async (event) => {
     event.preventDefault();
     dispatch(loadForm());
@@ -125,18 +130,20 @@ function MyComponent() {
         dispatch(loadFormSuccess());
       }
     } else {
-      const formData = {
-        userName: currentUser.message.userName,
-        email: currentUser.message.email,
-        phoneNumber: phoneNo,
-        numberOfGuests: noOfGuests,
-        checkInDate: checkIn.toISOString().split('T')[0],
-        checkOutDate: checkOut.toISOString().split('T')[0],
-        branchName: "Aangan,Manali",
-        roomName: "Villa",
-      };
+      
 
       try {
+        const formData = {
+          userName: currentUser.message.userName,
+          email: currentUser.message.email,
+          phoneNumber: phoneNo,
+          numberOfGuests: noOfGuests,
+          checkInDate: checkIn.toISOString().split('T')[0],
+          checkOutDate: checkOut.toISOString().split('T')[0],
+          branchName: "Aangan,Manali",
+          roomName: "Villa",
+        };
+
         const res = await axios.post('http://localhost:3000/api/forms/submit-form', formData);
         const propToSend = {
           roomName: "Villa",
