@@ -12,10 +12,10 @@ const Joi = require("joi");
 
 
 module.exports.signup = async (req , res) => {
-    console.log('we are in the signup function in backend')
+
     const { userName, email, password,urlAddress, dataToBeSent} = req.body;
    // console.log("The backend says username:",userName,"email:",email,"password:",password,"urlAddress.from.from:",urlAddress.from.from);
-    console.log(urlAddress.from?.from || '/', urlAddress.from?.phoneNumber  || '/', urlAddress.from?.numberOfGuests  || '/', urlAddress.from?.checkInDate  || '/', urlAddress.from?.checkOutDate  || '/', urlAddress.from?.branchName  || '/', urlAddress.from?.roomName  || '/');
+
 
     
     

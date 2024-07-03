@@ -64,7 +64,7 @@ const Footer = () => {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     libraries: ['marker'],
   });
-  console.log("The key is", import.meta.env.VITE_GOOGLE_API_KEY)
+
 
   const [map, setMap] = useState(null);
 
