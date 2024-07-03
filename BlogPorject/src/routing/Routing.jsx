@@ -88,6 +88,7 @@ function Routing() {
       <Route path="/test" element={<Testing />} /> 
 
       <Route path="/legal" element={<Legal />} />  
+   
      
     </Routes>
   )
