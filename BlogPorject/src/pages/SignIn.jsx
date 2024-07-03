@@ -111,7 +111,7 @@ function Login(){
     try{
 
       dispatch(signInStart());
-
+   
       const res = await axios.post('http://localhost:3000/api/auth/signin', {
         email: email.trim(),
         password: password.trim()
@@ -126,19 +126,20 @@ function Login(){
       
       
         dispatch(signInSuccess(res.data)); 
-
+     
         dispatch(resetForm());
 
-
+   
       
    
         const from = location.state?.from || '/';
-
+        console.log("from",from);
 
 
         if(address !== 'undefined' && address !== null && address !== '/'){
       
-
+      
+   
            dispatch(
             setFormData({
               phoneNo: params.get('phoneNumber')|| "",
@@ -146,7 +147,7 @@ function Login(){
               checkInDate: formatDate(params.get('checkInDate'))|| "",
               checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }))
-
+   
 
            const data = {
             from: address,
@@ -155,17 +156,18 @@ function Login(){
             checkInDate: formatDate(params.get('checkInDate'))|| "",
             checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }
-    
+
           navigate(address , {state : data});
         }
         else{
- 
+  
           navigate(from, { replace: true });
         }
         
   
 
     }catch(e){
+      
       dispatch(signInFailure(e.response?.data?.message || "An error occured"));
     }
     
