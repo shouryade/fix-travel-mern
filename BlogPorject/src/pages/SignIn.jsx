@@ -10,6 +10,7 @@ import OAuth from '../components/OAuth'
 import { useLocation } from 'react-router-dom';
 import { resetForm } from '../redux/formSlice'
 import { setFormData } from '../redux/formSlice'
+import {refreshSignIn} from '../redux/userSlice'
 
 
 const Button = ({ children, className, icon, ...props }) => (
@@ -66,7 +67,7 @@ function Login(){
   };
 
   useEffect(()=>{
-    
+    dispatch(refreshSignIn())
     
   },[])
 
@@ -101,14 +102,16 @@ function Login(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("1");
 
    
     if(email === '' || password === ''){
       return dispatch(signInFailure('Please fill all fields')) ;
     }
     try{
-    
+      console.log("2")
       dispatch(signInStart());
+      console.log("3")
       const res = await axios.post('http://localhost:3000/api/auth/signin', {
         email: email.trim(),
         password: password.trim()
@@ -118,19 +121,25 @@ function Login(){
           'Content-Type': 'application/json'
         }
       })
+      console.log("4")
 
       
       
         dispatch(signInSuccess(res.data)); 
+        console.log("5")
         dispatch(resetForm());
+
+        console.log("6")
       
    
         const from = location.state?.from || '/';
+        console.log("from",from);
 
 
-        if(address !== 'undefined' && address !== null){
+        if(address !== 'undefined' && address !== null && address !== '/'){
       
-
+           console.log("7")
+           console.log("address",address);
            dispatch(
             setFormData({
               phoneNo: params.get('phoneNumber')|| "",
@@ -138,6 +147,7 @@ function Login(){
               checkInDate: formatDate(params.get('checkInDate'))|| "",
               checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }))
+           console.log("8")
 
            const data = {
             from: address,
@@ -146,21 +156,20 @@ function Login(){
             checkInDate: formatDate(params.get('checkInDate'))|| "",
             checkOutDate: formatDate(params.get('checkOutDate')) || ""
            }
-
+           console.log("9")
           navigate(address , {state : data});
         }
         else{
-
+          console.log("10")
           navigate(from, { replace: true });
         }
         
   
 
     }catch(e){
-      dispatch(signInFailure(e.response.data.message));
-
-
+      dispatch(signInFailure(e.response?.data?.message || "An error occured"));
     }
+    
 
   }
   const handleKeyPress = (e) => {

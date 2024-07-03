@@ -42,6 +42,8 @@ function Signup() {
 
 
 
+
+
   const validatePassword = (password) => {
     const minLength = 8;
     const hasUpperCase = /[A-Z]/.test(password);

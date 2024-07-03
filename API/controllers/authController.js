@@ -14,8 +14,8 @@ const Joi = require("joi");
 module.exports.signup = async (req , res) => {
     console.log('we are in the signup function in backend')
     const { userName, email, password,urlAddress, dataToBeSent} = req.body;
-    console.log("The backend says username:",userName,"email:",email,"password:",password,"urlAddress.from.from:",urlAddress.from.from);
-    console.log(urlAddress.from.from , urlAddress.from.phoneNumber , urlAddress.from.numberOfGuests , urlAddress.from.checkInDate , urlAddress.from.checkOutDate , urlAddress.from.branchName , urlAddress.from.roomName);
+   // console.log("The backend says username:",userName,"email:",email,"password:",password,"urlAddress.from.from:",urlAddress.from.from);
+    console.log(urlAddress.from?.from || '/', urlAddress.from?.phoneNumber  || '/', urlAddress.from?.numberOfGuests  || '/', urlAddress.from?.checkInDate  || '/', urlAddress.from?.checkOutDate  || '/', urlAddress.from?.branchName  || '/', urlAddress.from?.roomName  || '/');
 
     
     
@@ -33,6 +33,7 @@ module.exports.signup = async (req , res) => {
         password: hashedPassword,
         createdAt: Date.now()
     })
+    console.log("entering try");
 
 
     try{
@@ -45,16 +46,17 @@ module.exports.signup = async (req , res) => {
         });
         const savedToken = await newToken.save();
 
-        const URL = `${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}?originalUrl=${urlAddress.from?.from}&phoneNumber=${urlAddress.from.phoneNUmber}&numberOfGuests=${urlAddress.from.numberOfGuests}&checkInDate=${urlAddress.from.checkInDate}&checkOutDate=${urlAddress.from.checkOutDate}&branchName=${urlAddress.from.branchName}&roomName=${urlAddress.from.roomName}`;
+        const URL = `Kindly click on the link below to verify your email for Mid Orchard\nThis is a one time link\nYou will be redirected to the signin page from this link\nThank You\n\n${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}?originalUrl=${urlAddress.from?.from  || '/'}&phoneNumber=${urlAddress.from?.phoneNumber  || ''}&numberOfGuests=${urlAddress.from?.numberOfGuests || ''}&checkInDate=${urlAddress.from?.checkInDate  || ''}&checkOutDate=${urlAddress.from?.checkOutDate  || ''}&branchName=${urlAddress.from?.branchName  || ''}&roomName=${urlAddress.from?.roomName  || ''}`;
 
 
-        await sendEmail(savedUser.email,"Verify Email",URL);
+        await sendEmail(savedUser.email,"Verify Email for Mid Orchard",URL);
         console.log("aaa");
 
         res.status(201).json('An Email sent to your account for verification');
     }catch(e){
         if (e.code === 11000) {
             console.log(e.code);
+            console.log(e);
             // Duplicate key error
             if (e.keyValue.email) {
                 return res.status(400).send({ message: 'Email is already in use' });
@@ -88,10 +90,13 @@ module.exports.signin = async (req, res) => {
 
     try{
         const user = await User.findOne({email: email});
+        console.log("11")
 
         if(!user){
+            console.log("no user")
             return res.status(400).json({message: 'User not found'});
         }
+        console.log("22")
         console.log(user);
 
         const validPassword = bcrypt.compareSync(password ,user.password);
@@ -124,6 +129,7 @@ module.exports.signin = async (req, res) => {
         
 
     }catch(error){
+        console.log("enter")
         res.status(400).json({message: error.message});
     }
 }
