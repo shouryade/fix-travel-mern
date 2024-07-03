@@ -82,7 +82,7 @@ function Signup() {
     try {
     
       setErrorMessage(null);
-      const res = await axios.post('http://localhost:3000/api/auth/signup', {
+      const res = await axios.post('http://www.midorchard.com/api/auth/signup', {
         userName: name.trim(),
         email: email.trim(),
         password: password.trim(),

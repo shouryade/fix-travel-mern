@@ -126,7 +126,7 @@ function MyComponent() {
       };
 
       try {
-        await axios.post('http://localhost:3000/api/forms/submit-form', formData);
+        await axios.post('http://www.midorchard.com/api/forms/submit-form', formData);
         const propToSend = {
           roomName: "Family Suite",
           logo: "/src/assets/logo.png",

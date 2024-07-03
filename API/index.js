@@ -5,7 +5,7 @@ const userRouter = require('./routes/user_routes');
 const authRouter = require('./routes/authRoutes');
 const cors = require('cors');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const cleanupUnverifiedUsers = require('./Utils/cleanupUnverifiedUsers'); 
 const formRoutes = require('./routes/formSubmit');
 dotenv.config();
@@ -15,7 +15,7 @@ app.use(express.json());
 
 //cors middleware
 app.use(cors({
-    origin: 'http://localhost:5173' // Replace with your front-end URL
+    origin: 'http://www.midorchard.com' // Replace with your front-end URL
   }));
 
 

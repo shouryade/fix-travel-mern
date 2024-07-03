@@ -44,7 +44,7 @@ module.exports.verifyEmail = async (req, res) => {
       console.log("Checking the link")
       console.log(req.query)
       
-      res.redirect(`http://localhost:5173/signin/?verified=true&originalUrl=${req.query.originalUrl}&dphoneNumber=${req.query.phoneNumber}&numberOfGuests=${req.query.numberOfGuests}&checkInDate=${req.query.checkInDate}&checkOutDate=${req.query.checkOutDate}&branchName=${req.query.branchName}&roomName=${req.query.roomName}`);
+      res.redirect(`http://www.midorchard.com/signin/?verified=true&originalUrl=${req.query.originalUrl}&dphoneNumber=${req.query.phoneNumber}&numberOfGuests=${req.query.numberOfGuests}&checkInDate=${req.query.checkInDate}&checkOutDate=${req.query.checkOutDate}&branchName=${req.query.branchName}&roomName=${req.query.roomName}`);
     } catch (error) {
       res.status(400).send(error.message);
       console.log(error);
