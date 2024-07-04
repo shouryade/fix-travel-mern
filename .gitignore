@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Ignore node_modules folder
+BlogPorject/node_modules/
+
+# Ignore .env file
+BlogPorject/.env
