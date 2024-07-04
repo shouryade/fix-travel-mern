@@ -69,36 +69,29 @@ function MyComponent() {
   const location = useLocation();
   const { loading } = useSelector((state) => state.form);
 
+
   useEffect(() => {
     if (form.checkInDate) setCheckInDate(new Date(form.checkInDate));
     if (form.checkOutDate) setCheckOutDate(new Date(form.checkOutDate));
     if (form.numberOfGuests) setNumberOfGuests(form.numberOfGuests);
     if (form.phoneNumber) setPhoneNumber(form.phoneNumber);
+
+    console.log(location.pathname)
+
+
   }, [form]);
 
-  useEffect(() => {
-    dispatch(loadFormSuccess());
-  }, [dispatch]);
 
   const handleClick = async (event) => {
     event.preventDefault();
     dispatch(loadForm());
 
-    const formData = {
-      userName: currentUser?.message?.userName,
-      email: currentUser?.message?.email,
-      phoneNumber: phoneNo,
-      numberOfGuests: noOfGuests,
-      checkInDate: checkIn.toISOString().split('T')[0],
-      checkOutDate: checkOut.toISOString().split('T')[0],
-      branchName: "Kasol",
-      roomName: "Super Deluxe Room",
-    };
-
     if (!currentUser) {
       try {
+        console.log("location",location)
         dispatch(
           setFormData({
+            path: `${location.pathname}`,
             phoneNumber: phoneNo,
             numberOfGuests: noOfGuests,
             checkInDate: checkIn.toISOString().split('T')[0],
@@ -108,19 +101,8 @@ function MyComponent() {
           })
         );
 
-        const data = {
-          from: location.pathname,
-          phoneNumber: phoneNo,
-          numberOfGuests: noOfGuests,
-          checkInDate: checkIn.toISOString().split('T')[0],
-          checkOutDate: checkOut.toISOString().split('T')[0],
-          branchName: "Kasol",
-          roomName: "Super Deluxe Room"
-        };
 
-
-
-        navigate('/signin', { state: { from: data } });
+        navigate('/signin');
       } catch (e) {
         console.error(e);
       } finally {
@@ -139,7 +121,7 @@ function MyComponent() {
       };
 
       try {
-        const res = await axios.post('http://www.midorchard.com/api/forms/submit-form', formData);
+        await axios.post('http://localhost:3000/api/forms/submit-form', formData);
         const propToSend = {
           roomName: "Super Deluxe Room",
           logo: "/src/assets/logo.png",
@@ -150,10 +132,11 @@ function MyComponent() {
       } catch (error) {
         console.error(error);
         alert('Error submitting form');
+      } finally {
+        dispatch(loadFormSuccess());
+        dispatch(resetForm({}));
       }
     }
-    dispatch(loadFormSuccess());
-    dispatch(resetForm({}));
   };
 
   const handleCheckInChange = (date) => {

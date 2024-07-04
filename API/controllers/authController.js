@@ -13,11 +13,7 @@ const Joi = require("joi");
 
 module.exports.signup = async (req , res) => {
 
-    const { userName, email, password,urlAddress, dataToBeSent} = req.body;
-   // console.log("The backend says username:",userName,"email:",email,"password:",password,"urlAddress.from.from:",urlAddress.from.from);
-
-
-    
+    const { userName, email, password} = req.body;
     
 
     if (!userName || !email || !password || userName === '' || email === '' || password === '') {
@@ -46,7 +42,7 @@ module.exports.signup = async (req , res) => {
         });
         const savedToken = await newToken.save();
 
-        const URL = `Kindly click on the link below to verify your email for Mid Orchard\nThis is a one time link\nYou will be redirected to the signin page from this link\nThank You\n\n${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}?originalUrl=${urlAddress.from?.from  || '/'}&phoneNumber=${urlAddress.from?.phoneNumber  || ''}&numberOfGuests=${urlAddress.from?.numberOfGuests || ''}&checkInDate=${urlAddress.from?.checkInDate  || ''}&checkOutDate=${urlAddress.from?.checkOutDate  || ''}&branchName=${urlAddress.from?.branchName  || ''}&roomName=${urlAddress.from?.roomName  || ''}`;
+        const URL = `Kindly click on the link below to verify your email for Mid Orchard\nThis is a one time link\nYou will be redirected to the signin page from this link\nThank You\n\n${process.env.BASE_URL}users/${savedUser._id}/verify/${newToken.token}}`;
 
 
         await sendEmail(savedUser.email,"Verify Email for Mid Orchard",URL);
@@ -83,6 +79,7 @@ module.exports.signup = async (req , res) => {
 
 
 module.exports.signin = async (req, res) => {
+    console.log("we are in the signIn function")
     const {email,password} = req.body;
     if(!email || !password || email === '' || password === ''){
         return res.status(400).json({message: 'Please fill all fields'});

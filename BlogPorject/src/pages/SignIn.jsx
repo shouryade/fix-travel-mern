@@ -8,7 +8,6 @@ import { useDispatch,useSelector } from 'react-redux'
 import { signInStart,signInFailure,signInSuccess } from '../redux/userSlice'
 import OAuth from '../components/OAuth'
 import { useLocation } from 'react-router-dom';
-import { resetForm } from '../redux/formSlice'
 import { setFormData } from '../redux/formSlice'
 import {refreshSignIn} from '../redux/userSlice'
 
@@ -60,7 +59,8 @@ function Login(){
   const a = location.state?.from?.a?.payload;
   const queryString =  new URLSearchParams(a).toString();
   const address = params.get('originalUrl');
-
+  const { path,userName,phoneNumber,numberOfGuests,checkInDate,checkOutDate,branchName,roomName} = useSelector((state) => state.form);
+  const form = useSelector((state) => state.form);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split('T')[0];
@@ -84,14 +84,8 @@ function Login(){
 
 
   const handleThis = () => {
-    
   
-    const data = {
-      from : location.state?.from,
-      queryString: queryString
-    }
-  
-    navigate('/signup', { state: { from: data} });
+    navigate('/signup');
   }
 
 
@@ -102,9 +96,7 @@ function Login(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
 
-   
     if(email === '' || password === ''){
       return dispatch(signInFailure('Please fill all fields')) ;
     }
@@ -112,7 +104,7 @@ function Login(){
 
       dispatch(signInStart());
    
-      const res = await axios.post('http://www.midorchard.com/api/auth/signin', {
+      const res = await axios.post('http://localhost:3000/api/auth/signin', {
         email: email.trim(),
         password: password.trim()
 
@@ -122,46 +114,26 @@ function Login(){
         }
       })
 
-
-      
-      
         dispatch(signInSuccess(res.data)); 
-     
-        dispatch(resetForm());
 
+
+        if(path !== 'undefined' && path !== null && path !== '/'){
    
-      
-   
-        const from = location.state?.from || '/';
-        console.log("from",from);
+          dispatch(
+           setFormData({
+            phoneNo: phoneNumber,
+            numberOfGuests: numberOfGuests,
+            checkInDate: checkInDate,
+            checkOutDate: checkOutDate
+          }))
 
 
-        if(address !== 'undefined' && address !== null && address !== '/'){
-      
-      
-   
-           dispatch(
-            setFormData({
-              phoneNo: params.get('phoneNumber')|| "",
-              numberOfGuests: params.get('numberOfGuests') || "",
-              checkInDate: formatDate(params.get('checkInDate'))|| "",
-              checkOutDate: formatDate(params.get('checkOutDate')) || ""
-           }))
-   
+         navigate(path);
 
-           const data = {
-            from: address,
-            phoneNumber: params.get('phoneNumber')|| "",
-            numberOfGuests: params.get('numberOfGuests') || "",
-            checkInDate: formatDate(params.get('checkInDate'))|| "",
-            checkOutDate: formatDate(params.get('checkOutDate')) || ""
-           }
-
-          navigate(address , {state : data});
         }
         else{
-  
-          navigate(from, { replace: true });
+
+          navigate('/', { replace: true });
         }
         
   

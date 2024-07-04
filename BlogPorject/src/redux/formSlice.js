@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    path: '/',
     userName: '',
     email: '',
     phoneNumber: '',
@@ -21,13 +22,16 @@ const formSlice = createSlice({
     },
     resetForm: () => initialState,
     loadForm: (state) => {
-      return { ...state, loading: true };
+      state.loading = true;
     },
     loadFormSuccess: (state) => {
-      return { ...state, loading: false };
+      state.loading = false ;
     },
+    loadingFalse:(state)=>{
+      state.loading = false;
+    }
   },
 });
 
-export const { setFormData, resetForm, loadForm, loadFormSuccess } = formSlice.actions;
+export const { setFormData, resetForm, loadForm, loadFormSuccess,loadingFalse } = formSlice.actions;
 export default formSlice.reducer;

@@ -15,7 +15,7 @@ app.use(express.json());
 
 //cors middleware
 app.use(cors({
-    origin: 'http://www.midorchard.com' // Replace with your front-end URL
+    origin: 'http://localhost:5173' // Replace with your front-end URL
   }));
 
 

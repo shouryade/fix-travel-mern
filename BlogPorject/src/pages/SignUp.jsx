@@ -82,12 +82,10 @@ function Signup() {
     try {
     
       setErrorMessage(null);
-      const res = await axios.post('http://www.midorchard.com/api/auth/signup', {
+      const res = await axios.post('http://localhost:3000/api/auth/signup', {
         userName: name.trim(),
         email: email.trim(),
         password: password.trim(),
-        urlAddress: location.state?.from ? location.state?.from : "/",
-        dataToBeSent: queryString
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +97,7 @@ function Signup() {
       setLoading(false);
       
       setTimeout(() => {
-        navigate('/signin', { state: { from: location.state?.from } });
+        navigate('/signin');
       }, 10000);
     } catch (e) {
       setLoading(false);

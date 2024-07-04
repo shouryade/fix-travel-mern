@@ -44,7 +44,7 @@ function Home() {
 
   const handleClickLogOut = async () => {
     try{
-      const res = await axios.post('http://www.midorchard.com/api/auth/signout');
+      const res = await axios.post('http://localhost:3000/api/auth/signout');
         dispatch(signoutSuccess());
         dispatch(resetForm());
     }
