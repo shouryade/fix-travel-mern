@@ -5,6 +5,13 @@ const userRouter = require('./routes/user_routes');
 const authRouter = require('./routes/authRoutes');
 const cors = require('cors');
 const app = express()
+app.use(cors({
+  origin: 'https://midorchard-client.vercel.app', // Adjust this to your frontend URL
+  // origin: *
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 const port = process.env.PORT || 3000
 const cleanupUnverifiedUsers = require('./Utils/cleanupUnverifiedUsers'); 
 const formRoutes = require('./routes/formSubmit');
@@ -13,13 +20,7 @@ dotenv.config();
 app.use(express.json());
 
 
-app.use(cors({
-  origin: 'https://midorchard-client.vercel.app', // Adjust this to your frontend URL
-  // origin: *
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
+
 
 app.options('*', cors());
 
