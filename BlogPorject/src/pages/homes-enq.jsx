@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from '/src/assets/aangan_logo.png';
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, loadForm, loadFormSuccess, resetForm } from "../redux/formSlice";
 import axios from "axios";
@@ -53,6 +52,7 @@ const GuestInput = ({ label, onChange, value }) => (
 );
 
 function MyComponent() {
+  const logo = 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082719/aangan_logo_mxdrjf.png';
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -123,8 +123,8 @@ function MyComponent() {
         await axios.post('http://localhost:3000/api/forms/submit-form', formData);
         const propToSend = {
           roomName: "Aangan HomeStays",
-          logo: "/src/assets/aangan_logo.png",
-          background: "/src/assets/images_homes/img10.jpg"
+          logo: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082719/aangan_logo_mxdrjf.png",
+          background: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080658/img10_k4ez09.jpg"
         };
 
         navigate('/ThankYou', { state: propToSend });
@@ -170,7 +170,7 @@ function MyComponent() {
   };
 
   return (
-    <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_homes/img4.jpg')"}}>
+    <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080663/img4_x8fuuv.jpg')"}}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm">
         <header className="flex flex-col items-center p-4 sm:p-8 text-white">
           <div onClick={handleLogo} className="cursor-pointer">

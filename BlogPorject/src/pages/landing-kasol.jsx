@@ -40,19 +40,19 @@ function LandingKasol() {
   const navigate = useNavigate();
   const rooms = [
     {
-      imageSrc: "/src/assets/super-deluxe.png",
+      imageSrc: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082851/super-deluxe_w7zsyc.png",
       title: "Super Deluxe Room With Balcony & Mountain View",
       buttonText: "Know More",
       linkTo: "/infosd"
     },
     {
-      imageSrc: "/src/assets/luxury.png",
+      imageSrc: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082760/luxury_doufbg.png",
       title: "Luxury Room With Balcony & River View",
       buttonText: "Know More",
       linkTo: "infolux"
     },
     {
-      imageSrc: "/src/assets/family.png",
+      imageSrc: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082744/family_tdyttt.png",
       title: "Family Suite",
       buttonText: "Know More",
       linkTo: "/infofam"
@@ -67,12 +67,12 @@ function LandingKasol() {
   return (
     <div className="bg-slate-800 bg-opacity-100 min-h-screen min-w-full">
       <main className="container mx-auto px-4 sm:px-7 py-3.5 relative min-h-screen min-w-full">
-        <img loading="lazy" src="/src/assets/bg-kasol.png" alt="" className="object-cover absolute inset-0 w-full h-full" />
+        <img loading="lazy" src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082721/bg-kasol_dcdhrj.png" alt="" className="object-cover absolute inset-0 w-full h-full" />
         <div className="relative z-10">
           <div onClick={handleLogo} className="block w-16 sm:w-24 aspect-square mb-4 sm:mb-8 hover:scale-110 transition-transform duration-300">
             <img
               loading="lazy"
-              src="/src/assets/logo.png"
+              src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png"
               alt="Logo"
               className="w-full h-full object-contain"
             />

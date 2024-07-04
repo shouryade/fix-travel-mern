@@ -155,7 +155,7 @@ function Login(){
   return(
     <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">
     <img
-      src="/src/assets/signin_bg.png"
+      src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082851/signin_bg_opfxwf.png"
       alt="Background"
       className="absolute inset-0 w-full h-full object-cover"
     />

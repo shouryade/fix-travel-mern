@@ -5,7 +5,7 @@ const testimonials = [
     id: 1,
     name: "Arushi Goyal",
     location: "Visitor Manali",
-    avatar: "/src/assets/avatars/girl1.png",
+    avatar: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720079377/girl1_lfcrqy.png",
     rating: 5,
     text: "My stay at Ringen by Mid Orchards was great! I stayed at one of the rooms in the main cottage which had beautiful interiors and a balcony with an amazing mountain view. It also had a common room with a fireplace and great wooden decor. The property is easily accessible and very peaceful. The food was good and staff is very polite. I highly recommend staying at one of the premium luxury rooms of Ringen for the best experience."
   },
@@ -13,7 +13,7 @@ const testimonials = [
     id: 2,
     name: "Hemant Kumar",
     location: "Kasol Visitor",
-    avatar: "/src/assets/avatars/boy1.png",
+    avatar: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720079377/boy1_ikp0p7.png",
     rating: 4,
     text: "We looked for many hotels online, found this one fascinating. After staying here for 2 days, I must say this is one of the finest property and we loved the food. I think this is the only pure vegetarian hotel in Kasol."
   },
@@ -21,7 +21,7 @@ const testimonials = [
     id: 3,
     name: "Rohit Seth",
     location: "Local Guide",
-    avatar: "/src/assets/avatars/boy2.png",
+    avatar: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720079377/boy2_exqfe5.png",
     rating: 5,
     text: "Mid Orchard folks are making quite a mark in the hospitality scene in kullu- manali sector. The latest addition to Mid Orchard brand is Aangan. This place is plush with white glove feel at rather great prices. The place is vegan and Jain friendly. Great kitchen which serves great food. Not to mention the hidden gems in the valley which you can visit."
   },
@@ -29,7 +29,7 @@ const testimonials = [
     id: 4,
     name: "Siddhi Mishra",
     location: "Visitor Kasol",
-    avatar: "/src/assets/avatars/girl2.png",
+    avatar: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720079377/girl2_z0d2ym.png",
     rating: 5,
     text: "Stayed for 3 days in this lovely place. The staff is very cooperative and helpful. Also, the river side view is amazing from the hotel. We were only 2 girls and felt completely safe and comfortable throughout our stay. Highly recommend this place."
   }
@@ -58,7 +58,7 @@ const Testimonial = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-[#162237] relative bg-opacity-100" 
-         style={{backgroundImage: "url('/src/assets/bg_testimonial.png')"}}>
+         style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082736/bg_testimonial_uzluuy.png')"}}>
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="max-w-4xl w-full relative z-10">
         <h1 className="text-white text-3xl sm:text-5xl lg:text-6xl font-bold mb-6 sm:mb-10 relative inline-block

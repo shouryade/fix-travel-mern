@@ -64,7 +64,7 @@ const Test = () => {
       <header className="p-6">
         <nav className="flex justify-between items-center">
           <img
-            src="../assets/logo.png"
+            src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png"
             alt="Logo"
             className="w-[120px] h-auto"
           />
@@ -102,14 +102,14 @@ const Test = () => {
       <section className="absolute bottom-0 right-0 bg-white text-black rounded-tl-[108px] p-12 w-[75%] max-w-[1200px]">
         <div className="flex justify-between items-end">
           <DateSection
-            icon="https://cdn.builder.io/api/v1/image/assets/TEMP/a38a8b5316a9a147f026c723fccf8bb345bc9592880dae89f6edb2e51fb24369?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+            icon="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082743/date_icon_zikap9.svg"
             title="Check-in"
             selectedDate={checkInDate}
             onDateChange={setCheckInDate}
           />
           <div className="w-px h-16 bg-gray-200"></div>
           <DateSection
-            icon="https://cdn.builder.io/api/v1/image/assets/TEMP/118191653d9cff03e04460748ad63718de44c11712cc5c183609d7f1408c5245?apiKey=378b307ec7f2406f9bd824321d02b92d&"
+            icon="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082742/checkout_w9sy9b.svg"
             title="Check-out"
             selectedDate={checkOutDate}
             onDateChange={setCheckOutDate}
