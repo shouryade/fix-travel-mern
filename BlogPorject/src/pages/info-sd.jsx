@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 // Import your local images here
-import image1 from '/src/assets/images_sd/img1.jpg';
-import image2 from '/src/assets/images_sd/img2.jpg';
-import image3 from '/src/assets/images_sd/img3.jpg';
-import image4 from '/src/assets/images_sd/img4.jpg';
-import image5 from '/src/assets/images_sd/img5.jpg';
-import image6 from '/src/assets/images_sd/img6.jpg';
-import checkmarkIcon from '/src/assets/check.png';
-import logo from '/src/assets/logo.png';
 import Footer from "../components/footer";
 import { useNavigate } from "react-router-dom";
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center gap-2 p-2 rounded transition-all duration-300 transform hover:scale-105">
-    <img src={checkmarkIcon} alt="Checkmark" className="w-5 h-5" />
+    <img src='https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082737/check_dhncdq.png' alt="Checkmark" className="w-5 h-5" />
     <span>{text}</span>
   </div>
 );
@@ -81,7 +73,15 @@ const ImageCarousel = ({ images }) => {
 };
 
 function MyComponent() {
-  const images = [image1, image2, image3, image4, image5, image6];
+  const logo = 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png';
+  const images = [
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081764/img1_h90jde.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081763/img2_h82llu.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081763/img3_wcox61.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081763/img4_sw27x9.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081776/img5_nnwjuu.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081774/img6_mpykvx.jpg"
+  ]
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/sdenq');
@@ -95,12 +95,12 @@ function MyComponent() {
     <div className="min-h-screen bg-slate-800 text-white relative">
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-50" 
-        style={{backgroundImage: "url('/src/assets/images_sd/bg.png')"}}
+        style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081762/bg_lkffux.png')"}}
       ></div>
       
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
-                style={{backgroundImage: "url('/src/assets/images_sd/title_bg.png')"}}>
+                style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081775/title_bg_p0pvzc.png')"}}>
           <div onClick={handleLogo}>
           <img 
             src={logo} 

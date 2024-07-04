@@ -52,13 +52,13 @@ function Manali() {
   };
   const rooms = [
     {
-      imageSrc: "/src/assets/aangan-villa.png",
+      imageSrc: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082715/aangan-villa_dchckp.png",
       title: "Aangan Villa",
       buttonText: "Know More",
       linkTo: "/infovilla"
     },
     {
-      imageSrc: "/src/assets/aangan-homes.png",
+      imageSrc: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082714/aangan-homes_mv7rac.png",
       title: "Aangan Homestays",
       buttonText: "Know More",
       linkTo: "/infohomes"
@@ -70,7 +70,7 @@ function Manali() {
       <main className="container px-4 sm:px-6 md:px-8 py-3.5 md:py-5 ">
         <img
           loading="lazy"
-          src="/src/assets/bg-manali.png"
+          src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082731/bg-manali_lnt6lw.png"
           alt=""
           className="object-cover absolute inset-0 fit-cover w-full h-full"
         />
@@ -79,7 +79,7 @@ function Manali() {
           <div onClick={handleLogo} className="block w-16 sm:w-20 md:w-24 aspect-square mb-4 sm:mb-6 md:mb-8 hover:scale-110 transition-transform duration-300">
             <img
               loading="lazy"
-              src="/src/assets/aangan_logo.png"
+              src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082719/aangan_logo_mxdrjf.png"
               alt="Logo"
               className="w-full h-full object-contain"
             />

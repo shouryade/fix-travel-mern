@@ -113,7 +113,7 @@ function Signup() {
 
   return (
     <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">
-      <img src="/src/assets/signin_bg.png" className="absolute inset-0 w-full h-full object-cover" alt="Background" />
+      <img src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082851/signin_bg_opfxwf.png" className="absolute inset-0 w-full h-full object-cover" alt="Background" />
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
         <div className="lg:w-1/2 text-center lg:text-left">
           <h1 className="text-4xl lg:text-6xl text-white leading-tight acme-font">
