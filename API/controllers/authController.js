@@ -116,9 +116,9 @@ module.exports.signin = async (req, res) => {
   
         res.set({
             'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin":"https://midorchard-client.vercel.app",
-            "Access-Control-Allow-Methods":"GET, POST, PUT, DELETE",
-            "Access-Control-Allow-Headers":"Content-Type, Authorization"
+            "Access-Control-Allow-Origin":"*",
+            "Access-Control-Allow-Methods":"*",
+            "Access-Control-Allow-Headers":"*"
 });
         
         res.status(200).cookie('access_token', token,{ 
