@@ -11,7 +11,7 @@ const EmailVerify = () => {
 	useEffect(() => {
 		const verifyEmailUrl = async () => {
 			try {
-				const url = `http://localhost:3000/api/user/${param.id}/verify/${param.token}`;
+				const url = `https://midorchard-server.vercel.app/api/user/${param.id}/verify/${param.token}`;
 				const { data } = await axios.get(url);
 				console.log(data);
 				setValidUrl(true);

@@ -65,7 +65,7 @@ function OAuth() {
             console.log('resultsFromGoogle');
             console.log(resultsFromGoogle);
             
-            const res = await axios.post('http://localhost:3000/api/auth/google', {
+            const res = await axios.post('https://midorchard-server.vercel.app/api/auth/google', {
                 name: resultsFromGoogle.user.displayName,
                 email: resultsFromGoogle.user.email,
                 googlePhotoURL: resultsFromGoogle.user.photoURL

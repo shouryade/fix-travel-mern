@@ -17,7 +17,7 @@ function Profile() {
                 alert('Please fill all fields');
                 return;
             }
-            const res = await axios.put('http://localhost:3000/api/user/update',{
+            const res = await axios.put('https://midorchard-server.vercel.app/api/user/update',{
                 userName: tempName,
                 email: tempEmail,
                 password: tempPassword

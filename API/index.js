@@ -15,7 +15,7 @@ app.use(express.json());
 
 //cors middleware
 app.use(cors({
-    origin: 'http://localhost:5173' // Replace with your front-end URL
+    origin: 'https://midorchard-client.vercel.app' // Replace with your front-end URL
   }));
 
 
