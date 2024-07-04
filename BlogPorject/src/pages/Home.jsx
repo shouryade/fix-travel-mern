@@ -44,7 +44,7 @@ function Home() {
 
   const handleClickLogOut = async () => {
     try{
-      const res = await axios.post('/midorchardapi/auth/signout');
+      const res = await axios.post('https://midorchard-client.vercel.app/midorchardapi/auth/signout');
         dispatch(signoutSuccess());
         dispatch(resetForm());
     }

@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server:{
     proxy:{
-      "/midorchard":"https://midorchard-server.vercel.app/"
+      "/midorchard":"https://midorchard-server.vercel.app"
     }
   }
 })
