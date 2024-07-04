@@ -31,3 +31,4 @@ BlogPorject/node_modules/
 # Ignore .env file
 BlogPorject/.env
 
+vercel.json
