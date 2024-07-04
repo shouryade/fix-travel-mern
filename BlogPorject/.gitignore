@@ -25,7 +25,7 @@ dist-ssr
 *.sw?
 .env
 
-vercel.json
+
 
 # Ignore node_modules folder
 BlogPorject/node_modules/
