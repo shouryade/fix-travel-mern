@@ -1,4 +1,11 @@
 
+/* #root {
+  max-width: 10000px;
+  margin: 0 auto;
+    
+  text-align: center;
+} */
+
 
 .logo {
   height: 6em;
@@ -40,9 +47,28 @@
   font-family: 'Acme', sans-serif;
 }
 
+.font-aguafina {
+  font-family: 'Aguafina Script', cursive;
+}
+
+.font-abyssinica {
+  font-family: 'Abyssinica SIL', cursive;
+}
+
+
+
+.anton-font {
+  font-family: 'Anton', sans-serif;
+}
+
+.aladin-font {
+  font-family: 'Aladin', sans-serif;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
   }
   
+

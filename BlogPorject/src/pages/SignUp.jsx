@@ -1,135 +1,191 @@
-import React from 'react'
-import { useState} from 'react'
-import axios from 'axios'
-import Spinner from 'react-bootstrap/Spinner'
-import { useNavigate } from 'react-router-dom'
-import OAuth from '../components/OAuth'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Spinner from 'react-bootstrap/Spinner';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import OAuth from '../components/OAuth';
 
-function SignUp() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+const Button = ({ children, className, icon, ...props }) => (
+  <button
+    className={`flex justify-center items-center px-4 py-3 rounded-md w-full transition-all duration-300 hover:scale-105 ${className}`}
+    {...props}
+  >
+    {icon && <span className="mr-2">{icon}</span>}
+    {children}
+  </button>
+);
+
+const InputField = ({ label, error, ...props }) => (
+  <div className="mb-4">
+    <label className="block font-bold text-white mb-2 text-left">{label}</label>
+    <input
+      className={`w-full px-3 py-2 rounded-md border-2 ${error ? 'border-red-500' : 'border-white border-opacity-50'} text-white bg-transparent placeholder-white placeholder-opacity-50 transition-transform duration-300 hover:scale-105`}
+      {...props}
+    />
+    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+  </div>
+);
+
+function Signup() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
-  const [loading , setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [variable, setVariable] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const dataToBeSent = location.state?.from?.from?.a ? location.state?.from?.from?.a : null;
+  const queryString = new URLSearchParams(dataToBeSent).toString();
+
+
+
+
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+      return 'Password must be at least 8 characters long';
+    }
+    if (!hasUpperCase || !hasLowerCase || !hasNumbers || !hasSpecialChar) {
+      return 'Password must include uppercase, lowercase, numbers, and special characters';
+    }
+    return '';
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if(name === '' || email === '' || password === ''){
+    if (name === '' || email === '' || password === '') {
       setErrorMessage('Please fill all fields');
-      console.log(errorMessage)
-      return errorMessage;
+      setLoading(false);
+      return;
     }
-    try{
-
-      setErrorMessage(null)
+    if (passwordError) {
+      setErrorMessage(passwordError);
+      setLoading(false);
+      return;
+    }
+    try {
+    
+      setErrorMessage(null);
       const res = await axios.post('http://localhost:3000/api/auth/signup', {
         userName: name.trim(),
         email: email.trim(),
-        password: password.trim()
-
-      },{
+        password: password.trim(),
+      }, {
         headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        
-        console.log('data sent successfully')
-        console.log(res);
-        setLoading(false);
-
-          navigate('/home');
-  
-
-    }catch(e){
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      
+      setVariable(true);
       setLoading(false);
-      console.log('data not sent')
-      console.log(e)
-      setErrorMessage(e.response.data.message)
       
-      
+      setTimeout(() => {
+        navigate('/signin');
+      }, 10000);
+    } catch (e) {
+      setLoading(false);
+      setErrorMessage(e.response?.data?.message || 'An error occurred');
     }
+  };
 
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      handleSubmit(e);
+    }
   }
 
-
-
-
-
   return (
-    <div>
-       <div className='flex'>
-        <div className='h-screen w-1/2 relative'>
-          <div className='w-96 absolute right-0 top-64 mr-4' >
-            <h1 className='px-2 bg-gradient-to-r from-indigo-400 via-purple to-pink-400 rounded-lg text-white w-fit p-3 font-bold text-3xl'>TravelCamp</h1>
-            <p className='mt-3 flex text-left'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, impedit?</p>
-          </div>
-          
-
+    <main className="min-h-screen bg-slate-800 relative flex items-center justify-center p-4">
+      <img src="/src/assets/signin_bg.png" className="absolute inset-0 w-full h-full object-cover" alt="Background" />
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
+        <div className="lg:w-1/2 text-center lg:text-left">
+          <h1 className="text-4xl lg:text-6xl text-white leading-tight acme-font">
+            You're just one step away from embarking on a remarkable{" "}
+          </h1>
+          <span className="text-teal-400 text-8xl" style={{ fontFamily: "'Aladdin', cursive" }}>Adventure</span>
         </div>
-        <div className=' h-screen w-1/2 relative'>
-          <form action="" className='block w-80  absolute top-32' onSubmit={handleSubmit}>
-            <div className='mb-4'>
-              <label className='flex w-80 font-medium' for='username'>Your Username</label>
-              <input className='border border-solid rounded-lg bg-slate-100 w-80 '
-                value={name}
-                onChange={(e)=>{setName(e.target.value)}}
-                type="text" 
-                name='username'
-                required />
-
+        <div className="lg:w-1/2 w-full max-w-md">
+          {variable && (
+            <div className='mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-400'>
+              An Email Verification Link has been sent to your email address. Please verify your email address to continue.
             </div>
-              
-              
-            <div className='mb-4'>
-              <label className='flex w-80 font-medium' for='email'>Your Email</label>
-              <input className='border border-solid rounded-lg bg-slate-100 w-80'
-                value={email}
-                onChange={(e)=>{setEmail(e.target.value)}}
-                placeholder='name@company.com' 
-                type="email" 
-                name='email'
-                required 
-              />
-              
-            </div>
-              
-
-            <div className='mb-4'>
-              <label className='flex w-80 font-medium' for='password'>Your Password</label>
-              <input className='border border-solid rounded-lg bg-slate-100 w-80'
-                value={password}
-                onChange={(e)=>{setPassword(e.target.value)}}
-                type="password" 
-                name='password'
-                required/>
-
-            </div>
-
-
-            <button disabled={loading} className='mb-4 border border-solid py-3 w-full rounded-lg bg-gradient-to-r from-indigo-400 via-purple to-pink-400'>
-              {loading ? (<Spinner animation="border" role="status">
-                          <span className="visually-hidden">Loading...</span>
-                        </Spinner>) : 'Sign Up'}
-            </button>
+          )}
+          <form className="bg-black bg-opacity-60 rounded-xl border border-white border-opacity-20 p-6 text-lg" onSubmit={handleSubmit}>
+            <h2 className="font-bold text-white text-2xl mb-6 text-left">Sign up</h2>
             <OAuth />
-
-            <p className='flex text-base'>Have an account? <a href="/signin" className='ml-3 text-blue-500'>Sign in</a></p>
-            
+            <div className="my-4 flex items-center">
+              <hr className="flex-grow border-white border-opacity-80" />
+              <span className="px-3 text-white text-opacity-80">or</span>
+              <hr className="flex-grow border-white border-opacity-80" />
+            </div>
+            <InputField
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyPress={handleKeyPress}
+              required
+              label="Name"
+              type="text"
+              placeholder="Enter Your Full Name"
+            />
+            <InputField
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyPress={handleKeyPress}
+              required
+              label="Email"
+              type="email"
+              placeholder="Enter Your Email Address"
+            />
+            <InputField
+              value={password}
+              onChange={handlePasswordChange}
+              onKeyPress={handleKeyPress}
+              required
+              label="Password"
+              type="password"
+              placeholder="At least 8 characters"
+              error={passwordError}
+            />
+            <Button
+              disabled={loading || !!passwordError}
+              onKeyPress={handleKeyPress}
+              className="mt-6 font-bold text-white bg-teal-400 bg-opacity-60 hover:bg-opacity-80"
+            >
+              {loading ? (<Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>) : 'Sign Up'}
+            </Button>
+            <div className="text-center text-white mt-6">
+              <p>Already have an account?</p>
+              <a href="/signin" className="font-bold text-teal-400 hover:underline mt-2 inline-block transition-transform duration-300 hover:scale-105">
+                Log in
+              </a>
+            </div>
           </form>
-
           {errorMessage && (
-        <div
-          className='mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-400'
-        >
-          {errorMessage}
-        </div>
-      )}
+            <div className='mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-400'>
+              {errorMessage}
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  )
+    </main>
+  );
 }
 
-export default SignUp
+export default Signup;
