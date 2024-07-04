@@ -17,6 +17,7 @@ app.use(cors({
   origin: 'https://midorchard-client.vercel.app', // Adjust this to your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
 app.options('*', cors());
