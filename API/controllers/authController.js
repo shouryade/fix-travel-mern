@@ -114,7 +114,7 @@ module.exports.signin = async (req, res) => {
 
         const {password:pass, ...others} = user._doc;
   
-        res.set({
+        res.setHeaders({
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin":"https://midorchard-client.vercel.app/",
             "Access-Control-Allow-Methods":"POST",
