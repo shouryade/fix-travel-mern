@@ -114,7 +114,13 @@ module.exports.signin = async (req, res) => {
 
         const {password:pass, ...others} = user._doc;
   
-
+        res.set({
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin":"https://midorchard-client.vercel.app",
+            "Access-Control-Allow-Methods":"GET, POST, PUT, DELETE",
+            "Access-Control-Allow-Headers":"Content-Type, Authorization"
+});
+        
         res.status(200).cookie('access_token', token,{ 
             httpOnly: true,
             secure: true,
