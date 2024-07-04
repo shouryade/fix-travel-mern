@@ -36,6 +36,7 @@ import Host from '../components/host'
 import Testing from '../components/Testing.jsx'
 
 
+
 function Routing() {
   return (
     <Routes>
@@ -90,6 +91,7 @@ function Routing() {
       <Route path="/legal" element={<Legal />} />  
    
      
+
     </Routes>
   )
 }

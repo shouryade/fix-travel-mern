@@ -50,3 +50,4 @@ module.exports.verifyEmail = async (req, res) => {
       console.log(error);
     }
   };
+
