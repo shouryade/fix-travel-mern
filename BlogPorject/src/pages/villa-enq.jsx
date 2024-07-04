@@ -125,7 +125,7 @@ function MyComponent() {
       };
 
       try {
-        await axios.post('https://midorchard-client.vercel.app/api/forms/submit-form', formData);
+        await axios.post('https://midorchard-server.vercel.app/api/forms/submit-form', formData);
         const propToSend = {
           roomName: "Aangan-Villa",
           logo: "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082719/aangan_logo_mxdrjf.png",

@@ -82,7 +82,7 @@ function Signup() {
     try {
     
       setErrorMessage(null);
-      const res = await axios.post('https://midorchard-client.vercel.app/api/auth/signup', {
+      const res = await axios.post('https://midorchard-server.vercel.app/api/auth/signup', {
         userName: name.trim(),
         email: email.trim(),
         password: password.trim(),
