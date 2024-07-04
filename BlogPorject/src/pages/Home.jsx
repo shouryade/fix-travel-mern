@@ -166,7 +166,7 @@ function Home() {
     <div className="min-h-screen bg-[#0F1A29] text-white relative">
       <div className="absolute inset-0 z-0">
         <div className="w-full h-full bg-center bg-cover bg-no-repeat" style={{
-          backgroundImage: "url('/src/assets/bg_main.png')",
+          backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082727/bg_main_rzkapc.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed'
@@ -179,7 +179,7 @@ function Home() {
         <header className="p-3 sm:p-5 md:p-6">
           <nav className="flex flex-col sm:flex-row justify-between items-center">
             <img
-              src='/src/assets/logo.png'
+              src='https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png'
               alt="Mid Orchard Logo"
               className="w-[50px] sm:w-[70px] md:w-[90px] h-auto mb-3 sm:mb-0"
             />
@@ -223,13 +223,13 @@ function Home() {
         <section className="bg-white text-black rounded-t-[36px] sm:rounded-tl-[72px] md:rounded-tl-[108px] p-4 sm:p-8 md:p-12 w-full sm:w-[85%] md:w-[75%] max-w-[1200px] self-end">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end space-y-4 sm:space-y-0 sm:space-x-4">
             <PeopleSection
-              icon="/src/assets/profile_icon.svg"
+              icon="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082761/profile_icon_ejstvh.svg"
               title="Guests"
               subtitle="Add Guests"
             />
             <div className="hidden sm:block w-px h-16 bg-gray-200"></div>
             <DateSection
-              icon="/src/assets/date_icon.svg"
+              icon="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082743/date_icon_zikap9.svg"
               title="Check-in"
               date={checkInDate}
               subtitle="Select date"
@@ -238,7 +238,7 @@ function Home() {
             />
             <div className="hidden sm:block w-px h-16 bg-gray-200"></div>
             <DateSection
-              icon="/src/assets/checkout.svg"
+              icon="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082742/checkout_w9sy9b.svg"
               title="Check-out"
               date={checkOutDate}
               subtitle="Select date"
@@ -247,7 +247,7 @@ function Home() {
             />
             <button className="bg-[#3DBBCD] p-3 sm:p-4 rounded-xl w-full sm:w-[70px] sm:h-[70px] md:w-[113px] md:h-[113px] flex items-center justify-center hover:bg-teal-500 mt-4 sm:mt-0 transition-colors duration-300" onClick={scrollToProperties}>
               <img
-                src="/src/assets/search.png"
+                src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082768/search_khgvvs.png"
                 alt="Search"
                 className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8"
               />

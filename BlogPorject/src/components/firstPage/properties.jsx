@@ -57,23 +57,23 @@ function Properties() {
   return (
     <main className="flex flex-col">
       <ImageWithOverlay 
-        src={"/src/assets/kasol.png"}
+        src={"https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082753/kasol_hfggcj.png"}
         alt="Mountain landscape with lake"
         linkTo="/kasol"
       >
         <LocationCard
-          iconSrc={"/src/assets/logo.png"}
+          iconSrc={"https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png"}
           title="Mid Orchard Kasol- Riverside"
         />
       </ImageWithOverlay>
       
       <ImageWithOverlay 
-        src={"/src/assets/manali.png"}
+        src={"https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082760/manali_bayn3u.png"}
         alt="Mountain landscape at sunset"
         linkTo="/manali"
       >
         <LocationCard
-          iconSrc={"/src/assets/aangan_logo.png"}
+          iconSrc={"https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082719/aangan_logo_mxdrjf.png"}
           title="Aangan By Mid Orchard, Manali"
           subtitle="Villa & Homes"
         />

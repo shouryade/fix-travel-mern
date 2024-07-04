@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 // Import your local images here
-import image1 from '/src/assets/images_lux/img1.jpg';
-import image2 from '/src/assets/images_lux/img2.jpg';
-import image3 from '/src/assets/images_lux/img3.jpg';
-import image4 from '/src/assets/images_lux/img4.jpg';
-import image5 from '/src/assets/images_lux/img5.jpg';
-import image6 from '/src/assets/images_lux/img6.jpg';
-import image7 from '/src/assets/images_lux/img7.jpg';
-import image8 from '/src/assets/images_lux/img8.jpg';
-import checkmarkIcon from '/src/assets/check.png';
-import logo from '/src/assets/logo.png';
 import Footer from "../components/footer";
 import { useNavigate } from "react-router-dom";
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center gap-2 p-2 rounded transition-all duration-300 transform hover:scale-105">
-    <img src={checkmarkIcon} alt="Checkmark" className="w-5 h-5" />
+    <img src='https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082737/check_dhncdq.png' alt="Checkmark" className="w-5 h-5" />
     <span>{text}</span>
   </div>
 );
@@ -83,7 +73,17 @@ const ImageCarousel = ({ images }) => {
 };
 
 function MyComponent() {
-  const images = [image1, image2, image3, image4, image5, image6, image7, image8];
+  const logo = 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png';
+  const images = [
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081152/img1_op3fii.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081149/img2_eygoiq.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081155/img3_inpa75.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081149/img4_jt8nii.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081149/img5_indrt3.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081150/img6_g67zpd.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081152/img7_pqe3ab.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081151/img8_wjxs41.jpg"
+  ]
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/luxenq');
@@ -98,12 +98,12 @@ function MyComponent() {
     <div className="min-h-screen bg-slate-800 text-white relative">
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-50" 
-        style={{backgroundImage: "url('/src/assets/images_sd/bg.png')"}}
+        style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081762/bg_lkffux.png')"}}
       ></div>
       
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
-                style={{backgroundImage: "url('/src/assets/images_lux/title_bg.png')"}}>
+                style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081156/title_bg_fn0bir.png')"}}>
           <div onClick={handleLogo}>
           <img 
             src={logo} 

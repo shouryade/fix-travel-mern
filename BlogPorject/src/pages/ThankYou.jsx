@@ -29,10 +29,10 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '/src/assets/logo.png';
 import { useLocation } from 'react-router-dom';
 
 function ThankYouPage() {
+  const logo = 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png';
   const navigate = useNavigate();
   const location = useLocation();
   const propsToSend = location.state || {};

@@ -1,30 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 // Import your local images here
-import image1 from '/src/assets/images_villa/img1.jpg';
-import image2 from '/src/assets/images_villa/img2.jpg';
-import image3 from '/src/assets/images_villa/img3.jpg';
-import image4 from '/src/assets/images_villa/img4.jpg';
-import image5 from '/src/assets/images_villa/img5.jpg';
-import image6 from '/src/assets/images_villa/img6.jpg';
-import image7 from '/src/assets/images_villa/img7.jpg';
-import image8 from '/src/assets/images_villa/img8.jpg';
-import image9 from '/src/assets/images_villa/img9.jpg';
-import image10 from '/src/assets/images_villa/img10.jpg';
-import image11 from '/src/assets/images_villa/img11.jpg';
-import image12 from '/src/assets/images_villa/img12.jpg';
-import image13 from '/src/assets/images_villa/img13.jpg';
-import image14 from '/src/assets/images_villa/img14.jpg';
-import image15 from '/src/assets/images_villa/img15.jpg';
-import image16 from '/src/assets/images_villa/img16.jpg';
-import checkmarkIcon from '/src/assets/check.png';
-import logo from '/src/assets/aangan_logo.png';
 import Footer from "../components/footer";
 import { useNavigate } from "react-router-dom";
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center gap-2 p-2 rounded transition-all duration-300 transform hover:scale-105">
-    <img src={checkmarkIcon} alt="Checkmark" className="w-5 h-5" />
+    <img src='https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082737/check_dhncdq.png' alt="Checkmark" className="w-5 h-5" />
     <span>{text}</span>
   </div>
 );
@@ -91,7 +73,25 @@ const ImageCarousel = ({ images }) => {
 };
 
 function MyComponent() {
-  const images = [image8, image2, image3, image4, image5, image6, image7, image1, image9, image10, image11, image12, image13, image14, image15, image16];
+  const logo = 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082719/aangan_logo_mxdrjf.png';
+  const images = [
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082145/img10_rir5fo.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082198/img2_brhgdh.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082193/img3_q58lox.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082196/img4_uecaik.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082198/img5_kymst4.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082199/img6_xiuhmp.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082203/img7_lruud7.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082205/img8_s9ngay.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082205/img9_nk9kls.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082144/img1_jqvf3f.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082156/img11_brvs3x.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082185/img12_tdzxyw.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082186/img13_emflel.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082187/img14_dgiuom.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082190/img15_nrvpq4.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082192/img16_tmj3im.jpg"
+  ]
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/villaenq');
@@ -105,12 +105,12 @@ function MyComponent() {
     <div className="min-h-screen bg-slate-800 text-white relative">
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-50" 
-        style={{backgroundImage: "url('/src/assets/images_sd/bg.png')"}}
+        style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081762/bg_lkffux.png')"}}
       ></div>
       
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
-                style={{backgroundImage: "url('/src/assets/images_villa/title_bg.png')"}}>
+                style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082208/title_bg_b4vngw.png')"}}>
            <div onClick={handleLogo}>
 
            <img 

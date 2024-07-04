@@ -78,7 +78,7 @@ function MidOrchardTerms() {
     <main className="flex flex-col min-h-screen bg-slate-800 bg-opacity-95 relative">
       <div 
         className="fixed inset-0 bg-cover bg-center z-0 opacity-30" 
-        style={{ backgroundImage: "url('/src/assets/bg_legal.png')" }}
+        style={{ backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082727/bg_legal_m1w5ul.png')" }}
       ></div>
       <div className="relative z-10">
         <header className="w-full max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
@@ -87,7 +87,7 @@ function MidOrchardTerms() {
               <a href="/">
               <img 
                 loading="lazy" 
-                src="/src/assets/logo.png" 
+                src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png" 
                 alt="Mid Orchard logo" 
                 className="w-32 md:w-48 h-auto object-contain transition-all duration-300 transform hover:scale-110"
               />

@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 // Import your local images here
-import image1 from '/src/assets/images_homes/img1.jpg';
-import image2 from '/src/assets/images_homes/img2.jpg';
-import image3 from '/src/assets/images_homes/img3.jpg';
-import image4 from '/src/assets/images_homes/img4.jpg';
-import image5 from '/src/assets/images_homes/img5.jpg';
-import image6 from '/src/assets/images_homes/img6.jpg';
-import image7 from '/src/assets/images_homes/img7.jpg';
-import image8 from '/src/assets/images_homes/img8.jpg';
-import image9 from '/src/assets/images_homes/img9.jpg';
-import image10 from '/src/assets/images_homes/img10.jpg';
-import checkmarkIcon from '/src/assets/check.png';
-import logo from '/src/assets/aangan_logo.png';
+
 import Footer from "../components/footer";
 import { useNavigate } from "react-router-dom";
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center gap-2 p-2 rounded transition-all duration-300 transform hover:scale-105">
-    <img src={checkmarkIcon} alt="Checkmark" className="w-5 h-5" />
+    <img src='https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082737/check_dhncdq.png' alt="Checkmark" className="w-5 h-5" />
     <span>{text}</span>
   </div>
 );
@@ -85,7 +74,19 @@ const ImageCarousel = ({ images }) => {
 };
 
 function MyComponent() {
-  const images = [image9, image2, image3, image4, image5, image6, image7, image8, image1, image10];
+  const logo = 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082719/aangan_logo_mxdrjf.png';
+  const images = [
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080659/img1_uu8bzm.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080659/img2_kdjj2b.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080670/img3_blf9lh.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080663/img4_x8fuuv.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080666/img5_whnt1h.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080669/img6_q3yhex.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080671/img7_z3zgcp.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080680/img8_bvrosw.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080684/img9_bgh172.jpg",
+    "https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080658/img10_k4ez09.jpg"
+  ]
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/homesenq');
@@ -100,12 +101,12 @@ function MyComponent() {
     <div className="min-h-screen bg-slate-800 text-white relative">
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-50" 
-        style={{backgroundImage: "url('/src/assets/images_sd/bg.png')"}}
+        style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081762/bg_lkffux.png')"}}
       ></div>
       
       <div className="relative z-10">
         <header className="bg-cover bg-center flex flex-col items-center p-8" 
-                style={{backgroundImage: "url('/src/assets/images_homes/title_bg.png')"}}>
+                style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720080688/title_bg_fxzlzq.png')"}}>
           <div onClick={handleLogo}>
 
           <img 

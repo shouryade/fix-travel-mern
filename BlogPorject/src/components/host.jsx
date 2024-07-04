@@ -33,13 +33,13 @@ function Host() {
       name: "Abhishek Taneja",
       location: "Kasol",
       description: "I am a B.Tech graduate in ECE with professional experience at Ericsson Global India, Noida (2014-2016). Since 2016, I have specialized in the tourism industry, developing and managing PAN India travel packages and operations for destinations such as Andaman, Kerala, Sikkim, Meghalaya, Himachal Pradesh, Uttarakhand, as well as international locations like Singapore, Maldives, Bali, and Dubai. In 2019, I founded and currently manage three hospitality properties in Himachal.",
-      imageSrc: '/src/assets/abhishek.png'
+      imageSrc: 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082716/abhishek_xkuh44.png'
     },
     {
       name: "Sahil Bachan",
       location: "Manali",
       description: "I'm Sahil, a former engineer turned successful hospitality entrepreneur from Dobhi, Kullu, HP. After shifting from IT in 2014, I founded 'Camping Kona' in 2015, offering luxury camps. In 2018, I co-founded Mid Orchard, known for cottages, hostels, and hotels, where we're cherished as 'Host and Dost.' Combining technical expertise with local charm, I'm passionate about creating memorable stays in Himachal Pradesh.",
-      imageSrc: '/src/assets/sahil.png'
+      imageSrc: 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082768/sahil_muo2cz.png'
     }
   ];
 
@@ -49,7 +49,7 @@ function Host() {
         <h1 className="relative self-center text-5xl font-semibold text-white max-md:max-w-full max-md:text-6xl">
           Know more about your Hosts
         </h1>
-        <img loading="lazy" src="/src/assets/underline.png" alt="" className="self-center max-w-full aspect-[8.33] fill-teal-400 w-[284px] transition-all duration-300 hover:scale-110" />
+        <img loading="lazy" src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082855/underline_hilihk.png" alt="" className="self-center max-w-full aspect-[8.33] fill-teal-400 w-[284px] transition-all duration-300 hover:scale-110" />
         
         <HostProfile {...hosts[0]} isReversed={false} />
         <HostProfile {...hosts[1]} isReversed={true} />

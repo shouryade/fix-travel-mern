@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '/src/assets/logo.png';
+
 
 function ThankYouPage() {
+  const logo = 'https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082755/logo_qf2djj.png';
   const navigate = useNavigate();
 
   return (
-    <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('/src/assets/images_lux/img6.jpg')"}}>
+    <main className="flex flex-col min-h-screen bg-cover bg-center" style={{backgroundImage: "url('https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720081150/img6_g67zpd.jpg')"}}>
       <div className="bg-black bg-opacity-50 min-h-screen backdrop-blur-sm flex flex-col items-center justify-center px-4">
         <img 
           src={logo} 

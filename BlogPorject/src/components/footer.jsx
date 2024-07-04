@@ -186,7 +186,7 @@ const Footer = () => {
 
       <img
         loading="lazy"
-        src="/src/assets/footer.png"
+        src="https://res.cloudinary.com/dgtt3iwmv/image/upload/v1720082751/footer_bbuezx.png"
         alt="Person sitting"
         className="absolute bottom-0 right-0 w-1/3 md:w-1/4 max-w-xs"
       />
