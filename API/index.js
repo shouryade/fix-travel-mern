@@ -13,11 +13,11 @@ dotenv.config();
 app.use(express.json());
 
 
-//cors middleware
 app.use(cors({
-    origin: 'https://midorchard-client.vercel.app' // Replace with your front-end URL
-  }));
-
+  origin: 'https://midorchard-client.vercel.app', // Adjust this to your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 
 mongoose.connect(
